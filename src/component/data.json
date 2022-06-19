@@ -1,0 +1,51 @@
+{
+    "forms":{
+        "sections":{
+            "order":1,
+            "SectionTitle":"Service Name",
+            "Fields":[
+                {
+                    "name":"name",
+                    "label":"Name",
+                    "required":true,
+                    "datatype":"Integer",
+                    "htmlelement":"textbox"
+                },
+                {
+                    "name":"email",
+                    "label":"Email",
+                    "required":true,
+                    "datatype":"String",
+                    "htmlelement":"email"
+                },
+                {
+                    "name":"phone",
+                    "label":"Phone",
+                    "required":true,
+                    "datatype":"Number",
+                    "htmlelement":"textbox"
+                },
+                {
+                    "name":"age",
+                    "label":"Age",
+                    "hidden":false,
+                    "options":[],
+                    "required":true,
+                    "datatype":"number",
+                    "htmlelement":"number"
+                },
+                {
+                    "name":"photo",
+                    "label":"Photo",
+                    "hidden":false,
+                    "options":[],
+                    "required":true,
+                    "datatype":"Image",
+                    "htmlelement":"file"
+                }
+            ]
+        }
+    }
+}
+
+

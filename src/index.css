@@ -1,0 +1,247 @@
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+a {
+  color: #3f51b5;
+  cursor: pointer;
+}
+a:hover {
+  color: #283484;
+  cursor: pointer;
+}
+ul,
+ol,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+}
+a > svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
+  color: currentColor;
+  text-decoration: none;
+}
+svg {
+  width: 24px;
+  height: 24px;
+}
+.app__spacer {
+  height: 61px;
+  width: 100%;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  position: absolute;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+b {
+  font-weight: 500;
+}
+@media (min-width: 1024px) {
+  .app__container {
+    max-width: 95%;
+  }
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: none;
+}
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.modal-dialog:not(.modal-fullscreen) .modal-header {
+  background: #ffffff;
+  color: #3f51b5;
+  padding: 8px 15px;
+  border: 0;
+}
+.modal-title.h4 {
+  font-size: 17px;
+  font-weight: 500;
+}
+.modal-header .btn-close {
+  background: transparent
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%233f51b5'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e")
+    center/0.8em auto no-repeat;
+  opacity: 1;
+  box-shadow: none !important;
+}
+.modal-header .btn-close:hover {
+  background-color: #3f51b51f;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group .form-label {
+  display: block;
+  text-transform: capitalize;
+  margin-bottom: 0.3rem;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: #3f51b5;
+  outline: 0;
+  box-shadow: 0 0 0 1px #3f51b5;
+}
+.form-control:hover,
+.form-select:hover {
+  border-color: #3f51b5;
+}
+.form-control::placeholder {
+  font-size: 14px;
+}
+.btn {
+  padding: 0.4rem 1rem;
+  border-radius: 0.15rem;
+}
+.btn:focus,
+.btn:hover {
+  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
+    0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+}
+footer {
+  flex: 1 0 auto;
+  margin-left: 260px;
+  border-top: 1px solid #ddd;
+  padding: 6px 15px;
+}
+.invalid-feedback {
+  display: block;
+}
+.fs-23 {
+  font-size: 23px;
+}
+.btn.indigo {
+  color: #3f51b5;
+  background: #3f51b51f;
+}
+.btn.indigo:hover {
+  background: #3f51b5;
+  color: #fff;
+}
+.btn.orrange {
+  color: #ff9800;
+  background: #ff98001f;
+}
+.btn.orrange:hover,
+.btn.orrange.dark {
+  background: #ff9800;
+  color: #fff;
+}
+.modal-dialog.modal-fullscreen .modal-title.h4 {
+  font-size: 21px;
+  font-weight: 400;
+}
+.modal-dialog.modal-fullscreen .btn-close {
+  width: 1.5em;
+  height: 1.5em;
+  background-size: 1rem;
+}
+.form-control.big {
+  padding: 0.575rem 1.05rem;
+  font-size: 15px;
+}
+.form-select.big {
+  padding: 0.575rem 2.25rem 0.575rem 1.05rem;
+}
+.form-group .rdw-editor-toolbar {
+  visibility: visible;
+  margin: 0;
+  border-bottom: 0;
+  border-color: #ddd;
+  border-radius: 5px 5px 0px 0px;
+}
+.form-group .rdw-editor-main {
+  border: 1px solid #ddd;
+  border-radius: 0px 0px 5px 5px;
+}
+.form-group .public-DraftEditor-content[contenteditable="true"] {
+  padding: 20px;
+  margin: 0;
+  min-height: 250px;
+}
+.form-group .public-DraftStyleDefault-block {
+  margin: 0;
+}
+.form-group .rdw-option-wrapper {
+  min-width: 30px;
+  height: 30px;
+}
+.form-group .rdw-option-wrapper:hover {
+  box-shadow: 0px 0px 0px 2px #bfbdbd;
+}
+.form-group .rdw-option-active {
+  box-shadow: 0px 0px 0px 2px #3f51b5;
+  background: #6d6d6d1f;
+}
+.form-group .rdw-embedded-modal {
+  left: inherit;
+  right: 0px;
+}
+.form-group .rdw-embedded-modal-header-option {
+  align-items: flex-start;
+  width: 100%;
+}
+.form-group .rdw-colorpicker-option {
+  box-shadow: 0px 0px 0px 1px #bfbdbd inset;
+  min-width: 22px;
+  width: 22px;
+  height: 22px;
+}
+.form-group .rdw-colorpicker-modal {
+  width: 300px;
+  left: inherit;
+  right: 0px;
+}
+.form-group .rdw-emoji-modal {
+  width: 300px;
+  left: inherit;
+  right: 0px;
+}
+.form-group .rdw-link-modal {
+  left: inherit;
+  right: 0px;
+  height: auto;
+}
+.rdw-editor-wrapper input[type="checkbox"],
+.rdw-editor-wrapper input[type="radio"] {
+  position: static;
+  -webkit-appearance: checkbox;
+  appearance: checkbox;
+}
+.form-group .rdw-dropdown-selectedtext {
+  text-decoration: none;
+  color: inherit;
+}
+.searchBox .form-control:focus,
+.searchBox .form-select:focus {
+  border-color: #ff9800;
+  outline: 0;
+  box-shadow: 0 0 0 1px #ff9800;
+}
+.searchBox .form-control:hover,
+.searchBox .form-select:hover {
+  border-color: #ff9800;
+}
