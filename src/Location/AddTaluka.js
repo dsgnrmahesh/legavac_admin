@@ -4,7 +4,14 @@ import {
   getDistrictForDDL,
   getTalukaDetailByID,
 } from "../config/api";
-import {checkonlyletterandcharacter,checkpdffile,checkimageformat,checkvideoformat,checkemailidformat,checkmobilenumberrightway} from "../config/validate";
+import {
+  checkonlyletterandcharacter,
+  checkpdffile,
+  checkimageformat,
+  checkvideoformat,
+  checkemailidformat,
+  checkmobilenumberrightway,
+} from "../config/validate";
 
 export default function AddCity({ setSmShow, editID }) {
   const [state, setState] = useState({
@@ -12,7 +19,7 @@ export default function AddCity({ setSmShow, editID }) {
     TalukaName: "",
     TalukaCode: "",
     DistrictId: "",
-   CreatedBy:sessionStorage.getItem("UserID"),
+    CreatedBy: sessionStorage.getItem("UserID"),
     errors: [],
 
     //TalukaId ,TalukaName , TalukaCode ,  DistrictId , CreatedBy
@@ -24,42 +31,41 @@ export default function AddCity({ setSmShow, editID }) {
 
   useEffect(() => {
     BindDistrictDDL();
-    if (id !== "" && id !== "0" && id !== 0 && typeof id !== "undefined")  {
+    if (id !== "" && id !== "0" && id !== 0 && typeof id !== "undefined") {
       UpdateData(id);
-    }    
+    }
   }, []);
-  
+
   function handlechange(e) {
     setState({ ...state, [e.target.name]: e.target.value });
   }
 
   async function SaveData() {
     //console.log(state);
-    if (validate()) {debugger;
+    if (validate()) {
       await IU_Taluka(state)
         .then((response) => {
-        //   alert("Data Saved Successfully");
-        //   ResetState();
-        //   setSmShow(false);
-        //   window.location.href="/location-master";
-        // })
-        if(response[0][0].ID!=='exists'){
-          //setModalShow(false);
-          setSmShow(false);
-          alert("Data Saved Successfully");
-          ResetState();
-          window.location.href="/location-master";
-        }
-        else{
-          //alert("City Name Already exists...");
-          let errors = {};
-           errors["TalukaName"] = "This City  Already exists...";
-           setState({
-            ...state,
-            errors: errors,
-          });
-        }
-      })
+          //   alert("Data Saved Successfully");
+          //   ResetState();
+          //   setSmShow(false);
+          //   window.location.href="/location-master";
+          // })
+          if (response[0][0].ID !== "exists") {
+            //setModalShow(false);
+            setSmShow(false);
+            alert("Data Saved Successfully");
+            ResetState();
+            window.location.href = "/location-master";
+          } else {
+            //alert("City Name Already exists...");
+            let errors = {};
+            errors["TalukaName"] = "This City  Already exists...";
+            setState({
+              ...state,
+              errors: errors,
+            });
+          }
+        })
         .catch((error) => {
           alert(error);
         });
@@ -85,7 +91,7 @@ export default function AddCity({ setSmShow, editID }) {
       TalukaCode: "",
       DistrictId: "",
       //CreatedBy: "0",
-      CreatedBy:sessionStorage.getItem("UserID"),
+      CreatedBy: sessionStorage.getItem("UserID"),
     });
   }
 
@@ -96,8 +102,7 @@ export default function AddCity({ setSmShow, editID }) {
     if (!state.TalukaName) {
       IsValid = false;
       errors["TalukaName"] = "TalukaName is Required";
-    }
-    else{
+    } else {
       if (!checkonlyletterandcharacter(state.TalukaName)) {
         IsValid = false;
         errors["TalukaName"] = "Only letter and character allowed";

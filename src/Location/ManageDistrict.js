@@ -9,10 +9,10 @@ export default function ManageDistrict({ handleAddNew, handleEdit }) {
 
   useEffect(() => {
     bindData();
-  },[]);
+  }, []);
   async function bindData() {
     await getDistrictDetail()
-      .then((response) => {debugger;
+      .then((response) => {
         setData(response.data[0]);
       })
       .catch((error) => {
@@ -21,15 +21,15 @@ export default function ManageDistrict({ handleAddNew, handleEdit }) {
   }
 
   async function DeleteData(id) {
-    if(window.confirm('Are you sure delete data?')){
-    await getDistrictDelete(id)
-      .then((response) => {
-        alert("Data Deleted Successfully");
-        bindData();
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    if (window.confirm("Are you sure delete data?")) {
+      await getDistrictDelete(id)
+        .then((response) => {
+          alert("Data Deleted Successfully");
+          bindData();
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
   }
   return (

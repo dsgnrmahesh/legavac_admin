@@ -54,7 +54,7 @@
   font-weight: 500;
   text-decoration: none;
   outline: none;
-  padding: 9px 15px;
+  padding: 5px 15px;
   display: flex;
   align-items: center;
   border-radius: 0px 40px 40px 0px;
@@ -71,8 +71,8 @@
   padding-left: 8px;
 }
 .asideBarMenuIcon svg {
-  width: 24px;
-  height: 24px;
+  width: 23px;
+  height: 23px;
 }
 .asideBarSubMenu {
   max-width: 100%;

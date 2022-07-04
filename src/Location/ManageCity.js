@@ -9,8 +9,8 @@ export default function ManageCity({ handleAddNew, handleEdit }) {
 
   useEffect(() => {
     bindData();
-  },[]);
-  async function bindData() {debugger;
+  }, []);
+  async function bindData() {
     await getCityDetail()
       .then((response) => {
         setData(response.data[0]);
@@ -21,15 +21,15 @@ export default function ManageCity({ handleAddNew, handleEdit }) {
   }
 
   async function DeleteData(id) {
-    if(window.confirm('Are you sure delete data?')){
-    await getCityDelete(id)
-      .then((response) => {
-        alert("Data Deleted Successfully");
-        bindData();
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    if (window.confirm("Are you sure delete data?")) {
+      await getCityDelete(id)
+        .then((response) => {
+          alert("Data Deleted Successfully");
+          bindData();
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
   }
   return (

@@ -17,12 +17,12 @@ export default function JobSearchResultBlock({ sm, md, lg, data }) {
   // const renderDesc = data.jobdesc.map((item, index) => (
   //   <li key={index}>{item}</li>
   // ));
-  async function DeleteData(id) {debugger;
-    if (window.confirm('Are you sure delete data?')) {
+  async function DeleteData(id) {
+    if (window.confirm("Are you sure delete data?")) {
       await getPostjobDelete(id)
         .then((response) => {
           alert("Data Deleted Successfully");
-          window.location.href="/posted-jobs";
+          window.location.href = "/posted-jobs";
         })
         .catch((error) => {
           alert(error);
@@ -33,7 +33,7 @@ export default function JobSearchResultBlock({ sm, md, lg, data }) {
     <>
       <Col sm={sm} md={md} lg={lg}>
         <div className="companySearchBlock">
-        {/* href={"/job/" + data.name.replace(" ", "-")} */}
+          {/* href={"/job/" + data.name.replace(" ", "-")} */}
           <a href="#">
             <div className="companySearchBlockInner">
               <h3>{data.name}</h3>
@@ -57,12 +57,16 @@ export default function JobSearchResultBlock({ sm, md, lg, data }) {
                 <Icon path={mdiFile} className="me-2" />
                 {data.qualifications}
               </div>
-              <ul className="d-flex mb-2 align-items-center"><span className="line-clamp" 
-              >{renderHTML(data.jobdesc)}</span></ul>
+              <ul className="d-flex mb-2 align-items-center">
+                <span className="line-clamp">{renderHTML(data.jobdesc)}</span>
+              </ul>
 
               <span className="actionbtn">
                 <div className="actionColumn">
-                  <button className="del" onClick={() => DeleteData(data.PostjobID)}>
+                  <button
+                    className="del"
+                    onClick={() => DeleteData(data.PostjobID)}
+                  >
                     <Icon path={mdiTrashCanOutline} />
                   </button>
                 </div>

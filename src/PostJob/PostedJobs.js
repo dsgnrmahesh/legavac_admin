@@ -3,7 +3,11 @@ import { useLocation } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import JobSearchFilters from "./JobSearchFilters";
 import JobSearchResultBlock from "./JobSearchResultBlock";
-import { getPostedJobFilterList, getPostjobDetail, getPostjobDetailByID } from "../config/api";
+import {
+  getPostedJobFilterList,
+  getPostjobDetail,
+  getPostjobDetailByID,
+} from "../config/api";
 import AutoSearchInput from "../Commons/AutoSearchInput";
 function useQuery() {
   const { search } = useLocation();
@@ -19,7 +23,7 @@ export default function PostedJobs({ setSmShow, editID }) {
     jt: "",
     city: "",
     exp: "0",
-  })
+  });
   const [jobtitle, setJobTitle] = useState([]);
   const [city, setCity] = useState([]);
   const [jobtid, setJobtid] = useState(0);
@@ -36,7 +40,7 @@ export default function PostedJobs({ setSmShow, editID }) {
   function handlechange(e) {
     setSearch({ ...search, [e.target.name]: e.target.value });
   }
-  async function BindFilterData() {debugger;
+  async function BindFilterData() {
     await getPostedJobFilterList({ JobTitleId: jobtid })
       .then((response) => {
         setJobTitle(response[0]);
@@ -49,10 +53,13 @@ export default function PostedJobs({ setSmShow, editID }) {
       });
   }
   function Search() {
-
-    window.location.href = "/posted-jobs?k=" + document.getElementsByName('k')[0].value + "&l="
-    + document.getElementsByName('l')[0].value
-    + "&e=" + document.getElementsByName('e')[0].value;
+    window.location.href =
+      "/posted-jobs?k=" +
+      document.getElementsByName("k")[0].value +
+      "&l=" +
+      document.getElementsByName("l")[0].value +
+      "&e=" +
+      document.getElementsByName("e")[0].value;
   }
   // async function BindData() {
   //   await getPostjobDetail()
@@ -65,7 +72,6 @@ export default function PostedJobs({ setSmShow, editID }) {
   //   // }
   // }
 
-
   async function UpdateData(id) {
     await getPostjobDetailByID(id)
       .then((response) => {
@@ -75,7 +81,6 @@ export default function PostedJobs({ setSmShow, editID }) {
         alert(error);
       });
   }
-
 
   const companies = [
     {
@@ -194,16 +199,16 @@ export default function PostedJobs({ setSmShow, editID }) {
                 <h3 className="contentTitle fs-23 px-0">Posted Job's</h3>
                 <div className="searchBox">
                   <Row>
-                    <Col sm={12} md={4} style={{position: 'relative'}}>
-                    <AutoSearchInput
+                    <Col sm={12} md={4} style={{ position: "relative" }}>
+                      <AutoSearchInput
                         options={jobtitle}
                         placeholder="search by job title"
                         name="k"
                         className="form-control"
                       />
                     </Col>
-                    <Col sm={12} md={4} style={{position: 'relative'}}>
-                    <AutoSearchInput
+                    <Col sm={12} md={4} style={{ position: "relative" }}>
+                      <AutoSearchInput
                         options={city}
                         placeholder="search by location"
                         name="l"
@@ -211,7 +216,7 @@ export default function PostedJobs({ setSmShow, editID }) {
                       />
                     </Col>
                     <Col sm={12} md={2}>
-                    <select name="e" className="form-select">
+                      <select name="e" className="form-select">
                         <option value="0">Select Experience</option>
                         <option value="0-1">0-1 year</option>
                         <option value="1-2">1-2 year</option>
@@ -221,7 +226,12 @@ export default function PostedJobs({ setSmShow, editID }) {
                       </select>
                     </Col>
                     <Col sm={12} md={2}>
-                      <button className="btn orrange dark" onClick={() => Search()}>SEARCH</button>
+                      <button
+                        className="btn orrange dark"
+                        onClick={() => Search()}
+                      >
+                        SEARCH
+                      </button>
                     </Col>
                   </Row>
                 </div>
@@ -230,9 +240,13 @@ export default function PostedJobs({ setSmShow, editID }) {
             <div className="contentBody px-4 pt-4">
               <Row>
                 <Col sm={12} md={4} lg={3}>
-                  <JobSearchFilters setData={setData} data={data} k={query.get("k")}
+                  <JobSearchFilters
+                    setData={setData}
+                    data={data}
+                    k={query.get("k")}
                     l={query.get("l")}
-                    e={query.get("e")} />
+                    e={query.get("e")}
+                  />
                 </Col>
                 <Col sm={12} md={8} lg={9}>
                   {/* <div className="search-result-top">
@@ -250,15 +264,17 @@ export default function PostedJobs({ setSmShow, editID }) {
                   </div> */}
                   <div className="search-results">
                     <Row>
-                      {data?data.map((company,index) => (
-                        <JobSearchResultBlock
-                          data={company}
-                          sm={12}
-                          md={12}
-                          lg={12}
-                          key={index}
-                        />
-                      )):""}
+                      {data
+                        ? data.map((company, index) => (
+                            <JobSearchResultBlock
+                              data={company}
+                              sm={12}
+                              md={12}
+                              lg={12}
+                              key={index}
+                            />
+                          ))
+                        : ""}
                     </Row>
                   </div>
                 </Col>

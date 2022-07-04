@@ -6,13 +6,13 @@ import PostJob from "../PostJob";
 
 export default function Header() {
   const [show, setShow] = useState(false);
- 
+
   return (
     <>
       <header className="mainHeader">
         <div className="d-flex justify-content-between align-items-center mainHeaderInner">
           <div className="mainHeaderLeft">
-            <button className="actionButton">
+            <button className="actionButton d-none">
               <Icon path={mdiMenu} />
             </button>
             <button className="postButton" onClick={() => setShow(true)}>
@@ -36,7 +36,11 @@ export default function Header() {
                   <span>Admin</span>
                 </span>
                 <span className="userIcon">
-                  <span>{sessionStorage.getItem("Name")!==null?sessionStorage.getItem("Name").charAt(0).toUpperCase():""}</span>
+                  <span>
+                    {sessionStorage.getItem("Name") !== null
+                      ? sessionStorage.getItem("Name").charAt(0).toUpperCase()
+                      : ""}
+                  </span>
                 </span>
               </button>
             </div>
@@ -51,8 +55,8 @@ export default function Header() {
           <Modal.Title>Post Your Job</Modal.Title>
         </Modal.Header>
         <Modal.Body>{show ?  */}
-        <PostJob show={show} setShow={setShow}/> 
-        {/* : ""}</Modal.Body>
+      <PostJob show={show} setShow={setShow} />
+      {/* : ""}</Modal.Body>
         <Modal.Footer>
           <div className="d-flex justify-content-center w-100 m-0">
             <button

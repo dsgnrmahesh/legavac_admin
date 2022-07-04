@@ -11,13 +11,12 @@ import Aside from "./layout/Aside";
 
 import Login from "./Auth/Login";
 
-
 import MastersSetups from "./MastersSetups";
 import LocationMaster from "./MastersSetups/LocationMaster";
 import EducationMaster from "./MastersSetups/EducationMaster";
 
 import AddAffilation from "./Affilation/AddAffilation";
-import ManageAffilation from "./Affilation/ManageAffilation"; 
+import ManageAffilation from "./Affilation/ManageAffilation";
 
 import AddArticle from "./Article/AddArticle";
 import ManageArticle from "./Article/ManageArticle";
@@ -49,11 +48,14 @@ import Addcandidate from "./Candidate/Addcandidate";
 import Appliedjob from "./Appliedjoblist";
 import Addappliedjob from "./Appliedjoblist/Addappliedjob";
 
-
 import Freejobalert from "./Freejobalert";
 import Addfreejobalert from "./Freejobalert/Addfreejobalert";
 import Dashboard from "./Dashboard/Index";
 import SignIn from "./Auth/SignIn";
+import Executive from "./Executive";
+import AddExecutive from "./Executive/AddExecutive";
+import CTCDashboard from "./Dashboard/CTCDashboard";
+import AddCTCDashboard from "./Dashboard/AddCTCDashboard";
 
 export default function App() {
   const showCond = window.location.pathname !== "/auth/login";
@@ -76,8 +78,9 @@ export default function App() {
         <main className={showCond ? "appMain" : ""}>
           <Switch>
             <Route exact path="/dashboard" component={Dashboard} />
+
             <Route exact path="/auth/login" component={Login} />
-           
+
             <Route exact path="/master-setups" component={MastersSetups} />
             <Route exact path="/location-master" component={LocationMaster} />
             <Route exact path="/education-master" component={EducationMaster} />
@@ -94,10 +97,7 @@ export default function App() {
             <Route path="/Faq/Update/:id" component={AddFaq} />
 
             {/* <Route path="/MembershipPlan" component={AddMembershipPlan} /> */}
-            <Route
-              path="/membershipplan"
-              component={ManageMembershipplan}
-            />
+            <Route path="/membershipplan" component={ManageMembershipplan} />
             <Route
               path="/Membershipplan/Update/:id"
               component={AddMembershipPlan}
@@ -141,14 +141,23 @@ export default function App() {
 
             <Route path="/appliedjob" component={Appliedjob} />
             <Route path="/Addappliedjob" component={Addappliedjob} />
-           
-            <Route path="/freejobalert" component={Freejobalert} /> 
-            <Route path="/Freejobalert" component={Freejobalert} /> 
-            
+
+            <Route path="/freejobalert" component={Freejobalert} />
+            <Route path="/Freejobalert" component={Freejobalert} />
+
             <Route path="/Addfreejobalert" component={Addfreejobalert} />
 
-            {/* <Route path="/createform" component={createform} />
-             */}
+            {/* <Route path="/createform" component={createform} /> */}
+
+            <Route path="/executive" component={Executive} />
+            <Route path="/add-executive" component={AddExecutive} />
+
+            <Route exact path="/dashboard-ctc" component={CTCDashboard} />
+            <Route
+              exact
+              path="/dashboard-ctc-add"
+              component={AddCTCDashboard}
+            />
           </Switch>
         </main>
         <Footer showCond={showCond} />

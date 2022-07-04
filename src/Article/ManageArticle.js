@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { getArticleDetail, getArticleDelete, getArticleDetailSearchText } from "../config/api";
+import {
+  getArticleDetail,
+  getArticleDelete,
+  getArticleDetailSearchText,
+} from "../config/api";
 import { Col, Row } from "react-bootstrap";
-import { mdiPlus, mdiFileOutline, mdiPencilOutline, mdiTrashCanOutline } from "@mdi/js";
+import {
+  mdiPlus,
+  mdiFileOutline,
+  mdiPencilOutline,
+  mdiTrashCanOutline,
+} from "@mdi/js";
 import Icon from "@mdi/react";
 import AddArticle from "./AddArticle";
 import Modal from "react-bootstrap/Modal";
@@ -14,7 +23,7 @@ export default function ManageArticle() {
   useEffect(() => {
     bindData();
   }, []);
-  async function bindData() {debugger;
+  async function bindData() {
     await getArticleDetail()
       .then((response) => {
         setData(response.data[0]);
@@ -24,7 +33,6 @@ export default function ManageArticle() {
       });
   }
   async function SearchData(e) {
-
     e.preventDefault();
     let search = e.target.value;
 
@@ -41,7 +49,7 @@ export default function ManageArticle() {
     }
   }
   async function DeleteData(id) {
-    if (window.confirm('Are you sure delete data?')) {
+    if (window.confirm("Are you sure delete data?")) {
       await getArticleDelete(id)
         .then((response) => {
           alert("Data Deleted Successfully");
@@ -63,7 +71,11 @@ export default function ManageArticle() {
         <Icon path={mdiFileOutline} />
       </td>
       <td>{item.Title}</td>
-      <td><span className="line-clamp" style={{ maxWidth: 200 }}>{item.Description}</span></td>
+      <td>
+        <span className="line-clamp" style={{ maxWidth: 200 }}>
+          {item.Description}
+        </span>
+      </td>
       <td>{item.Pdf}</td>
       <td>{item.Image}</td>
       <td>{item.Video}</td>
@@ -91,12 +103,19 @@ export default function ManageArticle() {
             <div className="contentHeader">
               <h3 className="contentTitle">Articles</h3>
               <div className="contentSearch">
-                <input type="text" placeholder="Search for anything" onChange={SearchData} />
+                <input
+                  type="text"
+                  placeholder="Search for anything"
+                  onChange={SearchData}
+                />
               </div>
               <button
                 className="contentAction"
                 title="add Article"
-                onClick={() => { setSmShow(true); setEditID(0); }}
+                onClick={() => {
+                  setSmShow(true);
+                  setEditID(0);
+                }}
               >
                 <Icon path={mdiPlus} />
               </button>
@@ -122,12 +141,14 @@ export default function ManageArticle() {
       </Row>
       <Modal size="lg" show={smShow} onHide={() => setSmShow(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>
-            {mode} Article
-          </Modal.Title>
+          <Modal.Title>{mode} Article</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddArticle setSmShow={setSmShow} editid={editid} bindData={bindData} />
+          <AddArticle
+            setSmShow={setSmShow}
+            editid={editid}
+            bindData={bindData}
+          />
         </Modal.Body>
       </Modal>
     </>

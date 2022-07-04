@@ -3,33 +3,37 @@ import Icon from "@mdi/react";
 import {
   mdiAccountTieOutline,
   mdiBriefcaseCheckOutline,
+  mdiBullhornOutline,
   mdiFileDocumentOutline,
+  mdiMessageOutline,
 } from "@mdi/js";
 import { Col, Row } from "react-bootstrap";
-import { getDashboardCount} from "../config/api";
+import { getDashboardCount } from "../config/api";
 
 export default function Dashboard() {
-  const [totalcandidate,setTotalCandidate]=useState(0);
-  const [totalpostedjob,setTotalPostedJob]=useState(0);
-  const [totalfreejob,setTotalFreeJob]=useState(0);
-  const [totaltestimonial,setTotalTestimonial]=useState(0);
-  const [totalappliedjob,setTotalAppliedJob]=useState(0);
-  const [totalarticle,setTotalArticle]=useState(0);
-  const [data,setData]=useState([]);
-  useEffect(()=>{BindDashboard();},[]);
-  async function BindDashboard(){
+  const [totalcandidate, setTotalCandidate] = useState(0);
+  const [totalpostedjob, setTotalPostedJob] = useState(0);
+  const [totalfreejob, setTotalFreeJob] = useState(0);
+  const [totaltestimonial, setTotalTestimonial] = useState(0);
+  const [totalappliedjob, setTotalAppliedJob] = useState(0);
+  const [totalarticle, setTotalArticle] = useState(0);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    BindDashboard();
+  }, []);
+  async function BindDashboard() {
     await getDashboardCount()
-        .then((response) => {
-          setTotalCandidate(response[0][0].TotalCandidate);
-          setTotalPostedJob(response[0][0].TotalPostedJob);
-          setTotalFreeJob(response[0][0].TotalFreeJob);
-          setTotalTestimonial(response[0][0].TotalTestimonial);
-          setTotalAppliedJob(response[0][0].TotalAppliedJob);
-          setTotalArticle(response[0][0].TotalArticle)
-        })
-        .catch((error) => {
-          alert(error);
-        });
+      .then((response) => {
+        setTotalCandidate(response[0][0].TotalCandidate);
+        setTotalPostedJob(response[0][0].TotalPostedJob);
+        setTotalFreeJob(response[0][0].TotalFreeJob);
+        setTotalTestimonial(response[0][0].TotalTestimonial);
+        setTotalAppliedJob(response[0][0].TotalAppliedJob);
+        setTotalArticle(response[0][0].TotalArticle);
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
   return (
     <>
@@ -82,9 +86,9 @@ export default function Dashboard() {
           </Col>
           <Col sm={6} md={4} lg={4}>
             <div className="dashbox">
-              <div className="dashbox-inner text-success">
+              <div className="dashbox-inner text-info">
                 <div className="dashbox-icon">
-                  <Icon path={mdiAccountTieOutline} />
+                  <Icon path={mdiBullhornOutline} />
                 </div>
                 <div className="dashbox-info">
                   <h2>{totalfreejob}</h2>
@@ -97,7 +101,7 @@ export default function Dashboard() {
             <div className="dashbox">
               <div className="dashbox-inner text-success">
                 <div className="dashbox-icon">
-                  <Icon path={mdiAccountTieOutline} />
+                  <Icon path={mdiFileDocumentOutline} />
                 </div>
                 <div className="dashbox-info">
                   <h2>{totalarticle}</h2>
@@ -110,7 +114,7 @@ export default function Dashboard() {
             <div className="dashbox">
               <div className="dashbox-inner">
                 <div className="dashbox-icon">
-                  <Icon path={mdiBriefcaseCheckOutline} />
+                  <Icon path={mdiMessageOutline} />
                 </div>
                 <div className="dashbox-info">
                   <h2>{totaltestimonial}</h2>

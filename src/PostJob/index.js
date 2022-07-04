@@ -2,12 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Modal from "react-bootstrap/Modal";
-import { IU_Postjob, getJobtitleForDDL, getSubjobtitleForDDLByJobTitleId, getCityForDDL,
-   getEducationDetail, IU_Company, getCompanyForDDL, getCountryForDDL, getStateForDDLByCountryID,
-    getCityForDDLByStateID, getDistrictForDDLByCityID, getTalukaForDDLByDistrictID, IU_Taluka, IU_District } from "../config/api";
+import {
+  IU_Postjob,
+  getJobtitleForDDL,
+  getSubjobtitleForDDLByJobTitleId,
+  getCityForDDL,
+  getEducationDetail,
+  IU_Company,
+  getCompanyForDDL,
+  getCountryForDDL,
+  getStateForDDLByCountryID,
+  getCityForDDLByStateID,
+  getDistrictForDDLByCityID,
+  getTalukaForDDLByDistrictID,
+  IU_Taluka,
+  IU_District,
+} from "../config/api";
 import CreatableSelect from "react-select/creatable";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function PostJob({ setShow, show, setSmShow }) {
   const [state, setState] = useState({
@@ -47,8 +60,11 @@ export default function PostJob({ setShow, show, setSmShow }) {
   const jobtypelist = ["fullTime", "partTime", "flexible"];
   const [cname, setCompanyName] = useState([]);
   const [companyddl, setCompanyDDL] = useState([]);
-  const [district, setDistrict] = useState({DistrictID:"0",DistrictName:""});
-  const [city, setCity] = useState({CityID:"0",CityName:""});
+  const [district, setDistrict] = useState({
+    DistrictID: "0",
+    DistrictName: "",
+  });
+  const [city, setCity] = useState({ CityID: "0", CityName: "" });
   const [tname, setTName] = useState();
   function handlechangejobtitle(e) {
     setState({ ...state, JobTitleId: e.target.value });
@@ -59,9 +75,8 @@ export default function PostJob({ setShow, show, setSmShow }) {
   let chk1 = {};
 
   function handleChangejobtypechk(e) {
-
     const checkedArr = [];
-    const checkeds = document.getElementsByClassName('jobtypechk');
+    const checkeds = document.getElementsByClassName("jobtypechk");
     for (let i = 0; i < checkeds.length; i++) {
       if (checkeds[i].checked) {
         checkedArr.push(checkeds[i].value);
@@ -72,7 +87,7 @@ export default function PostJob({ setShow, show, setSmShow }) {
   }
   function handleChangeeduchk(e) {
     const checkedArr = [];
-    const checkeds = document.getElementsByClassName('educationchk');
+    const checkeds = document.getElementsByClassName("educationchk");
     for (let i = 0; i < checkeds.length; i++) {
       if (checkeds[i].checked) {
         checkedArr.push(checkeds[i].value);
@@ -81,19 +96,18 @@ export default function PostJob({ setShow, show, setSmShow }) {
     //value = checkedArr;
     setState({ ...state, Qualifications: checkedArr.toString() });
   }
-  function handleChange(e) {debugger;
+  function handleChange(e) {
     if (e.target.name === "CountryId") {
       BindStateDDLByCountryID(e.target.value);
     } else if (e.target.name === "StateId") {
       BindCityDDLByStateID(e.target.value);
     } else if (e.target.name === "CityId") {
       BindDistrictDDLByCityID(e.target.value);
-      setCity({...city,CityID:e.target.value});
+      setCity({ ...city, CityID: e.target.value });
     } else if (e.target.name === "DistrictId") {
       BindTalukaDDLByDistrictID(e.target.value);
     }
     setState({ ...state, [e.target.name]: e.target.value });
-    
   }
   async function handlechangecompany(e) {
     const arr = [];
@@ -119,7 +133,7 @@ export default function PostJob({ setShow, show, setSmShow }) {
         DistrictName: e.label,
         DistrictCode: "",
         CityId: city.CityID,
-        CreatedBy:sessionStorage.getItem("UserID"),
+        CreatedBy: sessionStorage.getItem("UserID"),
       }).then((response) => {
         arr.push(response[0][0].ID);
       });
@@ -127,7 +141,7 @@ export default function PostJob({ setShow, show, setSmShow }) {
       arr.push(e.value);
     }
     setState({ ...state, DistrictId: arr.toString() });
-    setDistrict({DistrictID:e.value,DistrictName:e});
+    setDistrict({ DistrictID: e.value, DistrictName: e });
     BindTalukaDDLByDistrictID(e.value);
   }
   async function handlechangetaluka(e) {
@@ -138,7 +152,7 @@ export default function PostJob({ setShow, show, setSmShow }) {
         TalukaName: e.label,
         TalukaCode: "",
         DistrictId: district.DistrictID,
-        CreatedBy:sessionStorage.getItem("UserID"),
+        CreatedBy: sessionStorage.getItem("UserID"),
       }).then((response) => {
         arr.push(response[0][0].ID);
       });
@@ -157,7 +171,7 @@ export default function PostJob({ setShow, show, setSmShow }) {
         alert(error);
       });
   }
-  async function BindCountryDDL() {debugger;
+  async function BindCountryDDL() {
     await getCountryForDDL()
       .then((response) => {
         setCountryDDL(response[0]);
@@ -222,7 +236,10 @@ export default function PostJob({ setShow, show, setSmShow }) {
   }
 
   useEffect(() => {
-    BindJobtitleDDL(); BindCountryDDL(); BindEducationList(); BindSubJobtitleDDL();
+    BindJobtitleDDL();
+    BindCountryDDL();
+    BindEducationList();
+    BindSubJobtitleDDL();
     BindCompanyDDL();
   }, []);
 
@@ -237,14 +254,15 @@ export default function PostJob({ setShow, show, setSmShow }) {
     if (validate()) {
       await IU_Postjob(state)
         .then((response) => {
-          if(response[0][0].ID>0){
-          alert("Data Saved Successfully");
-          ResetState();
-          //setModalShow(false);
-          //bindData();
-          setRedirect(true);
-          }else
-          {alert("Try Again..");}
+          if (response[0][0].ID > 0) {
+            alert("Data Saved Successfully");
+            ResetState();
+            //setModalShow(false);
+            //bindData();
+            setRedirect(true);
+          } else {
+            alert("Try Again..");
+          }
         })
         .catch((error) => {
           alert(error);
@@ -252,9 +270,7 @@ export default function PostJob({ setShow, show, setSmShow }) {
     }
   }
 
-
-
-  async function ResetState() {debugger;
+  async function ResetState() {
     setState({
       PostjobID: "0",
       CompanyName: "",
@@ -276,26 +292,24 @@ export default function PostJob({ setShow, show, setSmShow }) {
       // CompanyEmailID:"",
       // CreatedBy:"0",
       CreatedBy: sessionStorage.getItem("UserID"),
-      errors: []
+      errors: [],
     });
     setCompanyName("");
-    setDistrict({DistrictID:"0",DistrictName:""});
-    setCity({CityID:"0",CityName:""});
+    setDistrict({ DistrictID: "0", DistrictName: "" });
+    setCity({ CityID: "0", CityName: "" });
     setTName();
-    const ec = document.getElementsByClassName('educationchk');
+    const ec = document.getElementsByClassName("educationchk");
     for (let i = 0; i < ec.length; i++) {
-      ec[i].checked=false;      
+      ec[i].checked = false;
     }
-    const jtc = document.getElementsByClassName('jobtypechk');
+    const jtc = document.getElementsByClassName("jobtypechk");
     for (let i = 0; i < jtc.length; i++) {
-        jtc[i].checked=false;
+      jtc[i].checked = false;
     }
   }
   function validate() {
     let errors = {};
     let IsValid = true;
-
-debugger;
 
     if (!state.CompanyName) {
       IsValid = false;
@@ -338,7 +352,7 @@ debugger;
     // }
     setState({
       ...state,
-      errors: errors
+      errors: errors,
     });
     return IsValid;
   }
@@ -354,7 +368,10 @@ debugger;
           id={"chkEdu_" + idx}
           onChange={handleChangeeduchk}
         />
-        <label className="form-check-label educationchk" htmlFor={"chkEdu_" + idx}>
+        <label
+          className="form-check-label educationchk"
+          htmlFor={"chkEdu_" + idx}
+        >
           {edu.EducationName}
         </label>
       </div>
@@ -386,16 +403,23 @@ debugger;
                     className="form-control big"
                     placeholder="Enter job title"
                   /> */}
-                      <select className="form-control big" name="JobTitleId" value={state.JobTitleId} onChange={handlechangejobtitle}>
+                      <select
+                        className="form-control big"
+                        name="JobTitleId"
+                        value={state.JobTitleId}
+                        onChange={handlechangejobtitle}
+                      >
                         <option value="0">Select</option>
-                        {
-                          jobtitle.map((item, index) =>
-                            <option value={item.JobTitleId} key={index}>{item.JobTitleName}</option>
-                          )
-                        }
+                        {jobtitle.map((item, index) => (
+                          <option value={item.JobTitleId} key={index}>
+                            {item.JobTitleName}
+                          </option>
+                        ))}
                       </select>
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.JobTitleId}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.JobTitleId}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -409,16 +433,23 @@ debugger;
                     className="form-control big"
                     placeholder="Enter job sub title"
                   /> */}
-                      <select className="form-control big" name="SubJobTitleId" value={state.SubJobTitleId} onChange={handleChange}>
+                      <select
+                        className="form-control big"
+                        name="SubJobTitleId"
+                        value={state.SubJobTitleId}
+                        onChange={handleChange}
+                      >
                         <option value="0">Select</option>
-                        {
-                          subjobtitle.map((item, index) =>
-                            <option value={item.SubJobTitleId}>{item.SubJobTitleName}</option>
-                          )
-                        }
+                        {subjobtitle.map((item, index) => (
+                          <option value={item.SubJobTitleId} key={index}>
+                            {item.SubJobTitleName}
+                          </option>
+                        ))}
                       </select>
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.SubJobTitleId}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.SubJobTitleId}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -445,7 +476,9 @@ debugger;
                     name="CompanyName"
                   /> */}
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.CompanyName}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.CompanyName}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -459,16 +492,23 @@ debugger;
                     className="form-control big"
                     placeholder="Enter job Location"
                   /> */}
-                      <select className="form-control big" name="CountryId" onChange={handleChange} value={state.CountryId}>
+                      <select
+                        className="form-control big"
+                        name="CountryId"
+                        onChange={handleChange}
+                        value={state.CountryId}
+                      >
                         <option value="0">Select</option>
-                        {
-                          countryddl.map((item, index) =>
-                            <option value={item.CountryId}>{item.CountryName}</option>
-                          )
-                        }
+                        {countryddl.map((item, index) => (
+                          <option value={item.CountryId} key={index}>
+                            {item.CountryName}
+                          </option>
+                        ))}
                       </select>
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.CountryId}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.CountryId}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -482,16 +522,23 @@ debugger;
                     className="form-control big"
                     placeholder="Enter job Location"
                   /> */}
-                      <select className="form-control big" name="StateId" onChange={handleChange} value={state.StateId}>
+                      <select
+                        className="form-control big"
+                        name="StateId"
+                        onChange={handleChange}
+                        value={state.StateId}
+                      >
                         <option value="0">Select</option>
-                        {
-                          stateddl.map((item, index) =>
-                            <option value={item.StateId}>{item.StateName}</option>
-                          )
-                        }
+                        {stateddl.map((item, index) => (
+                          <option value={item.StateId} key={index}>
+                            {item.StateName}
+                          </option>
+                        ))}
                       </select>
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.StateId}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.StateId}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -505,16 +552,23 @@ debugger;
                     className="form-control big"
                     placeholder="Enter job Location"
                   /> */}
-                      <select className="form-control big" name="CityId" onChange={handleChange} value={state.CityId}>
+                      <select
+                        className="form-control big"
+                        name="CityId"
+                        onChange={handleChange}
+                        value={state.CityId}
+                      >
                         <option value="0">Select</option>
-                        {
-                          cityddl.map((item, index) =>
-                            <option value={item.CityId}>{item.CityName}</option>
-                          )
-                        }
+                        {cityddl.map((item, index) => (
+                          <option value={item.CityId} key={index}>
+                            {item.CityName}
+                          </option>
+                        ))}
                       </select>
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.CityId}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.CityId}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -546,7 +600,9 @@ debugger;
                         value={district.DistrictName}
                       />
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.DistrictId}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.DistrictId}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -578,7 +634,9 @@ debugger;
                         value={tname}
                       />
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.TalukaId}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.TalukaId}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -676,7 +734,9 @@ debugger;
                   </Col>
                   <Col sm={12} md={12}>
                     <div className="form-group">
-                      <label className="form-label">Number of hire employees</label>
+                      <label className="form-label">
+                        Number of hire employees
+                      </label>
                       <input
                         type="text"
                         className="form-control big"
@@ -686,7 +746,9 @@ debugger;
                         value={state.NumberOfHireEmployee}
                       />
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.NumberOfHireEmployee}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.NumberOfHireEmployee}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -697,7 +759,9 @@ debugger;
                       <label className="form-label">Qualifications</label>
                       <div className="d-flex flex-wrap">{renderEduList}</div>
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.Qualifications}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.Qualifications}
+                        </div>
                       ) : (
                         ""
                       )}
@@ -707,20 +771,25 @@ debugger;
                     <div className="form-group">
                       <label className="form-label">Other Details</label>
                       <CKEditor
-                    editor={ClassicEditor}
-                    data={state.JobDescription}
-                    onBlur={(event, editor) => {
-                      setState({ ...state, JobDescription: editor.getData() });
-                    }}
-                  />
+                        editor={ClassicEditor}
+                        data={state.JobDescription}
+                        onBlur={(event, editor) => {
+                          setState({
+                            ...state,
+                            JobDescription: editor.getData(),
+                          });
+                        }}
+                      />
                       {state.errors ? (
-                        <div className="invalid-feedback">{state.errors.JobDescription}</div>
+                        <div className="invalid-feedback">
+                          {state.errors.JobDescription}
+                        </div>
                       ) : (
                         ""
                       )}
                     </div>
                   </Col>
-            </Row>
+                </Row>
               </div>
             </Col>
           </Row>
@@ -739,7 +808,6 @@ debugger;
               style={{ width: 150 }}
               // onClick={SaveData}
               onClick={SaveData}
-
             >
               submit
             </button>

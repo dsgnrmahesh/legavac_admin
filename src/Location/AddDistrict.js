@@ -4,7 +4,14 @@ import {
   getCityForDDL,
   getDistrictDetailByID,
 } from "../config/api";
-import {checkonlyletterandcharacter,checkpdffile,checkimageformat,checkvideoformat,checkemailidformat,checkmobilenumberrightway} from "../config/validate";
+import {
+  checkonlyletterandcharacter,
+  checkpdffile,
+  checkimageformat,
+  checkvideoformat,
+  checkemailidformat,
+  checkmobilenumberrightway,
+} from "../config/validate";
 
 export default function AddDistrict({ setSmShow, editID }) {
   const [state, setState] = useState({
@@ -12,7 +19,7 @@ export default function AddDistrict({ setSmShow, editID }) {
     DistrictName: "",
     DistrictCode: "",
     CityId: "",
-   CreatedBy:sessionStorage.getItem("UserID"),
+    CreatedBy: sessionStorage.getItem("UserID"),
     errors: [],
 
     //DistrictId ,DistrictName , DistrictCode ,  CityId , CreatedBy
@@ -24,42 +31,41 @@ export default function AddDistrict({ setSmShow, editID }) {
 
   useEffect(() => {
     BindCityDDL();
-    if (id !== "" && id !== "0" && id !== 0 && typeof id !== "undefined")  {
+    if (id !== "" && id !== "0" && id !== 0 && typeof id !== "undefined") {
       UpdateData(id);
-    }    
+    }
   }, []);
-  
+
   function handlechange(e) {
     setState({ ...state, [e.target.name]: e.target.value });
   }
 
   async function SaveData() {
     //console.log(state);
-    if (validate()) {debugger;
+    if (validate()) {
       await IU_District(state)
         .then((response) => {
-        //   alert("Data Saved Successfully");
-        //   ResetState();
-        //   setSmShow(false);
-        //   window.location.href="/location-master";
-        // })
-        if(response[0][0].ID!=='exists'){
-          //setModalShow(false);
-          setSmShow(false);
-          alert("Data Saved Successfully");
-          ResetState();
-          window.location.href="/location-master";
-        }
-        else{
-          //alert("City Name Already exists...");
-          let errors = {};
-           errors["DistrictName"] = "This District  Already exists...";
-           setState({
-            ...state,
-            errors: errors,
-          });
-        }
-      })
+          //   alert("Data Saved Successfully");
+          //   ResetState();
+          //   setSmShow(false);
+          //   window.location.href="/location-master";
+          // })
+          if (response[0][0].ID !== "exists") {
+            //setModalShow(false);
+            setSmShow(false);
+            alert("Data Saved Successfully");
+            ResetState();
+            window.location.href = "/location-master";
+          } else {
+            //alert("City Name Already exists...");
+            let errors = {};
+            errors["DistrictName"] = "This District  Already exists...";
+            setState({
+              ...state,
+              errors: errors,
+            });
+          }
+        })
         .catch((error) => {
           alert(error);
         });
@@ -68,7 +74,7 @@ export default function AddDistrict({ setSmShow, editID }) {
     // });
   }
 
-  async function UpdateData(id) {debugger;
+  async function UpdateData(id) {
     await getDistrictDetailByID(id)
       .then((response) => {
         setState(response[0][0]);
@@ -85,7 +91,7 @@ export default function AddDistrict({ setSmShow, editID }) {
       DistrictCode: "",
       CityId: "",
       //CreatedBy: "0",
-      CreatedBy:sessionStorage.getItem("UserID"),
+      CreatedBy: sessionStorage.getItem("UserID"),
     });
   }
 
@@ -96,8 +102,7 @@ export default function AddDistrict({ setSmShow, editID }) {
     if (!state.DistrictName) {
       IsValid = false;
       errors["DistrictName"] = "DistrictName is Required";
-    }
-    else{
+    } else {
       if (!checkonlyletterandcharacter(state.DistrictName)) {
         IsValid = false;
         errors["DistrictName"] = "Only letter and character allowed";

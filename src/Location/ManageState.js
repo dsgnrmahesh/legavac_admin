@@ -9,8 +9,8 @@ export default function ManageState({ handleAddNew, handleEdit }) {
 
   useEffect(() => {
     bindData();
-  },[]);
-  async function bindData() {debugger;
+  }, []);
+  async function bindData() {
     await getStateDetail()
       .then((response) => {
         setData(response.data[0]);
@@ -21,15 +21,15 @@ export default function ManageState({ handleAddNew, handleEdit }) {
   }
 
   async function DeleteData(id) {
-    if(window.confirm('Are you sure delete data?')){
-    await getStateDelete(id)
-      .then((response) => {
-        alert("Data Deleted Successfully");
-        bindData();
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    if (window.confirm("Are you sure delete data?")) {
+      await getStateDelete(id)
+        .then((response) => {
+          alert("Data Deleted Successfully");
+          bindData();
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
   }
   return (
