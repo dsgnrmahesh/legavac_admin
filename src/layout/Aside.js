@@ -34,7 +34,7 @@ export default function Aside() {
       <aside className="asideBar">
         <div className="d-flex justify-content-between align-items-center asideBarLogoWrap">
           <div className="asideBarLogo">
-            <a href="/dashboard">
+            <a href={sessionStorage.getItem("Type")==="admin"?"/dashboard":"/dashboard-ctc"}>
               <img src="/logo.png" alt="/" />
             </a>
           </div>
@@ -43,6 +43,22 @@ export default function Aside() {
           </button>
         </div>
         <div className="asideBarMenus">
+        {sessionStorage.getItem("Type")==="executive"?<div className="asideBarMenu">
+            <a
+              href="/dashboard-ctc"
+              className={
+                pathName === "/dashboard-ctc"
+                  ? "asideBarMenuTrigger active"
+                  : "asideBarMenuTrigger"
+              }
+            >
+              <span className="asideBarMenuIcon">
+                <Icon path={mdiCashRegister} />
+              </span>
+              <span className="asideBarMenuText">CTC Dashboard</span>
+            </a>
+          </div>:""}
+          {sessionStorage.getItem("Type")==="admin"?<>
           <div className="asideBarMenu">
             <a
               href="/dashboard"
@@ -58,21 +74,7 @@ export default function Aside() {
               <span className="asideBarMenuText">Dashboard</span>
             </a>
           </div>
-          <div className="asideBarMenu">
-            <a
-              href="/dashboard-ctc"
-              className={
-                pathName === "/dashboard-ctc"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiCashRegister} />
-              </span>
-              <span className="asideBarMenuText">CTC Dashboard</span>
-            </a>
-          </div>
+          
           <div className="asideBarMenu">
             <a
               href="/master-setups"
@@ -272,6 +274,7 @@ export default function Aside() {
               <span className="asideBarMenuText">Careers or advice</span>
             </a>
           </div>
+          </>:""}
           <div className="asideBarMenu">
             <button className="asideBarMenuTrigger" onClick={handleLogout}>
               <span className="asideBarMenuIcon">

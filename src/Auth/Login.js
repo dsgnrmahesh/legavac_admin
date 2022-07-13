@@ -16,11 +16,12 @@ export default function Login() {
   async function handleClick(e) {
     e.preventDefault();
 
-    await getAdminLoginDetail(state).then(response => {
+    await getAdminLoginDetail(state).then(response => {debugger;
       if (response[0].length > 0) {
         sessionStorage.setItem("UserID", response[0][0].UserID);
         sessionStorage.setItem("Name", response[0][0].Name);
         sessionStorage.setItem("EmailID", response[0][0].EmailID);
+        sessionStorage.setItem("Type", response[0][0].Type);
         window.location.href = "/dashboard";
       }
       else {
@@ -53,7 +54,7 @@ export default function Login() {
                   <form autoComplete="off" className="login-form">
                     <div className="w-100">
                       <div className="form-group">
-                        <label className="control-label">Email Address</label>
+                        <label className="control-label">Email Address/User Code</label>
                         <input
                           type="text"
                           name="EmailID"

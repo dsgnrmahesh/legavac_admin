@@ -2,6 +2,8 @@ import axios from "axios";
 import { resolve } from "./resolve.js";
 export default () => axios.get("/");
 
+//const API_URL="https://api.legavac.com/api/legavac";
+const API_URL="http://localhost:5000/api/legavac";
 // export async function getcountryforddl() {
 //   return await resolve(axios.get('https://api.legavac.com/api/legavac/getCountryforddl').then(res => res.data));
 // }
@@ -14,563 +16,599 @@ export default () => axios.get("/");
 // }
 export async function getDashboardCount() {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getDashboardCount`)
+    .get(`${API_URL}/getDashboardCount`)
     .then((res) => res.data);
 }
 
+export async function IU_CTCDashboard(state) {
+  return await axios
+    .post(`${API_URL}/iuctcdashboard`,state)
+    .then((res) => res.data);
+}
+export async function getCTCDashboardDetail() {
+  return await axios
+    .get(`${API_URL}/getctcdashboarddetail`)
+    .then((res) => res.data);
+}
+
+export async function IU_UserMaster(state) {
+  return await axios
+    .post(`${API_URL}/iuusermaster`,state)
+    .then((res) => res.data);
+}
+export async function getUserMasterDetailByID(id) {
+  return await axios
+    .get(`${API_URL}/getUserMasterDetailByID/${id}`)
+    .then((res) => res.data);
+}
+export async function getUserMasterDetail() {
+  return await axios
+    .get(`${API_URL}/getUserMasterDetail`)
+    .then((res) => res.data);
+}
+export async function deleteUserMaster(id) {
+  return await axios
+    .get(`${API_URL}/deleteUserMaster/${id}`)
+    .then((res) => res.data);
+}
+export async function SendMail(state) {
+  return await axios
+    .post(`${API_URL}/sendmail`, state)
+    .then((res) => res.data);
+}
 export async function getAppliedJobDetail() {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getAppliedJobDetail`)
+    .get(`${API_URL}/getAppliedJobDetail`)
     .then((res) => res.data);
 }
 
 export async function deleteAppliedjob(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/deleteAppliedjob/${id}`)
+    .get(`${API_URL}/deleteAppliedjob/${id}`)
     .then((res) => res.data);
 }
 export async function getPostedJobFilterList(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/getPostjobFilterList`, state)
+    .post(`${API_URL}/getPostjobFilterList`, state)
     .then((res) => res.data);
 }
 export async function getPostjobDetailByWhereCondition(state) {
   return await axios
     .post(
-      `https://api.legavac.com/api/legavac/getPostjobDetailByWhereCondition`,
+      `${API_URL}/getPostjobDetailByWhereCondition`,
       state
     )
     .then((res) => res.data);
 }
 export async function getAdminLoginDetail(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/getAdminLoginDetail`, state)
+    .post(`${API_URL}/getAdminLoginDetail`, state)
     .then((res) => res.data);
 }
 //ForCountry
 export async function IU_Country(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iucountry`, state)
+    .post(`${API_URL}/iucountry`, state)
     .then((res) => res.data);
 }
 export async function getCountryForDDL() {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCountryforddl`)
+    .get(`${API_URL}/getCountryforddl`)
     .then((res) => res.data);
 }
 export async function getCountryDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getCountryDetail`)
+      .get(`${API_URL}/getCountryDetail`)
       .then((res) => res.data)
   );
 }
 export async function getCountryDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCountryDetailByID/${id}`)
+    .get(`${API_URL}/getCountryDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getCountryDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCountryDelete/${id}`)
+    .get(`${API_URL}/getCountryDelete/${id}`)
     .then((res) => res.data);
 }
 
 //ForCity
 export async function IU_City(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iucity`, state)
+    .post(`${API_URL}/iucity`, state)
     .then((res) => res.data);
 }
 export async function getCityForDDL() {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCityforddl`)
+    .get(`${API_URL}/getCityforddl`)
     .then((res) => res.data);
 }
 export async function getCityDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getCityDetail`)
+      .get(`${API_URL}/getCityDetail`)
       .then((res) => res.data)
   );
 }
 export async function getCityForDDLByStateID(StateID) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getCityForDDLByStateID/${StateID}`
+      `${API_URL}/getCityForDDLByStateID/${StateID}`
     )
     .then((res) => res.data);
 }
 export async function getCityDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCityDetailByID/${id}`)
+    .get(`${API_URL}/getCityDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getCityDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCityDelete/${id}`)
+    .get(`${API_URL}/getCityDelete/${id}`)
     .then((res) => res.data);
 }
 //ForDistrict
 export async function IU_District(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iudistrict`, state)
+    .post(`${API_URL}/iudistrict`, state)
     .then((res) => res.data);
 }
 export async function getDistrictForDDL() {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getDistrictforddl`)
+    .get(`${API_URL}/getDistrictforddl`)
     .then((res) => res.data);
 }
 export async function getDistrictDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getDistrictDetail`)
+      .get(`${API_URL}/getDistrictDetail`)
       .then((res) => res.data)
   );
 }
 export async function getDistrictForDDLByCityID(CityID) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getDistrictForDDLByCityID/${CityID}`
+      `${API_URL}/getDistrictForDDLByCityID/${CityID}`
     )
     .then((res) => res.data);
 }
 export async function getDistrictDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getDistrictDetailByID/${id}`)
+    .get(`${API_URL}/getDistrictDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getDistrictDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getDistrictDelete/${id}`)
+    .get(`${API_URL}/getDistrictDelete/${id}`)
     .then((res) => res.data);
 }
 //ForTaluka
 export async function IU_Taluka(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iutaluka`, state)
+    .post(`${API_URL}/iutaluka`, state)
     .then((res) => res.data);
 }
 export async function getTalukaForDDL() {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getTalukaforddl`)
+    .get(`${API_URL}/getTalukaforddl`)
     .then((res) => res.data);
 }
 export async function getTalukaDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getTalukaDetail`)
+      .get(`${API_URL}/getTalukaDetail`)
       .then((res) => res.data)
   );
 }
 export async function getTalukaForDDLByDistrictID(DistrictID) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getTalukaForDDLByDistrictID/${DistrictID}`
+      `${API_URL}/getTalukaForDDLByDistrictID/${DistrictID}`
     )
     .then((res) => res.data);
 }
 export async function getTalukaDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getTalukaDetailByID/${id}`)
+    .get(`${API_URL}/getTalukaDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getTalukaDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getTalukaDelete/${id}`)
+    .get(`${API_URL}/getTalukaDelete/${id}`)
     .then((res) => res.data);
 }
 
 //ForState
 export async function IU_State(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iustate`, state)
+    .post(`${API_URL}/iustate`, state)
     .then((res) => res.data);
 }
 export async function getStateForDDL() {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getStateForDDL`)
+    .get(`${API_URL}/getStateForDDL`)
     .then((res) => res.data);
 }
 export async function getStateDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getStateDetail`)
+      .get(`${API_URL}/getStateDetail`)
       .then((res) => res.data)
   );
 }
 export async function getStateForDDLByCountryID(CountryID) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getStateForDDLByCountryID/${CountryID}`
+      `${API_URL}/getStateForDDLByCountryID/${CountryID}`
     )
     .then((res) => res.data);
 }
 export async function getStateDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getStateDetailByID/${id}`)
+    .get(`${API_URL}/getStateDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getStateDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getStateDelete/${id}`)
+    .get(`${API_URL}/getStateDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Jobtitle
 export async function IU_Jobtitle(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iujobtitle`, state)
+    .post(`${API_URL}/iujobtitle`, state)
     .then((res) => res.data);
 }
 export async function getJobtitleForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getJobtitleForDDL")
+      .get(`${API_URL}/getJobtitleForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getJobtitleDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getJobtitleDetail`)
+      .get(`${API_URL}/getJobtitleDetail`)
       .then((res) => res.data)
   );
 }
 export async function getJobtitleDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getJobtitleDetailByID/${id}`)
+    .get(`${API_URL}/getJobtitleDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getJobtitleDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getJobtitleDelete/${id}`)
+    .get(`${API_URL}/getJobtitleDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Subjobtitle
 export async function IU_Subjobtitle(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iusubjobtitle`, state)
+    .post(`${API_URL}/iusubjobtitle`, state)
     .then((res) => res.data);
 }
 export async function getSubjobtitleForDDL(id) {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getSubjobtitleForDDL/${id}`)
+      .get(`${API_URL}/getSubjobtitleForDDL/${id}`)
       .then((res) => res.data)
   );
 }
 export async function getSubjobtitleForDDLByJobTitleId(id) {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getSubjobtitleForDDLByJobTitleId/${id}`)
+      .get(`${API_URL}/getSubjobtitleForDDLByJobTitleId/${id}`)
       .then((res) => res.data)
   );
 }
 export async function getSubjobtitleDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getSubjobtitleDetail`)
+      .get(`${API_URL}/getSubjobtitleDetail`)
       .then((res) => res.data)
   );
 }
 export async function getSubjobtitleDetailByID(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getSubjobtitleDetailByID/${id}`
+      `${API_URL}/getSubjobtitleDetailByID/${id}`
     )
     .then((res) => res.data);
 }
 export async function getSubjobtitleDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getSubjobtitleDelete/${id}`)
+    .get(`${API_URL}/getSubjobtitleDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Article
 export async function IU_Article(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iuarticle`, state)
+    .post(`${API_URL}/iuarticle`, state)
     .then((res) => res.data);
 }
 export async function getArticleForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getArticleForDDL")
+      .get(`${API_URL}/getArticleForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getArticleDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getArticleDetail`)
+      .get(`${API_URL}/getArticleDetail`)
       .then((res) => res.data)
   );
 }
 export async function getArticleDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getArticleDetailByID/${id}`)
+    .get(`${API_URL}/getArticleDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getArticleDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getArticleDelete/${id}`)
+    .get(`${API_URL}/getArticleDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Affilation
 export async function IU_Affilation(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iuaffilation`, state)
+    .post(`${API_URL}/iuaffilation`, state)
     .then((res) => res.data);
 }
 export async function getAffilationForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getAffilationForDDL")
+      .get(`${API_URL}/getAffilationForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getAffilationDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getAffilationDetail`)
+      .get(`${API_URL}/getAffilationDetail`)
       .then((res) => res.data)
   );
 }
 export async function getAffilationDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getAffilationDetailByID/${id}`)
+    .get(`${API_URL}/getAffilationDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getAffilationDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getAffilationDelete/${id}`)
+    .get(`${API_URL}/getAffilationDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Careeradvice
 export async function IU_CareerOrAdvice(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iucareeradvice`, state)
+    .post(`${API_URL}/iucareeradvice`, state)
     .then((res) => res.data);
 }
 export async function getCareerOrAdviceForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getCareeradviceForDDL")
+      .get(`${API_URL}/getCareeradviceForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getCareerOrAdviceDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getCareeradviceDetail`)
+      .get(`${API_URL}/getCareeradviceDetail`)
       .then((res) => res.data)
   );
 }
 export async function getCareerOrAdviceDetailByID(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getCareeradviceDetailByID/${id}`
+      `${API_URL}/getCareeradviceDetailByID/${id}`
     )
     .then((res) => res.data);
 }
 export async function getCareeradviceDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCareeradviceDelete/${id}`)
+    .get(`${API_URL}/getCareeradviceDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Community
 export async function IU_Community(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iucommunity`, state)
+    .post(`${API_URL}/iucommunity`, state)
     .then((res) => res.data);
 }
 export async function getCommunityForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getCommunityForDDL")
+      .get(`${API_URL}/getCommunityForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getCommunityDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getCommunityDetail`)
+      .get(`${API_URL}/getCommunityDetail`)
       .then((res) => res.data)
   );
 }
 export async function getCommunityDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCommunityDetailByID/${id}`)
+    .get(`${API_URL}/getCommunityDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getCommunityDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCommunityDelete/${id}`)
+    .get(`${API_URL}/getCommunityDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Course
 export async function IU_Course(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iucourse`, state)
+    .post(`${API_URL}/iucourse`, state)
     .then((res) => res.data);
 }
 export async function getCourseForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getCourseForDDL")
+      .get(`${API_URL}/getCourseForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getCourseDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getCourseDetail`)
+      .get(`${API_URL}/getCourseDetail`)
       .then((res) => res.data)
   );
 }
 export async function getCourseDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCourseDetailByID/${id}`)
+    .get(`${API_URL}/getCourseDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getCourseDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getCourseDelete/${id}`)
+    .get(`${API_URL}/getCourseDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Specialization
 export async function IU_Specialization(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iuspecialization`, state)
+    .post(`${API_URL}/iuspecialization`, state)
     .then((res) => res.data);
 }
 export async function getSpecializationForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getSpecializationForDDL")
+      .get(`${API_URL}/getSpecializationForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getSpecializationDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getSpecializationDetail`)
+      .get(`${API_URL}/getSpecializationDetail`)
       .then((res) => res.data)
   );
 }
 export async function getSpecializationDetailByID(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getSpecializationDetailByID/${id}`
+      `${API_URL}/getSpecializationDetailByID/${id}`
     )
     .then((res) => res.data);
 }
 export async function getSpecializationDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getSpecializationDelete/${id}`)
+    .get(`${API_URL}/getSpecializationDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Education
 export async function IU_Education(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iueducation`, state)
+    .post(`${API_URL}/iueducation`, state)
     .then((res) => res.data);
 }
 export async function getEducationForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getEducationForDDL")
+      .get(`${API_URL}/getEducationForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getEducationDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getEducationDetail`)
+      .get(`${API_URL}/getEducationDetail`)
       .then((res) => res.data)
   );
 }
 export async function getEducationDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getEducationDetailByID/${id}`)
+    .get(`${API_URL}/getEducationDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getEducationDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getEducationDelete/${id}`)
+    .get(`${API_URL}/getEducationDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Faq
 export async function IU_Faq(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iufaq`, state)
+    .post(`${API_URL}/iufaq`, state)
     .then((res) => res.data);
 }
 export async function getFaqForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getFaqForDDL")
+      .get(`${API_URL}/getFaqForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getFaqDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getFaqDetail`)
+      .get(`${API_URL}/getFaqDetail`)
       .then((res) => res.data)
   );
 }
 export async function getFaqDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getFaqDetailByID/${id}`)
+    .get(`${API_URL}/getFaqDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getFaqDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getFaqDelete/${id}`)
+    .get(`${API_URL}/getFaqDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Membershipplan
 export async function IU_MembershipPlan(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iumembershipplan`, state)
+    .post(`${API_URL}/iumembershipplan`, state)
     .then((res) => res.data);
 }
 export async function getMembershipplanForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getMembershipplanForDDL")
+      .get(`${API_URL}/getMembershipplanForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getMembershipplanDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getMembershipplanDetail`)
+      .get(`${API_URL}/getMembershipplanDetail`)
       .then((res) => res.data)
   );
 }
 export async function getMembershipplanDetailByID(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getMembershipplanDetailByID/${id}`
+      `${API_URL}/getMembershipplanDetailByID/${id}`
     )
     .then((res) => res.data);
 }
 export async function getMembershipplanDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getMembershipplanDelete/${id}`)
+    .get(`${API_URL}/getMembershipplanDelete/${id}`)
     .then((res) => res.data);
 }
 
@@ -578,7 +616,7 @@ export async function getMembershipplanDelete(id) {
 export async function IU_MembershipPlanFeature(state) {
   return await axios
     .post(
-      `https://api.legavac.com/api/legavac/iumembershipplanfeature`,
+      `${API_URL}/iumembershipplanfeature`,
       state
     )
     .then((res) => res.data);
@@ -587,7 +625,7 @@ export async function getMembershipplanfeatureForDDL() {
   return await resolve(
     axios
       .get(
-        "https://api.legavac.com/api/legavac/getMembershipplanfeatureForDDL"
+        `${API_URL}/getMembershipplanfeatureForDDL`
       )
       .then((res) => res.data)
   );
@@ -596,7 +634,7 @@ export async function getMembershipplanfeatureDetail() {
   return await resolve(
     axios
       .get(
-        `https://api.legavac.com/api/legavac/getMembershipplanfeatureDetail`
+        `${API_URL}/getMembershipplanfeatureDetail`
       )
       .then((res) => res.data)
   );
@@ -604,14 +642,14 @@ export async function getMembershipplanfeatureDetail() {
 export async function getMembershipPlanFeatureDetailByID(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getMembershipPlanFeatureDetailByID/${id}`
+      `${API_URL}/getMembershipPlanFeatureDetailByID/${id}`
     )
     .then((res) => res.data);
 }
 export async function getMembershipPlanFeatureDelete(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getMembershipPlanFeatureDelete/${id}`
+      `${API_URL}/getMembershipPlanFeatureDelete/${id}`
     )
     .then((res) => res.data);
 }
@@ -619,96 +657,96 @@ export async function getMembershipPlanFeatureDelete(id) {
 //for Skill
 export async function IU_Skill(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iuskill`, state)
+    .post(`${API_URL}/iuskill`, state)
     .then((res) => res.data);
 }
 export async function getSkillForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getSkillForDDL")
+      .get(`${API_URL}/getSkillForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getSkillDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getSkillDetail`)
+      .get(`${API_URL}/getSkillDetail`)
       .then((res) => res.data)
   );
 }
 export async function getSkillDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getSkillDetailByID/${id}`)
+    .get(`${API_URL}/getSkillDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getSkillDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getSkillDelete/${id}`)
+    .get(`${API_URL}/getSkillDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Page
 export async function IU_Page(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iupage`, state)
+    .post(`${API_URL}/iupage`, state)
     .then((res) => res.data);
 }
 export async function getPageForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getLPageForDDL")
+      .get(`${API_URL}/getLPageForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getLPageDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getLPageDetail`)
+      .get(`${API_URL}/getLPageDetail`)
       .then((res) => res.data)
   );
 }
 export async function getLPageDetailByID(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getLPageDetailByID/${id}`)
+    .get(`${API_URL}/getLPageDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getLPageDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getLPageDelete/${id}`)
+    .get(`${API_URL}/getLPageDelete/${id}`)
     .then((res) => res.data);
 }
 
 //for Workpermitforusa
 export async function IU_Workpermitforusa(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iuworkpermitforusa`, state)
+    .post(`${API_URL}/iuworkpermitforusa`, state)
     .then((res) => res.data);
 }
 export async function getWorkpermitforusaForDDL() {
   return await resolve(
     axios
-      .get("https://api.legavac.com/api/legavac/getWorkpermitforusaForDDL")
+      .get(`${API_URL}/getWorkpermitforusaForDDL`)
       .then((res) => res.data)
   );
 }
 export async function getWorkpermitforusaDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getWorkpermitforusaDetail`)
+      .get(`${API_URL}/getWorkpermitforusaDetail`)
       .then((res) => res.data)
   );
 }
 export async function getWorkpermitforusaDetailByID(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getWorkpermitforusaDetailByID/${id}`
+      `${API_URL}/getWorkpermitforusaDetailByID/${id}`
     )
     .then((res) => res.data);
 }
 export async function getWorkpermitforusaDelete(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getWorkpermitforusaDelete/${id}`
+      `${API_URL}/getWorkpermitforusaDelete/${id}`
     )
     .then((res) => res.data);
 }
@@ -716,75 +754,75 @@ export async function getWorkpermitforusaDelete(id) {
 //upload
 export async function UploadAffilationPDF(state, config) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadaffilationpdf`, state, config)
+    .post(`${API_URL}/uploadaffilationpdf`, state, config)
     .then((res) => res.data);
 }
 export async function UploadAffilationImage(state, config) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadaffilationimage`, state, config)
+    .post(`${API_URL}/uploadaffilationimage`, state, config)
     .then((res) => res.data);
 }
 export async function UploadArticlePDF(state, config) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadarticlepdf`, state, config)
+    .post(`${API_URL}/uploadarticlepdf`, state, config)
     .then((res) => res.data);
 }
 export async function UploadArticleImage(state, configimage) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadarticleimage`, state, configimage)
+    .post(`${API_URL}/uploadarticleimage`, state, configimage)
     .then((res) => res.data);
 }
 export async function UploadArticleVideo(state, configvideo) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadarticlevideo`, state, configvideo)
+    .post(`${API_URL}/uploadarticlevideo`, state, configvideo)
     .then((res) => res.data);
 }
 export async function UploadArticleVideoImage(state, configvideo) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadarticlevideoImage`, state, configvideo)
+    .post(`${API_URL}/uploadarticlevideoImage`, state, configvideo)
     .then((res) => res.data);
 }
 export async function UploadCareerAdviceVideo(state, config) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadcareeradvicevideo`, state, config)
+    .post(`${API_URL}/uploadcareeradvicevideo`, state, config)
     .then((res) => res.data);
 }
 export async function UploadCareerAdviceVideoImage(state, config) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadcareeradvicevideoImage`, state, config)
+    .post(`${API_URL}/uploadcareeradvicevideoImage`, state, config)
     .then((res) => res.data);
 }
 export async function UploadResume(state, config) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadresume`, state, config)
+    .post(`${API_URL}/uploadresume`, state, config)
     .then((res) => res.data);
 }
 export async function UploadTestimonialImage(state, config) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadtestimonialimage`, state, config)
+    .post(`${API_URL}/uploadtestimonialimage`, state, config)
     .then((res) => res.data);
 }
 export async function UploadLogoImage(state, config) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/uploadlogoimage`, state, config)
+    .post(`${API_URL}/uploadlogoimage`, state, config)
     .then((res) => res.data);
 }
 //postjob
 export async function IU_Postjob(state) {
   return await axios
-    .post(`https://api.legavac.com/api/legavac/iupostjob`, state)
+    .post(`${API_URL}/iupostjob`, state)
     .then((res) => res.data);
 }
 
 export async function getPostjobDetail() {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getPostjobDetail`
+    .get(`${API_URL}/getPostjobDetail`
     )
     .then((res) => res.data);
 }
 export async function getPostjobDelete(id) {
   return await axios
-    .get(`https://api.legavac.com/api/legavac/getPostjobDelete/${id}`
+    .get(`${API_URL}/getPostjobDelete/${id}`
     )
     .then((res) => res.data);
 }
@@ -794,7 +832,7 @@ export async function getPostjobDelete(id) {
 export async function getPostjobDetailByID(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getPostjobDetailByID/${id}`
+      `${API_URL}/getPostjobDetailByID/${id}`
     )
     .then((res) => res.data);
 }
@@ -804,7 +842,7 @@ export async function getCandidateDetailSearchText(state) {
   return await resolve(
     axios
       .post(
-        `https://api.legavac.com/api/legavac/getCandidateDetailSearchText`, state
+        `${API_URL}/getCandidateDetailSearchText`, state
       )
       .then((res) => res.data)
   );
@@ -817,7 +855,7 @@ export async function getAffilationDetailSearchText(searchtext) {
   return await resolve(
     axios
       .get(
-        `https://api.legavac.com/api/legavac/getAffilationDetailSearchText/${searchtext}`
+        `${API_URL}/getAffilationDetailSearchText/${searchtext}`
       )
       .then((res) => res.data)
   );
@@ -826,7 +864,7 @@ export async function getArticleDetailSearchText(searchtext) {
   return await resolve(
     axios
       .get(
-        `https://api.legavac.com/api/legavac/getArticleDetailSearchText/${searchtext}`
+        `${API_URL}/getArticleDetailSearchText/${searchtext}`
       )
       .then((res) => res.data)
   );
@@ -835,7 +873,7 @@ export async function getCareerAdviceDetailSearchText(searchtext) {
   return await resolve(
     axios
       .get(
-        `https://api.legavac.com/api/legavac/getCareerAdviceDetailSearchText/${searchtext}`
+        `${API_URL}/getCareerAdviceDetailSearchText/${searchtext}`
       )
       .then((res) => res.data)
   );
@@ -844,7 +882,7 @@ export async function getTestimonialDetailSearchText(searchtext) {
   return await resolve(
     axios
       .get(
-        `https://api.legavac.com/api/legavac/getTestimonialDetailSearchText/${searchtext}`
+        `${API_URL}/getTestimonialDetailSearchText/${searchtext}`
       )
       .then((res) => res.data)
   );
@@ -854,7 +892,7 @@ export async function getTestimonialDetailSearchText(searchtext) {
 export async function getCandidateDetail() {
   return await resolve(
     axios
-      .get(`https://api.legavac.com/api/legavac/getCandidateDetail`)
+      .get(`${API_URL}/getCandidateDetail`)
       .then((res) => res.data)
   );
 }
@@ -862,38 +900,38 @@ export async function getCandidateDetail() {
 
 //For Testimonial  
 export async function IU_Testimonial(state) {
-  return await axios.post(`https://api.legavac.com/api/legavac/iutestimonial`, state).then(res => res.data);
+  return await axios.post(`${API_URL}/iutestimonial`, state).then(res => res.data);
 }
 export async function getTestimonialForDDL() {
-  return await resolve(axios.get('https://api.legavac.com/api/legavac/getTestimonialForDDL').then(res => res.data));
+  return await resolve(axios.get('${API_URL}/getTestimonialForDDL').then(res => res.data));
 }
 export async function getTestimonialDetail() {
-  return await resolve(axios.get(`https://api.legavac.com/api/legavac/getTestimonialDetail`).then(res => res.data));
+  return await resolve(axios.get(`${API_URL}/getTestimonialDetail`).then(res => res.data));
 }
 export async function getTestimonialDetailByID(id) {
-  return await axios.get(`https://api.legavac.com/api/legavac/getTestimonialDetailByID/${id}`).then(res => res.data);
+  return await axios.get(`${API_URL}/getTestimonialDetailByID/${id}`).then(res => res.data);
 }
 export async function getTestimonialDelete(id) {
-  return await axios.get(`https://api.legavac.com/api/legavac/getTestimonialDelete/${id}`).then(res => res.data);
+  return await axios.get(`${API_URL}/getTestimonialDelete/${id}`).then(res => res.data);
 }
 
 
 //FREEJOBALERT
 
 export async function IU_Freejobalert(state) {
-  return await axios.post(`https://api.legavac.com/api/legavac/iufreejobalert`, state).then(res => res.data);
+  return await axios.post(`${API_URL}/iufreejobalert`, state).then(res => res.data);
 }
 export async function getFreejobalertForDDL() {
-  return await resolve(axios.get('https://api.legavac.com/api/legavac/getFreejobalertForDDL').then(res => res.data));
+  return await resolve(axios.get('${API_URL}/getFreejobalertForDDL').then(res => res.data));
 }
 export async function getFreejobalertDetail() {
-  return await resolve(axios.get(`https://api.legavac.com/api/legavac/getFreejobalertDetail`).then(res => res.data));
+  return await resolve(axios.get(`${API_URL}/getFreejobalertDetail`).then(res => res.data));
 }
 export async function getFreejobalertDetailByID(id) {
-  return await axios.get(`https://api.legavac.com/api/legavac/getFreejobalertDetailByID/${id}`).then(res => res.data);
+  return await axios.get(`${API_URL}/getFreejobalertDetailByID/${id}`).then(res => res.data);
 }
 export async function getFreejobalertDelete(id) {
-  return await axios.get(`https://api.legavac.com/api/legavac/getFreejobalertDelete/${id}`).then(res => res.data);
+  return await axios.get(`${API_URL}/getFreejobalertDelete/${id}`).then(res => res.data);
 }
 
 
@@ -905,7 +943,7 @@ export async function getFreejobalertDetailSearchText(searchtext) {
   return await resolve(
     axios
       .get(
-        `https://api.legavac.com/api/legavac/getFreejobalertDetailSearchText/${searchtext}`)
+        `${API_URL}/getFreejobalertDetailSearchText/${searchtext}`)
       .then((res) => res.data)
   );
 }
@@ -915,19 +953,19 @@ export async function getFreejobalertDetailSearchText(searchtext) {
 
 //Candidate
 export async function IU_Candidate(state) {
-  return await axios.post(`https://api.legavac.com/api/legavac/iucandidate`, state).then(res => res.data);
+  return await axios.post(`${API_URL}/iucandidate`, state).then(res => res.data);
 }
 export async function getCandidateForDDL() {
-  return await resolve(axios.get('https://api.legavac.com/api/legavac/getCandidateForDDL').then(res => res.data));
+  return await resolve(axios.get('${API_URL}/getCandidateForDDL').then(res => res.data));
 }
 // export async function getCandidateDetail() {
-//   return await resolve(axios.get(`https://api.legavac.com/api/legavac/getCandidateDetail`).then(res => res.data));
+//   return await resolve(axios.get(`${API_URL}/getCandidateDetail`).then(res => res.data));
 // }
 export async function getCandidateDetailByID(id) {
-  return await axios.get(`https://api.legavac.com/api/legavac/getCandidateDetailByID/${id}`).then(res => res.data);
+  return await axios.get(`${API_URL}/getCandidateDetailByID/${id}`).then(res => res.data);
 }
 export async function getCandidateDelete(id) {
-  return await axios.get(`https://api.legavac.com/api/legavac/getCandidateDelete/${id}`).then(res => res.data);
+  return await axios.get(`${API_URL}/getCandidateDelete/${id}`).then(res => res.data);
 }
 
 
@@ -936,7 +974,7 @@ export async function getCandidateDelete(id) {
 export async function checkEmailID(state) {
   return await axios
     .post(
-      `https://api.legavac.com/api/legavac/checkEmailID`, state
+      `${API_URL}/checkEmailID`, state
     )
     .then((res) => res.data);
 }
@@ -945,38 +983,38 @@ export async function checkEmailID(state) {
 export async function IU_Company(state) {
   return await axios
     .post(
-      `https://api.legavac.com/api/legavac/iucompany`, state)
+      `${API_URL}/iucompany`, state)
     .then((res) => res.data);
 }
 export async function getCompanyForDDL() {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getCompanyForDDL`)
+      `${API_URL}/getCompanyForDDL`)
     .then((res) => res.data);
 }
 export async function getCompanyDetailByID(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getCompanyDetailByID/${id}`)
+      `${API_URL}/getCompanyDetailByID/${id}`)
     .then((res) => res.data);
 }
 export async function getCompanyDetail(state) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getCompanyDetail`)
+      `${API_URL}/getCompanyDetail`)
     .then((res) => res.data);
 }
 export async function getCompanyDelete(id) {
   return await axios
     .get(
-      `https://api.legavac.com/api/legavac/getCompanyDelete/${id}`)
+      `${API_URL}/getCompanyDelete/${id}`)
     .then((res) => res.data);
 }
 //Login
 export async function getLoginDetail(state) {
   return await axios
     .post(
-      `https://api.legavac.com/api/legavac/getLoginDetail`,
+      `${API_URL}/getLoginDetail`,
       state
     )
     .then((res) => res.data);
@@ -990,7 +1028,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
   return await resolve(
     axios
       .get(
-        `https://api.legavac.com/api/legavac/getMembershipplanDetailSearchText/${searchtext}`)
+        `${API_URL}/getMembershipplanDetailSearchText/${searchtext}`)
       .then((res) => res.data)
   );
 }
@@ -1127,7 +1165,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getJobtitleForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getJobtitleForDDL")
+//       .get(`https://api.legavac.com/getJobtitleForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1198,7 +1236,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getArticleForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getArticleForDDL")
+//       .get(`https://api.legavac.com/getArticleForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1229,7 +1267,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getAffilationForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getAffilationForDDL")
+//       .get(`https://api.legavac.com/getAffilationForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1260,7 +1298,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getCareerOrAdviceForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getCareeradviceForDDL")
+//       .get(`https://api.legavac.com/getCareeradviceForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1293,7 +1331,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getCommunityForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getCommunityForDDL")
+//       .get(`https://api.legavac.com/getCommunityForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1324,7 +1362,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getCourseForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getCourseForDDL")
+//       .get(`https://api.legavac.com/getCourseForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1355,7 +1393,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getSpecializationForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getSpecializationForDDL")
+//       .get(`https://api.legavac.com/getSpecializationForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1388,7 +1426,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getEducationForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getEducationForDDL")
+//       .get(`https://api.legavac.com/getEducationForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1419,7 +1457,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getFaqForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getFaqForDDL")
+//       .get(`https://api.legavac.com/getFaqForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1450,7 +1488,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getMembershipplanForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getMembershipplanForDDL")
+//       .get(`https://api.legavac.com/getMembershipplanForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1487,7 +1525,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 //   return await resolve(
 //     axios
 //       .get(
-//         "https://api.legavac.com/getMembershipplanfeatureForDDL"
+//         `https://api.legavac.com/getMembershipplanfeatureForDDL"
 //       )
 //       .then((res) => res.data)
 //   );
@@ -1525,7 +1563,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getSkillForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getSkillForDDL")
+//       .get(`https://api.legavac.com/getSkillForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1556,7 +1594,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getPageForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getLPageForDDL")
+//       .get(`https://api.legavac.com/getLPageForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
@@ -1587,7 +1625,7 @@ export async function getMembershipplanDetailSearchText(searchtext) {
 // export async function getWorkpermitforusaForDDL() {
 //   return await resolve(
 //     axios
-//       .get("https://api.legavac.com/getWorkpermitforusaForDDL")
+//       .get(`https://api.legavac.com/getWorkpermitforusaForDDL`)
 //       .then((res) => res.data)
 //   );
 // }
