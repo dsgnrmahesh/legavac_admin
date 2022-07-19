@@ -107,8 +107,17 @@ export default function AddCTCDashboard() {
       await IU_CTCDashboard(state)
         .then((response) => {
           //alert(response[0][0].ID);
+          if(response[0][0].ID === "already used"){
+            let errors = {};
+            errors["CompanyName"] = "Already used by anither executive";
+            setState({
+              ...state,
+              errors: errors,
+            });
+          }else{
           alert("Save Data Successfully");
           ResetState();
+          }
         })
         .catch((error) => {
           alert(error);

@@ -2,8 +2,10 @@ import axios from "axios";
 import { resolve } from "./resolve.js";
 export default () => axios.get("/");
 
-//const API_URL="https://api.legavac.com/api/legavac";
-const API_URL="http://localhost:5000/api/legavac";
+
+
+const API_URL="https://api.legavac.com/api/legavac";
+//const API_URL="http://localhost:5000/api/legavac";
 // export async function getcountryforddl() {
 //   return await resolve(axios.get('https://api.legavac.com/api/legavac/getCountryforddl').then(res => res.data));
 // }
@@ -25,9 +27,9 @@ export async function IU_CTCDashboard(state) {
     .post(`${API_URL}/iuctcdashboard`,state)
     .then((res) => res.data);
 }
-export async function getCTCDashboardDetail() {
+export async function getCTCDashboardDetail(id) {
   return await axios
-    .get(`${API_URL}/getctcdashboarddetail`)
+    .get(`${API_URL}/getctcdashboarddetail/${id}`)
     .then((res) => res.data);
 }
 

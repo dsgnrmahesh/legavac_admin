@@ -12,7 +12,7 @@ export default function CTCDashboard() {
     bindData();
   });
   async function bindData() {debugger;
-    await getCTCDashboardDetail()
+    await getCTCDashboardDetail(sessionStorage.getItem("UserID"))
       .then((response) => {
         if(response[0].length>0){
         setData(response[0]);

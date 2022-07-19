@@ -15,9 +15,11 @@ export default function Header() {
             <button className="actionButton d-none">
               <Icon path={mdiMenu} />
             </button>
+            {sessionStorage.getItem("Type")==="admin"?
             <button className="postButton" onClick={() => setShow(true)}>
               post job
             </button>
+            :""}
           </div>
           <div className="mainHeaderRight d-flex align-items-center">
             {/* <button className="actionButton mx-2">
@@ -33,7 +35,7 @@ export default function Header() {
               <button className="mainHeaderUserButton">
                 <span className="userInfo">
                   <span>{sessionStorage.getItem("Name")}</span>
-                  <span>Admin</span>
+                  <span className="clstype">{sessionStorage.getItem("Type")}</span>
                 </span>
                 <span className="userIcon">
                   <span>

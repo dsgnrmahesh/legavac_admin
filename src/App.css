@@ -973,3 +973,6 @@ table.click tbody tr.seleted {
   background: #f6f6f6;
   cursor: pointer;
 }
+.clstype{
+  text-transform: capitalize;
+}
