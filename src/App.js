@@ -56,6 +56,7 @@ import Executive from "./Executive";
 import AddExecutive from "./Executive/AddExecutive";
 import CTCDashboard from "./Dashboard/CTCDashboard";
 import AddCTCDashboard from "./Dashboard/AddCTCDashboard";
+import CTCDashboardAdmin from "./Dashboard/CTCDashboardAdmin";
 
 export default function App() {
   const showCond = window.location.pathname !== "/auth/login";
@@ -152,6 +153,7 @@ export default function App() {
             <Route path="/executive" component={Executive} />
             <Route path="/add-executive" component={AddExecutive} />
 
+            <Route exact path="/dashboard/ctc" component={CTCDashboardAdmin} />
             <Route exact path="/dashboard-ctc" component={CTCDashboard} />
             <Route
               exact

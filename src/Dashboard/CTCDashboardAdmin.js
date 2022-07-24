@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 import Table from "../Commons/Table";
 import { getCTCDashboardDetail } from "../config/api";
 
-export default function CTCDashboard() {
+export default function CTCDashboardAdmin() {
   const [data, setData] = useState();
   useEffect(() => {
     bindData();
   });
   async function bindData() {
+    debugger;
     await getCTCDashboardDetail(sessionStorage.getItem("UserID"))
       .then((response) => {
         if (response[0].length > 0) {
@@ -26,6 +27,14 @@ export default function CTCDashboard() {
   }
   const columns = useMemo(
     () => [
+      // {
+      //   Header: "",
+      //   accessor: "ID",
+      // },
+      {
+        Header: "Executive Name",
+        accessor: "executive_name",
+      },
       {
         Header: "Company Name",
         accessor: "company_name",
