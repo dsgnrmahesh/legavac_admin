@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
-import { getCompanyForDDL, IU_Company, IU_CTCDashboard } from "../config/api";
+import { getCompanyForDDL, getCTCDashboardByID, IU_Company, IU_CTCDashboard } from "../config/api";
 
-export default function AddCTCDashboard() {
+export default function AddCTCDashboard({props}) {
   const [state, setState] = useState({
     ID:0,
     Salutation:"",
@@ -25,9 +25,15 @@ export default function AddCTCDashboard() {
   });
   const [cname, setCompanyName] = useState([]);
   const [companyddl, setCompanyDDL] = useState([]);
-  
+  const {
+    match: { params },
+  } = props;
+  const { id } = params;
   useEffect(() => {
     BindCompanyDDL();
+    if (id !== "" && id !== "0" && id !== 0 && typeof id !== "undefined") {
+      UpdateData(id);
+    }
   }, []);
   function handlechange(e) {debugger;
     if(e.target.name==="CTCamount"){
@@ -81,6 +87,16 @@ export default function AddCTCDashboard() {
     await getCompanyForDDL().then((response) => {
       setCompanyDDL(response[0]);
     });
+  }
+  async function UpdateData(id) {
+
+    await getCTCDashboardByID(id)
+      .then((response) => {
+        setState(response[0][0]);
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
   async function ResetState() {
     setState({

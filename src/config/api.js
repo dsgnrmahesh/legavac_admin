@@ -32,6 +32,16 @@ export async function getCTCDashboardDetail(id) {
     .get(`${API_URL}/getctcdashboarddetail/${id}`)
     .then((res) => res.data);
 }
+export async function getCTCDashboardByID(id) {
+  return await axios
+    .get(`${API_URL}/getctcdashboardbyid/${id}`)
+    .then((res) => res.data);
+}
+export async function getCTCDashboardDetailForAdmin() {
+  return await axios
+    .get(`${API_URL}/getctcdashboarddetailforadmin`)
+    .then((res) => res.data);
+}
 
 export async function IU_UserMaster(state) {
   return await axios

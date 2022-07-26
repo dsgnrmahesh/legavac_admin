@@ -48,6 +48,7 @@ export default function Table({ columns, data, className }) {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
+                  //return cell.render("Cell");
                 })}
                 
               </tr>

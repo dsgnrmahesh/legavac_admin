@@ -34,7 +34,13 @@ export default function Aside() {
       <aside className="asideBar">
         <div className="d-flex justify-content-between align-items-center asideBarLogoWrap">
           <div className="asideBarLogo">
-            <a href={sessionStorage.getItem("Type")==="admin"?"/dashboard":"/dashboard-ctc"}>
+            <a
+              href={
+                sessionStorage.getItem("Type") === "admin"
+                  ? "/dashboard"
+                  : "/dashboard-ctc"
+              }
+            >
               <img src="/logo.png" alt="/" />
             </a>
           </div>
@@ -43,69 +49,88 @@ export default function Aside() {
           </button>
         </div>
         <div className="asideBarMenus">
-        {sessionStorage.getItem("Type")==="executive"?<div className="asideBarMenu">
-            <a
-              href="/dashboard-ctc"
-              className={
-                pathName === "/dashboard-ctc"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiCashRegister} />
-              </span>
-              <span className="asideBarMenuText">CTC Dashboard</span>
-            </a>
-          </div>:""}
-          {sessionStorage.getItem("Type")==="admin"?<>
-          <div className="asideBarMenu">
-            <a
-              href="/dashboard"
-              className={
-                pathName === "/dashboard"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiViewDashboardOutline} />
-              </span>
-              <span className="asideBarMenuText">Dashboard</span>
-            </a>
-          </div>
-          
-          <div className="asideBarMenu">
-            <a
-              href="/master-setups"
-              className={
-                pathName === "/master-setups"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiDatabaseCheck} />
-              </span>
-              <span className="asideBarMenuText">Master Setup's</span>
-            </a>
-          </div>
-          <div className="asideBarMenu">
-            <a
-              href="/education-master"
-              className={
-                pathName === "/education-master"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiSchoolOutline} />
-              </span>
-              <span className="asideBarMenuText">Education Master</span>
-            </a>
-          </div>
-          {/* <div className="asideBarMenu">
+          {sessionStorage.getItem("Type") === "executive" ? (
+            <div className="asideBarMenu">
+              <a
+                href="/dashboard-ctc"
+                className={
+                  pathName === "/dashboard-ctc"
+                    ? "asideBarMenuTrigger active"
+                    : "asideBarMenuTrigger"
+                }
+              >
+                <span className="asideBarMenuIcon">
+                  <Icon path={mdiCashRegister} />
+                </span>
+                <span className="asideBarMenuText">CTC Dashboard</span>
+              </a>
+            </div>
+          ) : (
+            ""
+          )}
+          {sessionStorage.getItem("Type") === "admin" ? (
+            <>
+              <div className="asideBarMenu">
+                <a
+                  href="/dashboard"
+                  className={
+                    pathName === "/dashboard"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiViewDashboardOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Dashboard</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/dashboard/ctc"
+                  className={
+                    pathName === "/dashboard/ctc"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiCashRegister} />
+                  </span>
+                  <span className="asideBarMenuText">CTC Dashboard</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/master-setups"
+                  className={
+                    pathName === "/master-setups"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiDatabaseCheck} />
+                  </span>
+                  <span className="asideBarMenuText">Master Setup's</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/education-master"
+                  className={
+                    pathName === "/education-master"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiSchoolOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Education Master</span>
+                </a>
+              </div>
+              {/* <div className="asideBarMenu">
             <a
               href="/location-master"
               className={
@@ -120,161 +145,164 @@ export default function Aside() {
               <span className="asideBarMenuText">Location Master's</span>
             </a>
           </div> */}
-          <div className="asideBarMenu">
-            <a
-              href="/affilations"
-              className={
-                pathName === "/affilations"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiAccountNetworkOutline} />
-              </span>
-              <span className="asideBarMenuText">affilation</span>
-            </a>
-          </div>
-          <div className="asideBarMenu">
-            <a
-              href="/articles"
-              className={
-                pathName === "/articles"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiFileDocumentOutline} />
-              </span>
-              <span className="asideBarMenuText">article</span>
-            </a>
-          </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/affilations"
+                  className={
+                    pathName === "/affilations"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiAccountNetworkOutline} />
+                  </span>
+                  <span className="asideBarMenuText">affilation</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/articles"
+                  className={
+                    pathName === "/articles"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiFileDocumentOutline} />
+                  </span>
+                  <span className="asideBarMenuText">article</span>
+                </a>
+              </div>
 
-          <div className="asideBarMenu">
-            <a
-              href="/posted-jobs"
-              className={
-                pathName === "/posted-jobs"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiBriefcaseCheckOutline} />
-              </span>
-              <span className="asideBarMenuText">Posted Job's</span>
-            </a>
-          </div>
-          <div className="asideBarMenu">
-            <a
-              href="/executive"
-              className={
-                pathName === "/executive"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiAccountTieOutline} />
-              </span>
-              <span className="asideBarMenuText">Executive</span>
-            </a>
-          </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/posted-jobs"
+                  className={
+                    pathName === "/posted-jobs"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiBriefcaseCheckOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Posted Job's</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/executive"
+                  className={
+                    pathName === "/executive"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiAccountTieOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Executive</span>
+                </a>
+              </div>
 
-          <div className="asideBarMenu">
-            <a
-              href="/Candidate"
-              className={
-                pathName === "/Candidate"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiAccountSupervisorOutline} />
-              </span>
-              <span className="asideBarMenuText">Candidate's</span>
-            </a>
-          </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/Candidate"
+                  className={
+                    pathName === "/Candidate"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiAccountSupervisorOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Candidate's</span>
+                </a>
+              </div>
 
-          <div className="asideBarMenu">
-            <a
-              href="/Appliedjob"
-              className={
-                pathName === "/Appliedjob"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiFormatListBulleted} />
-              </span>
-              <span className="asideBarMenuText">Applied Job List</span>
-            </a>
-          </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/Appliedjob"
+                  className={
+                    pathName === "/Appliedjob"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiFormatListBulleted} />
+                  </span>
+                  <span className="asideBarMenuText">Applied Job List</span>
+                </a>
+              </div>
 
-          <div className="asideBarMenu">
-            <a
-              href="/Freejobalert"
-              className={
-                pathName === "/Freejobalert"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiBullhornOutline} />
-              </span>
-              <span className="asideBarMenuText"> Free job alert</span>
-            </a>
-          </div>
-          <div className="asideBarMenu">
-            <a
-              href="/testimonial"
-              className={
-                pathName === "/testimonial"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiMessageOutline} />
-              </span>
-              <span className="asideBarMenuText">Testimonial</span>
-            </a>
-          </div>
-          <div className="asideBarMenu">
-            <a
-              href="/membershipplan"
-              className={
-                pathName === "/membershipplan"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiFinance} />
-              </span>
-              <span className="asideBarMenuText">Membership Plan</span>
-            </a>
-          </div>
-          <div className="asideBarMenu">
-            <a
-              href="/careers-or-advice"
-              className={
-                pathName === "/careers-or-advice"
-                  ? "asideBarMenuTrigger active"
-                  : "asideBarMenuTrigger"
-              }
-            >
-              <span className="asideBarMenuIcon">
-                <Icon path={mdiBriefcaseOutline} />
-              </span>
-              <span className="asideBarMenuText">Careers or advice</span>
-            </a>
-          </div>
-          </>:""}
+              <div className="asideBarMenu">
+                <a
+                  href="/Freejobalert"
+                  className={
+                    pathName === "/Freejobalert"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiBullhornOutline} />
+                  </span>
+                  <span className="asideBarMenuText"> Free job alert</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/testimonial"
+                  className={
+                    pathName === "/testimonial"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiMessageOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Testimonial</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/membershipplan"
+                  className={
+                    pathName === "/membershipplan"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiFinance} />
+                  </span>
+                  <span className="asideBarMenuText">Membership Plan</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/careers-or-advice"
+                  className={
+                    pathName === "/careers-or-advice"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiBriefcaseOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Careers or advice</span>
+                </a>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
           <div className="asideBarMenu">
             <button className="asideBarMenuTrigger" onClick={handleLogout}>
               <span className="asideBarMenuIcon">

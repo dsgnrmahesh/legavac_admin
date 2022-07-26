@@ -4,15 +4,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Table from "../Commons/Table";
-import { getCTCDashboardDetail } from "../config/api";
+import { getCTCDashboardDetailForAdmin } from "../config/api";
 
-export default function CTCDashboard() {
+export default function CTCDashboardAdmin() {
   const [data, setData] = useState();
   useEffect(() => {
     bindData();
   });
   async function bindData() {
-    await getCTCDashboardDetail(sessionStorage.getItem("UserID"))
+    debugger;
+    await getCTCDashboardDetailForAdmin()
       .then((response) => {
         if (response[0].length > 0) {
           setData(response[0]);
@@ -24,15 +25,16 @@ export default function CTCDashboard() {
         alert(error);
       });
   }
-  const update = (e) => {
-    console.log(e);
-  }
   const columns = useMemo(
     () => [
       // {
-      //   Header: "ID",
+      //   Header: "",
       //   accessor: "ID",
       // },
+      {
+        Header: "Executive Name",
+        accessor: "executive_name",
+      },
       {
         Header: "Company Name",
         accessor: "company_name",
@@ -61,23 +63,21 @@ export default function CTCDashboard() {
         Header: "Payment Year",
         accessor: "payment_year",
       },
-      {
-        Header: "Action",
-        id: "ID",
-        Cell: ({row}) => {
-          return (
-            <div className="actionColumn">
-              <button className="edit" onClick={e => this.update()}>
-                <Icon path={mdiPencilOutline} />
-              </button>
-              <button className="del">
-                <Icon path={mdiTrashCanOutline} />
-              </button>
-            </div>
-          );
-        }
-
-      },
+      // {
+      //   Header: "Action",
+      //   Cell: () => {
+      //     return (
+      //       <div className="actionColumn">
+      //         <button className="edit">
+      //           <Icon path={mdiPencilOutline} />
+      //         </button>
+      //         <button className="del">
+      //           <Icon path={mdiTrashCanOutline} />
+      //         </button>
+      //       </div>
+      //     );
+      //   },
+      // },
     ],
     []
   );
@@ -98,13 +98,13 @@ export default function CTCDashboard() {
                   </li>
                 </ol>
               </div>
-              <Link
+              {/* <Link
                 className="contentAction d-flex align-items-center justify-content-center"
                 title="add executive"
                 to="/dashboard-ctc-add"
               >
                 <Icon path={mdiPlus} />
-              </Link>
+              </Link> */}
             </div>
             <div className="contentBody">
               <Table
