@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
-import { getCompanyForDDL, getCTCDashboardByID, IU_Company, IU_CTCDashboard } from "../config/api";
+import {
+  getCompanyForDDL,
+  getCTCDashboardByID,
+  IU_Company,
+  IU_CTCDashboard,
+} from "../config/api";
 
-export default function AddCTCDashboard({props}) {
+export default function AddCTCDashboard({ props }) {
   const [state, setState] = useState({
-    ID:0,
-    Salutation:"",
-    FirstName:"",
-    MiddleName:"",
-    LastName:"",
-    CompanyID:"",
-    CompanyName:"",
-    JoiningDate:"",
-    CTC:"0",
-    CTCamount:"0",
-    CTCtype:"Thousand",
-    CTCPer:"7.89",
-    TotalAmount:"0",
-    GST:"0",
-    PaymentYear:"0",
-    CreatedBy:sessionStorage.getItem("UserID"),
+    ID: 0,
+    Salutation: "",
+    FirstName: "",
+    MiddleName: "",
+    LastName: "",
+    CompanyID: "",
+    CompanyName: "",
+    JoiningDate: "",
+    CTC: "0",
+    CTCamount: "0",
+    CTCtype: "Thousand",
+    CTCPer: "7.89",
+    TotalAmount: "0",
+    GST: "0",
+    PaymentYear: "0",
+    CreatedBy: sessionStorage.getItem("UserID"),
     errors: [],
   });
   const [cname, setCompanyName] = useState([]);
@@ -35,38 +40,49 @@ export default function AddCTCDashboard({props}) {
       UpdateData(id);
     }
   }, []);
-  function handlechange(e) {debugger;
-    if(e.target.name==="CTCamount"){
-      let _ttlamount=0;
-      let _amt=0;
-      if(state.CTCtype==="Thousand"){
-          _amt=e.target.value*1000;
-          _ttlamount=(_amt*state.CTCPer)/100;
-      }else if(state.CTCtype==="Lakh"){      
-          _amt=e.target.value*100000;
-          _ttlamount=(_amt*state.CTCPer)/100;
+  function handlechange(e) {
+    debugger;
+    if (e.target.name === "CTCamount") {
+      let _ttlamount = 0;
+      let _amt = 0;
+      if (state.CTCtype === "Thousand") {
+        _amt = e.target.value * 1000;
+        _ttlamount = (_amt * state.CTCPer) / 100;
+      } else if (state.CTCtype === "Lakh") {
+        _amt = e.target.value * 100000;
+        _ttlamount = (_amt * state.CTCPer) / 100;
       }
-      let _gst=Math.round((_ttlamount*18)/100);
-      setState({ ...state, CTC:_amt, CTCamount:e.target.value,TotalAmount: Math.round(_ttlamount),GST:_gst});
-    }
-    else if(e.target.name==="CTCtype"){
-      let _ttlamount=0;
-      let _amt=0;
-      if(e.target.value==="Thousand"){
-          _amt=state.CTCamount*1000;
-          _ttlamount=(_amt*state.CTCPer)/100;
-      }else if(e.target.value==="Lakh"){      
-          _amt=state.CTCamount*100000;
-          _ttlamount=(_amt*state.CTCPer)/100;
+      let _gst = Math.round((_ttlamount * 18) / 100);
+      setState({
+        ...state,
+        CTC: _amt,
+        CTCamount: e.target.value,
+        TotalAmount: Math.round(_ttlamount),
+        GST: _gst,
+      });
+    } else if (e.target.name === "CTCtype") {
+      let _ttlamount = 0;
+      let _amt = 0;
+      if (e.target.value === "Thousand") {
+        _amt = state.CTCamount * 1000;
+        _ttlamount = (_amt * state.CTCPer) / 100;
+      } else if (e.target.value === "Lakh") {
+        _amt = state.CTCamount * 100000;
+        _ttlamount = (_amt * state.CTCPer) / 100;
       }
-      let _gst=Math.round((_ttlamount*18)/100);
-      setState({ ...state,CTCtype:e.target.value, TotalAmount: Math.round(_ttlamount),GST:_gst});
-    }
-    else {
-    setState({ ...state, [e.target.name]: e.target.value });
+      let _gst = Math.round((_ttlamount * 18) / 100);
+      setState({
+        ...state,
+        CTCtype: e.target.value,
+        TotalAmount: Math.round(_ttlamount),
+        GST: _gst,
+      });
+    } else {
+      setState({ ...state, [e.target.name]: e.target.value });
     }
   }
-  async function handlechangecompany(e) {debugger;
+  async function handlechangecompany(e) {
+    debugger;
     const arr = [];
     if (e.__isNew__ === true) {
       await IU_Company({
@@ -77,10 +93,14 @@ export default function AddCTCDashboard({props}) {
         arr.push(response[0][0].ID);
       });
     } else {
-      arr.push({key:e.value,value:e.label});
+      arr.push({ key: e.value, value: e.label });
     }
     debugger;
-    setState({ ...state, CompanyID: arr[0].key.toString(),CompanyName: arr[0].value.toString() });
+    setState({
+      ...state,
+      CompanyID: arr[0].key.toString(),
+      CompanyName: arr[0].value.toString(),
+    });
     setCompanyName(e);
   }
   async function BindCompanyDDL() {
@@ -89,7 +109,6 @@ export default function AddCTCDashboard({props}) {
     });
   }
   async function UpdateData(id) {
-
     await getCTCDashboardByID(id)
       .then((response) => {
         setState(response[0][0]);
@@ -100,39 +119,40 @@ export default function AddCTCDashboard({props}) {
   }
   async function ResetState() {
     setState({
-      ID:0,
-    Salutation:"",
-    FirstName:"",
-    MiddleName:"",
-    LastName:"",
-    CompanyID:"",
-    CompanyName:"",
-    JoiningDate:"",
-    CTC:"0",
-    CTCPer:"0",
-    TotalAmount:"0",
-    GST:"0",
-    PaymentYear:"0",
-    CreatedBy:sessionStorage.getItem("UserID"),
-    errors: [],
+      ID: 0,
+      Salutation: "",
+      FirstName: "",
+      MiddleName: "",
+      LastName: "",
+      CompanyID: "",
+      CompanyName: "",
+      JoiningDate: "",
+      CTC: "0",
+      CTCPer: "0",
+      TotalAmount: "0",
+      GST: "0",
+      PaymentYear: "0",
+      CreatedBy: sessionStorage.getItem("UserID"),
+      errors: [],
     });
   }
-  async function SaveData() {debugger;
+  async function SaveData() {
+    debugger;
     //console.log(state);
     if (validate()) {
       await IU_CTCDashboard(state)
         .then((response) => {
           //alert(response[0][0].ID);
-          if(response[0][0].ID === "already used"){
+          if (response[0][0].ID === "already used") {
             let errors = {};
             errors["CompanyName"] = "Already used by anither executive";
             setState({
               ...state,
               errors: errors,
             });
-          }else{
-          alert("Save Data Successfully");
-          ResetState();
+          } else {
+            alert("Save Data Successfully");
+            ResetState();
           }
         })
         .catch((error) => {
@@ -207,8 +227,11 @@ export default function AddCTCDashboard({props}) {
                 <Col xs={4} md={2} lg={2}>
                   <div className="form-group">
                     <label className="form-label">Salutation</label>
-                    <select className="form-select" name="Salutation"
-                    onChange={handlechange}>
+                    <select
+                      className="form-select"
+                      name="Salutation"
+                      onChange={handlechange}
+                    >
                       <option value="">Select</option>
                       <option>Mr.</option>
                       <option>Mrs.</option>
@@ -282,18 +305,18 @@ export default function AddCTCDashboard({props}) {
                   </div>
                 </Col>
                 <Col xs={12} md={4} lg={4}>
-                <div className="form-group">
-                      <label className="form-label">Company Name</label>
-                      <CreatableSelect
-                        name="CompanyName"
-                        className="basic-multi-select"
-                        classNamePrefix="select"
-                        onChange={handlechangecompany}
-                        //onInputChange={handleInputChange}
-                        options={companyddl}
-                        value={cname}
-                      />
-                      {/* <input
+                  <div className="form-group">
+                    <label className="form-label">Company Name</label>
+                    <CreatableSelect
+                      name="CompanyName"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      onChange={handlechangecompany}
+                      //onInputChange={handleInputChange}
+                      options={companyddl}
+                      value={cname}
+                    />
+                    {/* <input
                     type="text"
                     className="form-control big"
                     placeholder="Enter company name"
@@ -301,14 +324,14 @@ export default function AddCTCDashboard({props}) {
                     onChange={handleChange}
                     name="CompanyName"
                   /> */}
-                      {state.errors ? (
-                        <div className="invalid-feedback">
-                          {state.errors.CompanyName}
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+                    {state.errors ? (
+                      <div className="invalid-feedback">
+                        {state.errors.CompanyName}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </Col>
                 <Col xs={12} md={3} lg={3}>
                   <div className="form-group">
@@ -341,9 +364,13 @@ export default function AddCTCDashboard({props}) {
                         value={state.CTCamount}
                         className="form-control text-end"
                       />
-                      <select className="form-select" style={{ maxWidth: 120 }} name="CTCtype"
-                      onChange={handlechange}
-                      value={state.CTCtype}>
+                      <select
+                        className="form-select"
+                        style={{ maxWidth: 120 }}
+                        name="CTCtype"
+                        onChange={handlechange}
+                        value={state.CTCtype}
+                      >
                         <option value="Thousand">Thousand</option>
                         <option value="Lakh">Lakh</option>
                       </select>
@@ -409,9 +436,7 @@ export default function AddCTCDashboard({props}) {
                       className="form-control"
                     />
                     {state.errors ? (
-                      <div className="invalid-feedback">
-                        {state.errors.GST}
-                      </div>
+                      <div className="invalid-feedback">{state.errors.GST}</div>
                     ) : (
                       ""
                     )}
@@ -438,8 +463,12 @@ export default function AddCTCDashboard({props}) {
                 </Col>
                 <Col sm={12} md={12}>
                   <div className="d-flex justify-content-center mt-3">
-                    <button className="btn orrange me-2" onClick={ResetState}>Reset</button>
-                    <button className="btn indigo" onClick={SaveData}>Submit</button>
+                    <button className="btn orrange me-2" onClick={ResetState}>
+                      Reset
+                    </button>
+                    <button className="btn indigo" onClick={SaveData}>
+                      Submit
+                    </button>
                   </div>
                 </Col>
               </Row>

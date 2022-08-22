@@ -52,9 +52,9 @@ export default function Aside() {
           {sessionStorage.getItem("Type") === "executive" ? (
             <div className="asideBarMenu">
               <a
-                href="/dashboard-ctc"
+                href="/view-companies"
                 className={
-                  pathName === "/dashboard-ctc"
+                  pathName === "/view-companies"
                     ? "asideBarMenuTrigger active"
                     : "asideBarMenuTrigger"
                 }
@@ -62,7 +62,7 @@ export default function Aside() {
                 <span className="asideBarMenuIcon">
                   <Icon path={mdiCashRegister} />
                 </span>
-                <span className="asideBarMenuText">CTC Dashboard</span>
+                <span className="asideBarMenuText">Companies</span>
               </a>
             </div>
           ) : (
@@ -204,6 +204,21 @@ export default function Aside() {
                     <Icon path={mdiAccountTieOutline} />
                   </span>
                   <span className="asideBarMenuText">Executive</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/view-companies"
+                  className={
+                    pathName === "/view-companies"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiAccountTieOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Companies</span>
                 </a>
               </div>
 
