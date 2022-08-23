@@ -57,6 +57,8 @@ import AddExecutive from "./Executive/AddExecutive";
 import CTCDashboard from "./Dashboard/CTCDashboard";
 import AddCTCDashboard from "./Dashboard/AddCTCDashboard";
 import CTCDashboardAdmin from "./Dashboard/CTCDashboardAdmin";
+import AddCompany from "./Dashboard/AddCompany";
+import ViewCompanies from "./Dashboard/ViewCompanies";
 
 export default function App() {
   const showCond = window.location.pathname !== "/auth/login";
@@ -161,6 +163,8 @@ export default function App() {
               path="/dashboard-ctc-add"
               component={AddCTCDashboard}
             />
+            <Route exact path="/add-company" component={AddCompany} />
+            <Route exact path="/view-companies" component={ViewCompanies} />
           </Switch>
         </main>
         <Footer showCond={showCond} />

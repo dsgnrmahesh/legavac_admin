@@ -38,44 +38,20 @@ export default function CTCDashboard() {
         accessor: "company_name",
       },
       {
-        Header: "Candidate Name",
-        accessor: "candidate_name",
+        Header: "Contact Person Name",
+        accessor: "contact_person_name",
       },
       {
-        Header: "CTC",
-        accessor: "ctc",
+        Header: "Contact Number",
+        accessor: "contact_no",
       },
       {
-        Header: "% CTC",
-        accessor: "ctc_perc",
+        Header: "Date",
+        accessor: "date",
       },
       {
-        Header: "Total Amount",
-        accessor: "total_amount",
-      },
-      {
-        Header: "GST",
-        accessor: "gst",
-      },
-      {
-        Header: "Payment Year",
-        accessor: "payment_year",
-      },
-      {
-        Header: "Action",
-        id: "ID",
-        Cell: ({ row }) => {
-          return (
-            <div className="actionColumn">
-              <button className="edit" onClick={(e) => this.update()}>
-                <Icon path={mdiPencilOutline} />
-              </button>
-              <button className="del">
-                <Icon path={mdiTrashCanOutline} />
-              </button>
-            </div>
-          );
-        },
+        Header: "Remark",
+        accessor: "remark",
       },
     ],
     []
@@ -87,20 +63,20 @@ export default function CTCDashboard() {
           <div className="contentScroll">
             <div className="contentHeader d-flex align-items-center">
               <div className="px-4 w-100">
-                <h3 className="contentTitle fs-23 px-0">CTC Dashboard</h3>
+                <h3 className="contentTitle fs-23 px-0">View Companies</h3>
                 <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
                     <a href="/">Home</a>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
-                    CTC Dashboard
+                    View Companies
                   </li>
                 </ol>
               </div>
               <Link
                 className="contentAction d-flex align-items-center justify-content-center"
-                title="add executive"
-                to="/dashboard-ctc-add"
+                title="add company"
+                to="/add-company"
               >
                 <Icon path={mdiPlus} />
               </Link>

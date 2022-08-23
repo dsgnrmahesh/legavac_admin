@@ -976,3 +976,8 @@ table.click tbody tr.seleted {
 .clstype{
   text-transform: capitalize;
 }
+
+.textarea-remark{
+  height: 30px;
+  width: 50%;
+}
