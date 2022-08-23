@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Table from "../Commons/Table";
-import { getCTCDashboardDetailForAdmin } from "../config/api";
+import { deleteCTCDashboard, getCTCDashboardDetailForAdmin } from "../config/api";
 
 export default function CTCDashboardAdmin() {
   const [data, setData] = useState();
@@ -12,7 +12,6 @@ export default function CTCDashboardAdmin() {
     bindData();
   });
   async function bindData() {
-    debugger;
     await getCTCDashboardDetailForAdmin()
       .then((response) => {
         if (response[0].length > 0) {
@@ -25,16 +24,20 @@ export default function CTCDashboardAdmin() {
         alert(error);
       });
   }
+  async function DeleteData(id) {debugger;
+    if (window.confirm('Are you sure delete data?')) {
+      await deleteCTCDashboard(id)
+        .then((response) => {
+          alert("Data Deleted Successfully");
+          bindData();
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  }
   const columns = useMemo(
     () => [
-      // {
-      //   Header: "",
-      //   accessor: "ID",
-      // },
-      {
-        Header: "Executive Name",
-        accessor: "executive_name",
-      },
       {
         Header: "Company Name",
         accessor: "company_name",
@@ -63,21 +66,23 @@ export default function CTCDashboardAdmin() {
         Header: "Payment Year",
         accessor: "payment_year",
       },
-      // {
-      //   Header: "Action",
-      //   Cell: () => {
-      //     return (
-      //       <div className="actionColumn">
-      //         <button className="edit">
-      //           <Icon path={mdiPencilOutline} />
-      //         </button>
-      //         <button className="del">
-      //           <Icon path={mdiTrashCanOutline} />
-      //         </button>
-      //       </div>
-      //     );
-      //   },
-      // },
+      {
+        Header: "Action",
+        Cell: ({row}) => {
+          return (
+            <div className="actionColumn">
+              {/* <button className="edit" onClick={()=>{window.location.href="/dashboard-ctc-update/"+row.original.UserID}}> */}
+              <Link to={"/dashboard-ctc-update/"+row.original.ID}>
+                <Icon path={mdiPencilOutline} />
+                </Link>
+              {/* </button> */}
+              <button className="del" onClick={()=>DeleteData(row.original.ID)}>
+                <Icon path={mdiTrashCanOutline} />
+              </button>
+            </div>
+          );
+        },
+      },
     ],
     []
   );
@@ -98,13 +103,13 @@ export default function CTCDashboardAdmin() {
                   </li>
                 </ol>
               </div>
-              {/* <Link
+              <Link
                 className="contentAction d-flex align-items-center justify-content-center"
                 title="add executive"
                 to="/dashboard-ctc-add"
               >
                 <Icon path={mdiPlus} />
-              </Link> */}
+              </Link>
             </div>
             <div className="contentBody">
               <Table
