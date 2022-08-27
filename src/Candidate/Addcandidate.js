@@ -52,7 +52,7 @@ export default function AddCandidate({ setSmShow, editid, bindData }) {
           else {
             //  alert("You Are Already Login...");
             let errors = {};
-            errors["Title"] = "You Are Already Login...";
+            errors["EmailID"] = "You Are Already Login...";
             setState({
               ...state,
               errors: errors,
