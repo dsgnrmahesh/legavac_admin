@@ -7,6 +7,9 @@ const AddExecutiveData = (props) => {
   const [state, setState] = useState({
     ID: 0,
     ContactPersonName: "",
+    DateOfBirthday:"",
+      EmailID:"",
+      Designation:"",
     ContactMobile: "",
     DateOfMeeting: "",
     Remark: "",
@@ -15,6 +18,10 @@ const AddExecutiveData = (props) => {
     CreatedBy: sessionStorage.getItem("UserID"),
     errors: [],
   });
+
+  const options =[{label:'HR'},{label:'Recruiter other'}]
+  const [search, setSearch] = useState({ Designation: "" });
+
   const [cname, setCompanyName] = useState([]);
   const [companyddl, setCompanyDDL] = useState([]);
   const {
@@ -27,6 +34,12 @@ const AddExecutiveData = (props) => {
       UpdateData(id);
     }
   }, []);
+
+  function handlechange(e) {
+    setSearch({ ...search, [e.target.name]: e.target.value });
+  }
+
+
   function handlechange(e) {
     debugger;
     setState({ ...state, [e.target.name]: e.target.value });
@@ -71,6 +84,9 @@ const AddExecutiveData = (props) => {
     setState({
       ID: 0,
       ContactPersonName: "",
+      DateOfBirthday:"",
+      EmailID:"",
+      Designation:"",
       ContactMobile: "",
       DateOfMeeting: "",
       Remark: "",
@@ -114,6 +130,18 @@ const AddExecutiveData = (props) => {
     if (!state.ContactPersonName) {
       IsValid = false;
       errors["ContactPersonName"] = "Contact Person Name is Required";
+    }
+    if (!state.DateOfBirthday) {
+      IsValid = false;
+      errors["DateOfBirthday"] = "Date Of Birthday is Required";
+    }
+    if (!state.EmailID) {
+      IsValid = false;
+      errors["EmailID"] = "Email ID is Required";
+    }
+    if (!state.Designation) {
+      IsValid = false;
+      errors["Designation"] = "Designation is Required";
     }
     if (!state.ContactMobile) {
       IsValid = false;
@@ -197,6 +225,64 @@ const AddExecutiveData = (props) => {
                     )}
                   </div>
                 </Col>
+
+                <Col xs={12} md={4} lg={4}>
+                  <div className="form-group">
+                    <label className="form-label">Date Of Birthday</label>
+                    <input
+                      type="date"
+                      name="DateOfBirthday"
+                      className="form-control"
+                      value={state.DateOfBirthday}
+                      onChange={handlechange}
+                    />
+                    {state.errors ? (
+                      <div className="invalid-feedback">
+                        {state.errors.DateOfBirthday}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </Col>
+
+                <Col xs={12} md={4} lg={4}>
+                  <div className="form-group">
+                    <label className="form-label">EmailID</label>
+                    <input
+                      type="text"
+                      name="EmailID"
+                      className="form-control"
+                      value={state.EmailID}
+                      onChange={handlechange}
+                    />
+                    {state.errors ? (
+                      <div className="invalid-feedback">
+                        {state.errors.EmailID}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </Col>
+
+                 <Col xs={12} md={4} lg={4}>
+                  <div className="form-group">
+                    <label className="form-label">Designation</label>
+                     <select className="form-select" name="Designation" value={state.Designation} style={{ maxWidth: 170 }} onChange={handlechange}>
+                  <option value="0">Select Designation</option>
+                  <option value="1">HR</option>
+                  <option value="2">Recruiter Other</option>
+                  </select>
+                    {state.errors ? (
+                      <div className="invalid-feedback">
+                        {state.errors.Designation}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </Col> 
                 <Col xs={12} md={4} lg={4}>
                   <div className="form-group">
                     <label className="form-label">Contact Number</label>
