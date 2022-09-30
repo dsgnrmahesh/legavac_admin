@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
-import { getCompanyForDDL, getExecutiveDataByID, IU_Company, IU_ExecutiveData } from "../config/api";
+import { getCompanyForDDL, getExecutiveDataByID, IU_Company, IU_ExecutiveData,iuexecutivedata } from "../config/api";
 
 const AddExecutiveData = (props) => {
   const [state, setState] = useState({
@@ -101,7 +101,7 @@ const AddExecutiveData = (props) => {
     debugger;
     //console.log(state);
     if (validate()) {
-      await IU_ExecutiveData(state)
+      await iuexecutivedata(state)
         .then((response) => {
           //alert(response[0][0].ID);
           if (response[0][0].ID === "already used") {
