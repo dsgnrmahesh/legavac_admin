@@ -19,6 +19,7 @@ import {
   mdiBullhornOutline,
   mdiAccountSupervisorOutline,
   mdiCashRegister,
+  mdiBank,
 } from "@mdi/js";
 export default function Aside() {
   const pathName = window.location.pathname;
@@ -216,7 +217,7 @@ export default function Aside() {
                   }
                 >
                   <span className="asideBarMenuIcon">
-                    <Icon path={mdiAccountTieOutline} />
+                    <Icon path={mdiBank} />
                   </span>
                   <span className="asideBarMenuText">Companies</span>
                 </a>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  mdiPlus,
+  mdiFilter,
   mdiFileOutline,
   mdiPencilOutline,
   mdiTrashCanOutline,
@@ -8,7 +8,7 @@ import {
 import { Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiAccountCircleOutline } from "@mdi/js";
-import Addcandidate from "./Addcandidate";
+import FilterCandidate from "./FilterCandidate";
 import ViewCandidate from "./ViewCandidate";
 import {
   getCandidateDetail,
@@ -30,7 +30,6 @@ export default function Candidate() {
     bindData();
   }, []);
 
-
   async function bindData() {
     await getCandidateDetail()
       .then((response) => {
@@ -41,13 +40,11 @@ export default function Candidate() {
       });
   }
 
-
   useEffect(() => {
     BindCandidateDetail();
   }, []);
 
   async function BindCandidateDetail() {
-
     await getCandidateDetail()
       .then((response) => {
         setData(response.data[0]);
@@ -57,7 +54,6 @@ export default function Candidate() {
       });
   }
   async function SearchData() {
-
     //e.preventDefault();
     if (search.Searchtext !== "" || search.Exp !== "" || search.Salary !== "") {
       await getCandidateDetailSearchText(search)
@@ -73,9 +69,8 @@ export default function Candidate() {
     }
   }
 
-
   async function DeleteData(id) {
-    if (window.confirm('Are you sure delete data?')) {
+    if (window.confirm("Are you sure delete data?")) {
       await getCandidateDelete(id)
         .then((response) => {
           alert("Data Deleted Successfully");
@@ -100,7 +95,7 @@ export default function Candidate() {
     <tr
       key={idx}
       className={idx === 0 ? "seleted" : ""}
-    // onClick={() => setViewCandidate(item)}
+      // onClick={() => setViewCandidate(item)}
     >
       {/* <td className="fileIcon">
         <img
@@ -117,7 +112,14 @@ export default function Candidate() {
       <td>{item.LastName}</td> */}
       <td>{item.Mobile}</td>
       <td>{item.EmailID}</td>
-      <td><a href={"https://admin.legavac.com/uploads/resume/" + item.Resumepath} target="_blank">{item.Resumepath}</a></td>
+      <td>
+        <a
+          href={"https://admin.legavac.com/uploads/resume/" + item.Resumepath}
+          target="_blank"
+        >
+          {item.Resumepath}
+        </a>
+      </td>
       <td>
         <div className="actionColumn">
           {/* <button
@@ -156,7 +158,7 @@ export default function Candidate() {
                   onChange={handlechange}
                   className="form-control me-3"
                 />
-                <select className="form-select me-3" name="Exp" value={search.Exp} style={{ maxWidth: 170 }} onChange={handlechange}>
+                {/*<select className="form-select me-3" name="Exp" value={search.Exp} style={{ maxWidth: 170 }} onChange={handlechange}>
                   <option value="0">Select</option>
                   <option value="1">Bellow 1 Years</option>
                   <option value="2">1 - 2 Years</option>
@@ -171,22 +173,25 @@ export default function Candidate() {
                   <option value="3">2 - 3 Lakhs</option>
                   <option value="4">3 - 4 Lakhs</option>
                   <option value="5">Above 5 Lakhs</option>
-                </select>
+  </select>*/}
                 <button
                   className="btn btn-success ms-3"
                   onClick={() => SearchData()}
                 >
                   Search
                 </button>
-              </div>
-              {/* <button
+              </div>{" "}
+              <button
                 className="contentAction"
-                onClick={() => {setSmShow(true);setEditID(0);}}
-                title="add Candidate"
+                onClick={() => {
+                  setSmShow(true);
+                  setEditID(0);
+                  setMode("Filter");
+                }}
+                title="Filter Candidate"
               >
-                <Icon path={mdiPlus} />
+                <Icon path={mdiFilter} />
               </button>
-       */}
             </div>
 
             <div className="contentBody border-end">
@@ -216,14 +221,16 @@ export default function Candidate() {
           ""
         )}
       </Row>
-      <Modal size="sm" show={smShow} onHide={() => setSmShow(false)} centered>
+      <Modal size="md" show={smShow} onHide={() => setSmShow(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>
-            {mode} Candidate
-          </Modal.Title>
+          <Modal.Title>{mode} Candidate</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Addcandidate setSmShow={setSmShow} editid={editid} bindData={bindData} />
+          <FilterCandidate
+            setSmShow={setSmShow}
+            editid={editid}
+            bindData={bindData}
+          />
         </Modal.Body>
       </Modal>
     </>
