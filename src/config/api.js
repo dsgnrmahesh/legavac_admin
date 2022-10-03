@@ -84,6 +84,26 @@ export async function getExecutiveData(id) {
     .get(`${API_URL}/getExecutiveData/${id}`)
     .then((res) => res.data);
 }
+export async function getExecutiveDataByID_admin(id) {
+  return await axios
+    .get(`${API_URL}/getExecutiveDataByID_admin/${id}`)
+    .then((res) => res.data);
+}
+export async function getExecutiveCompanyData_admin(id) {
+  return await axios
+    .get(`${API_URL}/getExecutiveCompanyData_admin/${id}`)
+    .then((res) => res.data);
+}
+export async function getExecutiveDataByCompanyID_admin(state) {
+  return await axios
+    .post(`${API_URL}/getExecutiveDataByCompanyID_admin`,state)
+    .then((res) => res.data);
+}
+export async function updatecontactpersonstatus(state) {
+  return await axios
+    .post(`${API_URL}/updatecontactpersonstatus`,state)
+    .then((res) => res.data);
+}
 export async function getExecutiveDataByExecutiveID(id) {
   return await axios
     .get(`${API_URL}/getExecutiveDataByExecutiveID/${id}`)

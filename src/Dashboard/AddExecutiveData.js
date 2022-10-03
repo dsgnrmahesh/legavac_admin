@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
-import { getCompanyForDDL, getExecutiveDataByID, IU_Company, IU_ExecutiveData,iuexecutivedata } from "../config/api";
+import { getCompanyForDDL, getExecutiveDataByID, IU_Company, IU_ExecutiveData, iuexecutivedata } from "../config/api";
 
 const AddExecutiveData = (props) => {
   const [state, setState] = useState({
     ID: 0,
     ContactPersonName: "",
-    DateOfBirthday:"",
-      EmailID:"",
-      Designation:"",
+    DateOfBirthday: "",
+    EmailID: "",
+    Designation: "",
     ContactMobile: "",
     DateOfMeeting: "",
     Remark: "",
@@ -19,7 +19,7 @@ const AddExecutiveData = (props) => {
     errors: [],
   });
 
-  const options =[{label:'HR'},{label:'Recruiter other'}]
+  const options = [{ label: 'HR' }, { label: 'Recruiter other' }]
   const [search, setSearch] = useState({ Designation: "" });
 
   const [cname, setCompanyName] = useState([]);
@@ -53,7 +53,7 @@ const AddExecutiveData = (props) => {
         CompanyName: e.label,
         CreatedBy: sessionStorage.getItem("UserID"),
       }).then((response) => {
-        arr.push({key:response[0][0].ID,value:response[0][0].name});
+        arr.push({ key: response[0][0].ID, value: response[0][0].name });
       });
     } else {
       arr.push({ key: e.value, value: e.label });
@@ -84,9 +84,9 @@ const AddExecutiveData = (props) => {
     setState({
       ID: 0,
       ContactPersonName: "",
-      DateOfBirthday:"",
-      EmailID:"",
-      Designation:"",
+      DateOfBirthday: "",
+      EmailID: "",
+      Designation: "",
       ContactMobile: "",
       DateOfMeeting: "",
       Remark: "",
@@ -266,14 +266,14 @@ const AddExecutiveData = (props) => {
                   </div>
                 </Col>
 
-                 <Col xs={12} md={4} lg={4}>
+                <Col xs={12} md={4} lg={4}>
                   <div className="form-group">
                     <label className="form-label">Designation</label>
-                     <select className="form-select" name="Designation" value={state.Designation} style={{ maxWidth: 170 }} onChange={handlechange}>
-                  <option value="0">Select Designation</option>
-                  <option value="1">HR</option>
-                  <option value="2">Recruiter Other</option>
-                  </select>
+                    <select className="form-select" name="Designation" value={state.Designation} onChange={handlechange}>
+                      <option value="0">Select Designation</option>
+                      <option value="1">HR</option>
+                      <option value="2">Recruiter Other</option>
+                    </select>
                     {state.errors ? (
                       <div className="invalid-feedback">
                         {state.errors.Designation}
@@ -282,7 +282,7 @@ const AddExecutiveData = (props) => {
                       ""
                     )}
                   </div>
-                </Col> 
+                </Col>
                 <Col xs={12} md={4} lg={4}>
                   <div className="form-group">
                     <label className="form-label">Contact Number</label>
@@ -308,7 +308,7 @@ const AddExecutiveData = (props) => {
                     <input type="date" name="DateOfMeeting" className="form-control"
                       value={state.DateOfMeeting}
                       onChange={handlechange} />
-                      {state.errors ? (
+                    {state.errors ? (
                       <div className="invalid-feedback">
                         {state.errors.DateOfMeeting}
                       </div>
