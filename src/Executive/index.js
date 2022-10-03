@@ -1,4 +1,4 @@
-import { mdiPlus } from "@mdi/js";
+import { mdiPlus, mdiTrashCanOutline } from "@mdi/js";
 import Icon from "@mdi/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -11,7 +11,7 @@ export default function Executive() {
   useEffect(() => {
     bindData();
   });
-  async function bindData() {debugger;
+  async function bindData() {
     await getUserMasterDetail()
       .then((response) => {
         if(response[0].length>0){
@@ -23,7 +23,7 @@ export default function Executive() {
         alert(error);
       });
   }
-  async function DeleteData(id) {
+  async function DeleteData(id) {debugger;
     if (window.confirm('Are you sure delete data?')) {
       await deleteUserMaster(id)
         .then((response) => {
@@ -37,10 +37,6 @@ export default function Executive() {
   }
   const columns = useMemo(
     () => [
-      {
-        Header: "",
-        accessor: "ID",
-      },
       {
         Header: "Executive Code",
         accessor: "executive_code",
@@ -61,10 +57,22 @@ export default function Executive() {
         Header: "Mobile",
         accessor: "mobile",
       },
-      // {
-      //   Header: "Action",
-      //   accessor: "<Link onClick={() => DeleteData(ID)}>Delete</Link>",
-      // },
+      {
+        Header: "Action",
+        id: "ID",
+        Cell: ({ row }) => {
+          return (
+            <div className="actionColumn">
+              {/* <button className="edit" onClick={DeleteData(row.original.ID)}>
+                <Icon path={mdiPencilOutline} />
+              </button> */}
+              <button className="del" onClick={()=>DeleteData(row.original.UserID)}>
+                <Icon path={mdiTrashCanOutline} />
+              </button>
+            </div>
+          );
+        },
+      },
     ],
     []
   );

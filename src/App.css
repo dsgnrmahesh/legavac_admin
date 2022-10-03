@@ -233,6 +233,9 @@ table.contentTable tbody tr td {
 .actionColumn button.edit {
   color: #4caf50;
 }
+.actionColumn button.view {
+  color: #4735aa;
+}
 .actionColumn button.del {
   color: #f44336;
 }
@@ -349,6 +352,9 @@ table.click tbody tr.seleted {
 }
 .bxAction.edit {
   color: #4caf50;
+}
+.bxAction.view {
+  color: #4735aa;
 }
 .bxAction.del {
   color: #f44336;

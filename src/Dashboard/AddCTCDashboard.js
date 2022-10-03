@@ -8,7 +8,7 @@ import {
   IU_CTCDashboard,
 } from "../config/api";
 
-export default function AddCTCDashboard({ props }) {
+export default function AddCTCDashboard(props) {
   const [state, setState] = useState({
     ID: 0,
     Salutation: "",
@@ -19,9 +19,9 @@ export default function AddCTCDashboard({ props }) {
     CompanyName: "",
     JoiningDate: "",
     CTC: "0",
-    CTCamount: "0",
-    CTCtype: "Thousand",
-    CTCPer: "7.89",
+    CTCAmount: "0",
+    CTCType: "Thousand",
+    CTCPer: "0",
     TotalAmount: "0",
     GST: "0",
     PaymentYear: "0",
@@ -35,6 +35,7 @@ export default function AddCTCDashboard({ props }) {
   } = props;
   const { id } = params;
   useEffect(() => {
+    debugger;
     BindCompanyDDL();
     if (id !== "" && id !== "0" && id !== 0 && typeof id !== "undefined") {
       UpdateData(id);
@@ -42,13 +43,13 @@ export default function AddCTCDashboard({ props }) {
   }, []);
   function handlechange(e) {
     debugger;
-    if (e.target.name === "CTCamount") {
+    if (e.target.name === "CTCAmount") {
       let _ttlamount = 0;
       let _amt = 0;
-      if (state.CTCtype === "Thousand") {
+      if (state.CTCType === "Thousand") {
         _amt = e.target.value * 1000;
         _ttlamount = (_amt * state.CTCPer) / 100;
-      } else if (state.CTCtype === "Lakh") {
+      } else if (state.CTCType === "Lakh") {
         _amt = e.target.value * 100000;
         _ttlamount = (_amt * state.CTCPer) / 100;
       }
@@ -56,24 +57,41 @@ export default function AddCTCDashboard({ props }) {
       setState({
         ...state,
         CTC: _amt,
-        CTCamount: e.target.value,
+        CTCAmount: e.target.value,
         TotalAmount: Math.round(_ttlamount),
         GST: _gst,
       });
-    } else if (e.target.name === "CTCtype") {
+    } else if (e.target.name === "CTCType") {
       let _ttlamount = 0;
       let _amt = 0;
       if (e.target.value === "Thousand") {
-        _amt = state.CTCamount * 1000;
+        _amt = state.CTCAmount * 1000;
         _ttlamount = (_amt * state.CTCPer) / 100;
       } else if (e.target.value === "Lakh") {
-        _amt = state.CTCamount * 100000;
+        _amt = state.CTCAmount * 100000;
         _ttlamount = (_amt * state.CTCPer) / 100;
       }
       let _gst = Math.round((_ttlamount * 18) / 100);
       setState({
         ...state,
-        CTCtype: e.target.value,
+        CTCType: e.target.value,
+        TotalAmount: Math.round(_ttlamount),
+        GST: _gst,
+      });
+    } else if (e.target.name === "CTCPer") {
+      let _ttlamount = 0;
+      let _amt = 0;
+      if (state.CTCType === "Thousand") {
+        _amt = state.CTCAmount * 1000;
+        _ttlamount = (_amt * e.target.value) / 100;
+      } else if (state.CTCType === "Lakh") {
+        _amt = state.CTCAmount * 100000;
+        _ttlamount = (_amt * e.target.value) / 100;
+      }
+      let _gst = Math.round((_ttlamount * 18) / 100);
+      setState({
+        ...state,
+        CTCPer: e.target.value,
         TotalAmount: Math.round(_ttlamount),
         GST: _gst,
       });
@@ -90,7 +108,9 @@ export default function AddCTCDashboard({ props }) {
         CompanyName: e.label,
         CreatedBy: sessionStorage.getItem("UserID"),
       }).then((response) => {
-        arr.push(response[0][0].ID);
+        if (typeof response[0][0].ID !== undefined && response[0][0].ID !== 'undefined') {
+          arr.push({ key: response[0][0].ID, value: response[0][0].name });
+        }
       });
     } else {
       arr.push({ key: e.value, value: e.label });
@@ -112,6 +132,9 @@ export default function AddCTCDashboard({ props }) {
     await getCTCDashboardByID(id)
       .then((response) => {
         setState(response[0][0]);
+        if (response[0][0].CompanyID !== '0' && response[0][0].CompanyID !== 0 && response[0][0].CompanyID !== '') {
+          setCompanyName({ value: response[0][0].CompanyID, label: response[0][0].CompanyName });
+        }
       })
       .catch((error) => {
         alert(error);
@@ -128,6 +151,8 @@ export default function AddCTCDashboard({ props }) {
       CompanyName: "",
       JoiningDate: "",
       CTC: "0",
+      CTCAmount: "0",
+      CTCType: "Thousand",
       CTCPer: "0",
       TotalAmount: "0",
       GST: "0",
@@ -135,6 +160,7 @@ export default function AddCTCDashboard({ props }) {
       CreatedBy: sessionStorage.getItem("UserID"),
       errors: [],
     });
+    setCompanyName([]);
   }
   async function SaveData() {
     debugger;
@@ -143,14 +169,7 @@ export default function AddCTCDashboard({ props }) {
       await IU_CTCDashboard(state)
         .then((response) => {
           //alert(response[0][0].ID);
-          if (response[0][0].ID === "already used") {
-            let errors = {};
-            errors["CompanyName"] = "Already used by anither executive";
-            setState({
-              ...state,
-              errors: errors,
-            });
-          } else {
+          if (response[0][0].ID !== "" && response[0][0].ID !== "undefined") {
             alert("Save Data Successfully");
             ResetState();
           }
@@ -208,7 +227,7 @@ export default function AddCTCDashboard({ props }) {
           <div className="contentScroll">
             <div className="contentHeader d-flex align-items-center">
               <div className="px-4 w-100">
-                <h3 className="contentTitle fs-23 px-0">Add Candidate</h3>
+                <h3 className="contentTitle fs-23 px-0">Add CTC Dashboard</h3>
                 <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
                     <a href="/">Home</a>
@@ -217,7 +236,7 @@ export default function AddCTCDashboard({ props }) {
                     <a href="/dashboard-ctc">CTC Dashboard</a>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
-                    Add Candidate
+                    Add CTC Dashboard
                   </li>
                 </ol>
               </div>
@@ -359,17 +378,17 @@ export default function AddCTCDashboard({ props }) {
                     <div className="input-group">
                       <input
                         type="text"
-                        name="CTCamount"
+                        name="CTCAmount"
                         onChange={handlechange}
-                        value={state.CTCamount}
+                        value={state.CTCAmount}
                         className="form-control text-end"
                       />
                       <select
                         className="form-select"
                         style={{ maxWidth: 120 }}
-                        name="CTCtype"
+                        name="CTCType"
                         onChange={handlechange}
-                        value={state.CTCtype}
+                        value={state.CTCType}
                       >
                         <option value="Thousand">Thousand</option>
                         <option value="Lakh">Lakh</option>
@@ -377,7 +396,7 @@ export default function AddCTCDashboard({ props }) {
                     </div>
                     {state.errors ? (
                       <div className="invalid-feedback">
-                        {state.errors.CTCamount}
+                        {state.errors.CTCAmount}
                       </div>
                     ) : (
                       ""
@@ -393,7 +412,6 @@ export default function AddCTCDashboard({ props }) {
                       onChange={handlechange}
                       value={state.CTCPer}
                       className="form-control"
-                      disabled
                     />
                     {state.errors ? (
                       <div className="invalid-feedback">

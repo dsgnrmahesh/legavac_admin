@@ -4,8 +4,8 @@ export default () => axios.get("/");
 
 
 
-const API_URL="https://api.legavac.com/api/legavac";
-//const API_URL="http://localhost:5000/api/legavac";
+//const API_URL="https://api.legavac.com/api/legavac";
+const API_URL="http://localhost:5000/api/legavac";
 // export async function getcountryforddl() {
 //   return await resolve(axios.get('https://api.legavac.com/api/legavac/getCountryforddl').then(res => res.data));
 // }
@@ -37,6 +37,11 @@ export async function getCTCDashboardByID(id) {
     .get(`${API_URL}/getctcdashboardbyid/${id}`)
     .then((res) => res.data);
 }
+export async function deleteCTCDashboard(id) {
+  return await axios
+    .get(`${API_URL}/deletectcdashboard/${id}`)
+    .then((res) => res.data);
+}
 export async function getCTCDashboardDetailForAdmin() {
   return await axios
     .get(`${API_URL}/getctcdashboarddetailforadmin`)
@@ -61,6 +66,32 @@ export async function getUserMasterDetail() {
 export async function deleteUserMaster(id) {
   return await axios
     .get(`${API_URL}/deleteUserMaster/${id}`)
+    .then((res) => res.data);
+}
+//iuexecutivedata IU_ExecutiveData
+export async function iuexecutivedata(state) {
+  return await axios
+    .post(`${API_URL}/iuexecutivedata`,state)
+    .then((res) => res.data);
+}
+export async function getExecutiveDataByID(id) {
+  return await axios
+    .get(`${API_URL}/getExecutiveDataByID/${id}`)
+    .then((res) => res.data);
+}
+export async function getExecutiveData(id) {
+  return await axios
+    .get(`${API_URL}/getExecutiveData/${id}`)
+    .then((res) => res.data);
+}
+export async function getExecutiveDataByExecutiveID(id) {
+  return await axios
+    .get(`${API_URL}/getExecutiveDataByExecutiveID/${id}`)
+    .then((res) => res.data);
+}
+export async function deleteExecutiveData(id) {
+  return await axios
+    .get(`${API_URL}/deleteExecutiveData/${id}`)
     .then((res) => res.data);
 }
 export async function SendMail(state) {
