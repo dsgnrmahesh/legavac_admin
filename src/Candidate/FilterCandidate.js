@@ -8,7 +8,7 @@ import {
 } from "../config/validate";
 import { ProgressBar, Row, Col } from "react-bootstrap";
 
-export default function AddCandidate({ setSmShow, editid, bindData }) {
+export default function FilterCandidate({ setSmShow, editid, bindData }) {
   const [state, setState] = useState({
     CandidateID: "0",
     FirstName: "",
@@ -54,7 +54,7 @@ export default function AddCandidate({ setSmShow, editid, bindData }) {
           } else {
             //  alert("You Are Already Login...");
             let errors = {};
-            errors["EmailID"] = "You Are Already Login...";
+            errors["Title"] = "You Are Already Login...";
             setState({
               ...state,
               errors: errors,
@@ -225,6 +225,7 @@ export default function AddCandidate({ setSmShow, editid, bindData }) {
               onChange={handlechange}
             >
               <option value="0">Select Country</option>
+              <option value="1">India</option>
             </select>
           </div>
         </Col>
@@ -250,6 +251,7 @@ export default function AddCandidate({ setSmShow, editid, bindData }) {
               onChange={handlechange}
             >
               <option value="0">Select State</option>
+              <option value="1">Maharashtra</option>
             </select>
           </div>
         </Col>

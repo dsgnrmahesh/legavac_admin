@@ -19,6 +19,7 @@ import {
   mdiBullhornOutline,
   mdiAccountSupervisorOutline,
   mdiCashRegister,
+  mdiBank,
 } from "@mdi/js";
 export default function Aside() {
   const pathName = window.location.pathname;
@@ -222,7 +223,37 @@ export default function Aside() {
                   <span className="asideBarMenuText">Posted Job's</span>
                 </a>
               </div>
-              
+              <div className="asideBarMenu">
+                <a
+                  href="/executive"
+                  className={
+                    pathName === "/executive"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiAccountTieOutline} />
+                  </span>
+                  <span className="asideBarMenuText">Executive</span>
+                </a>
+              </div>
+              <div className="asideBarMenu">
+                <a
+                  href="/view-companies"
+                  className={
+                    pathName === "/view-companies"
+                      ? "asideBarMenuTrigger active"
+                      : "asideBarMenuTrigger"
+                  }
+                >
+                  <span className="asideBarMenuIcon">
+                    <Icon path={mdiBank} />
+                  </span>
+                  <span className="asideBarMenuText">Companies</span>
+                </a>
+              </div>
+
               <div className="asideBarMenu">
                 <a
                   href="/Candidate"

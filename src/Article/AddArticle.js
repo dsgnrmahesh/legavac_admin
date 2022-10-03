@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { IU_Article, getArticleDetailByID, UploadArticleImage, UploadArticlePDF, UploadArticleVideo, UploadArticleVideoImage } from "../config/api";
+import {
+  IU_Article,
+  getArticleDetailByID,
+  UploadArticleImage,
+  UploadArticlePDF,
+  UploadArticleVideo,
+  UploadArticleVideoImage,
+} from "../config/api";
 import { checkonlyletterandcharacter } from "../config/validate";
 import { getFileName } from "../config/constant";
-import { ProgressBar, Row } from 'react-bootstrap';
+import { ProgressBar, Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function AddArticle({ setSmShow, editid, bindData }) {
   const [state, setState] = useState({
@@ -46,21 +53,20 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
   }
   const handleChangeE = (rawDraftContentState) => {
     // no need for convertToRaw or stateToHtml anymore
-    console.log(rawDraftContentState)
-  }
+    console.log(rawDraftContentState);
+  };
   async function SaveData() {
     //console.log(state);
     if (validate()) {
       await IU_Article(state)
         .then((response) => {
-          if (response[0][0].ID !== 'exists') {
+          if (response[0][0].ID !== "exists") {
             //setModalShow(false);
             setSmShow(false);
             alert("Data Saved Successfully");
             ResetState();
             window.location.href = "/articles";
-          }
-          else {
+          } else {
             // alert("This Article Already exists...");
             let errors = {};
             errors["Title"] = "This Article Already exists...";
@@ -68,7 +74,6 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
               ...state,
               errors: errors,
             });
-
           }
         })
         .catch((error) => {
@@ -93,11 +98,10 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
           VideoImage: response[0][0].VideoImage,
           Video: response[0][0].Video,
           CreatedBy: sessionStorage.getItem("UserID"),
-          erroes: []
+          erroes: [],
         });
         //setEditorStage(response[0][0].Description);
         //convertContentToHTML();
-
       })
       .catch((error) => {
         alert(error);
@@ -113,7 +117,7 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
       VideoImage: "",
       Video: "",
       CreatedBy: sessionStorage.getItem("UserID"),
-      erroes: []
+      erroes: [],
     });
     //setSmShow(false);
   }
@@ -123,141 +127,173 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
   const config = {
     onUploadProgress: (progressEvent) => {
       const { loaded, total } = progressEvent;
-      percent = Math.round((100 * loaded) / total);//Math.floor((loaded * 100) / total)
+      percent = Math.round((100 * loaded) / total); //Math.floor((loaded * 100) / total)
 
-      console.log(`${loaded}kb of ${total}kb | ${percent}%`) // just to see whats happening in the console
+      console.log(`${loaded}kb of ${total}kb | ${percent}%`); // just to see whats happening in the console
       if (percent <= 100) {
-        setProgress(percent) // hook to set the value of current level that needs to be passed to the progressbar
+        setProgress(percent); // hook to set the value of current level that needs to be passed to the progressbar
       }
     },
     headers: {
       // custom headers goes here
-    }
-  }
+    },
+  };
 
   async function handlechangepdf(e) {
-    setState({ ...state, [e.target.name]: getFileName(state.Title, e.target.files[0]) });
+    setState({
+      ...state,
+      [e.target.name]: getFileName(state.Title, e.target.files[0]),
+    });
 
     const formData = new FormData();
-    formData.append("file", e.target.files[0], getFileName(state.Title, e.target.files[0]));
-    await UploadArticlePDF(formData, config).then(response => {
-      // alert(response.success);
-      if (response.success) {
-        setTimeout(() => {
-          alert("File Uploaded Successfully");
-        }, 600);
-        //alert("File Uploaded Successfully");
-      }
-    }).catch((error) => {
-      alert(error);
-    });
+    formData.append(
+      "file",
+      e.target.files[0],
+      getFileName(state.Title, e.target.files[0])
+    );
+    await UploadArticlePDF(formData, config)
+      .then((response) => {
+        // alert(response.success);
+        if (response.success) {
+          setTimeout(() => {
+            alert("File Uploaded Successfully");
+          }, 600);
+          //alert("File Uploaded Successfully");
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
-
 
   const [progressimage, setProgressimage] = useState();
   let percentimage = 0;
   const configimage = {
     onUploadProgress: (progressEvent) => {
       const { loaded, total } = progressEvent;
-      percentimage = Math.round((100 * loaded) / total);//Math.floor((loaded * 100) / total)
+      percentimage = Math.round((100 * loaded) / total); //Math.floor((loaded * 100) / total)
 
-      console.log(`${loaded}kb of ${total}kb | ${percentimage}%`) // just to see whats happening in the console
+      console.log(`${loaded}kb of ${total}kb | ${percentimage}%`); // just to see whats happening in the console
       if (percentimage <= 100) {
-        setProgressimage(percentimage) // hook to set the value of current level that needs to be passed to the progressbar
+        setProgressimage(percentimage); // hook to set the value of current level that needs to be passed to the progressbar
       }
     },
     headers: {
       // custom headers goes here
-    }
-  }
-
+    },
+  };
 
   async function handlechangeimage(e) {
-    setState({ ...state, [e.target.name]: getFileName(state.Title, e.target.files[0]) });
+    setState({
+      ...state,
+      [e.target.name]: getFileName(state.Title, e.target.files[0]),
+    });
 
     const formData = new FormData();
-    formData.append("file", e.target.files[0], getFileName(state.Title, e.target.files[0]));
-    await UploadArticleImage(formData, configimage).then(response => {
-      // alert(response.success);
-      if (response.success) {
-        setTimeout(() => {
-          alert("File Uploaded Successfully");
-        }, 600);
-        //alert("File Uploaded Successfully");
-      }
-    }).catch((error) => {
-      alert(error);
-    });
+    formData.append(
+      "file",
+      e.target.files[0],
+      getFileName(state.Title, e.target.files[0])
+    );
+    await UploadArticleImage(formData, configimage)
+      .then((response) => {
+        // alert(response.success);
+        if (response.success) {
+          setTimeout(() => {
+            alert("File Uploaded Successfully");
+          }, 600);
+          //alert("File Uploaded Successfully");
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
   const [progressvideoimage, setProgressvideoimage] = useState();
   let percentvideoimage = 0;
   const configvideoimage = {
     onUploadProgress: (progressEvent) => {
       const { loaded, total } = progressEvent;
-      percentvideoimage = Math.round((100 * loaded) / total);//Math.floor((loaded * 100) / total)
+      percentvideoimage = Math.round((100 * loaded) / total); //Math.floor((loaded * 100) / total)
 
-      console.log(`${loaded}kb of ${total}kb | ${percentvideoimage}%`) // just to see whats happening in the console
+      console.log(`${loaded}kb of ${total}kb | ${percentvideoimage}%`); // just to see whats happening in the console
       if (percentvideoimage <= 100) {
-        setProgressvideoimage(percentvideoimage) // hook to set the value of current level that needs to be passed to the progressbar
+        setProgressvideoimage(percentvideoimage); // hook to set the value of current level that needs to be passed to the progressbar
       }
     },
     headers: {
       // custom headers goes here
-    }
-  }
+    },
+  };
   async function handlechangevideoimage(e) {
-    setState({ ...state, [e.target.name]: getFileName(state.Title, e.target.files[0]) });
+    setState({
+      ...state,
+      [e.target.name]: getFileName(state.Title, e.target.files[0]),
+    });
 
     const formData = new FormData();
-    formData.append("file", e.target.files[0], getFileName(state.Title, e.target.files[0]));
-    await UploadArticleVideoImage(formData, configvideoimage).then(response => {
-      // alert(response.success);
-      if (response.success) {
-        setTimeout(() => {
-          alert("File Uploaded Successfully");
-        }, 600);
-        //alert("File Uploaded Successfully");
-      }
-    }).catch((error) => {
-      alert(error);
-    });
+    formData.append(
+      "file",
+      e.target.files[0],
+      getFileName(state.Title, e.target.files[0])
+    );
+    await UploadArticleVideoImage(formData, configvideoimage)
+      .then((response) => {
+        // alert(response.success);
+        if (response.success) {
+          setTimeout(() => {
+            alert("File Uploaded Successfully");
+          }, 600);
+          //alert("File Uploaded Successfully");
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
-
-
 
   const [progressvideo, setProgressvideo] = useState();
   let percentvideo = 0;
   const configvideo = {
     onUploadProgress: (progressEvent) => {
       const { loaded, total } = progressEvent;
-      percentvideo = Math.round((100 * loaded) / total);//Math.floor((loaded * 100) / total)
+      percentvideo = Math.round((100 * loaded) / total); //Math.floor((loaded * 100) / total)
 
-      console.log(`${loaded}kb of ${total}kb | ${percentvideo}%`) // just to see whats happening in the console
+      console.log(`${loaded}kb of ${total}kb | ${percentvideo}%`); // just to see whats happening in the console
       if (percentvideo <= 100) {
-        setProgressvideo(percentvideo) // hook to set the value of current level that needs to be passed to the progressbar
+        setProgressvideo(percentvideo); // hook to set the value of current level that needs to be passed to the progressbar
       }
     },
     headers: {
       // custom headers goes here
-    }
-  }
+    },
+  };
 
   async function handlechangevideo(e) {
-    setState({ ...state, [e.target.name]: getFileName(state.Title, e.target.files[0]) });
+    setState({
+      ...state,
+      [e.target.name]: getFileName(state.Title, e.target.files[0]),
+    });
 
     const formData = new FormData();
-    formData.append("file", e.target.files[0], getFileName(state.Title, e.target.files[0]));
-    await UploadArticleVideo(formData, configvideo).then(response => {
-      //alert(response.success);
-      if (response.success) {
-        setTimeout(() => {
-          alert("File Uploaded Successfully");
-        }, 600);
-        //alert("File Uploaded Successfully");
-      }
-    }).catch((error) => {
-      alert(error);
-    });
+    formData.append(
+      "file",
+      e.target.files[0],
+      getFileName(state.Title, e.target.files[0])
+    );
+    await UploadArticleVideo(formData, configvideo)
+      .then((response) => {
+        //alert(response.success);
+        if (response.success) {
+          setTimeout(() => {
+            alert("File Uploaded Successfully");
+          }, 600);
+          //alert("File Uploaded Successfully");
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
 
   function validate() {
@@ -267,8 +303,7 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
     if (!state.Title) {
       IsValid = false;
       errors["Title"] = "Title is Required";
-    }
-    else {
+    } else {
       if (!checkonlyletterandcharacter(state.Title)) {
         IsValid = false;
         errors["Title"] = "Only letter and character allowed";
@@ -359,7 +394,6 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
             )}
           </div> */}
 
-
         <Col sm={12} md={12}>
           <div className="form-group">
             <label className="form-label">Description</label>
@@ -413,7 +447,9 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
               ""
             )}
           </div>
-          {progressimage && <ProgressBar now={progressimage} label={`${progressimage}%`} />}
+          {progressimage && (
+            <ProgressBar now={progressimage} label={`${progressimage}%`} />
+          )}
         </Col>
 
         <Col sm={12} md={6}>
@@ -432,7 +468,12 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
               ""
             )}
           </div>
-          {progressvideoimage && <ProgressBar now={progressvideoimage} label={`${progressvideoimage}%`} />}
+          {progressvideoimage && (
+            <ProgressBar
+              now={progressvideoimage}
+              label={`${progressvideoimage}%`}
+            />
+          )}
         </Col>
 
         <Col sm={12} md={6}>
@@ -451,7 +492,9 @@ export default function AddArticle({ setSmShow, editid, bindData }) {
               ""
             )}
           </div>
-          {progressvideo && <ProgressBar now={progressvideo} label={`${progressvideo}%`} />}
+          {progressvideo && (
+            <ProgressBar now={progressvideo} label={`${progressvideo}%`} />
+          )}
         </Col>
 
         <Col sm={12} md={12}>
