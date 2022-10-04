@@ -1,4 +1,4 @@
-import { mdiPencilOutline, mdiPlus, mdiTrashCanOutline } from "@mdi/js";
+import { mdiEyeOutline,mdiPencilOutline, mdiPlus, mdiTrashCanOutline ,mdiArrowDownBold,mdiReceipt} from "@mdi/js";
 import Icon from "@mdi/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -81,6 +81,8 @@ export default function CTCDashboardAdmin() {
               <button className="del" onClick={()=>DeleteData(row.original.ID)}>
                 <Icon path={mdiTrashCanOutline} />
               </button>
+              {/* <Icon path={mdiEyeOutline} /> */}
+              <Icon path={mdiArrowDownBold} />
             </div>
           );
         },
