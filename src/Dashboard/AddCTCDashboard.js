@@ -203,11 +203,11 @@ export default function AddCTCDashboard(props) {
     }
     if (!state.CTC) {
       IsValid = false;
-      errors["CTC"] = "CTC is Required";
+      errors["CTC"] = "CTC/Commerical is Required";
     }
     if (!state.JoiningDate) {
       IsValid = false;
-      errors["JoiningDate"] = "JoiningDate is Required";
+      errors["JoiningDate"] = "Client Joining Date is Required";
     }
     if (!state.PaymentYear) {
       IsValid = false;
