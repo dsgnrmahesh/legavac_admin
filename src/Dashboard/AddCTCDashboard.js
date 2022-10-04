@@ -285,7 +285,7 @@ export default function AddCTCDashboard(props) {
                     )}
                   </div>
                 </Col>
-                <Col xs={12} md={3} lg={3}>
+                {/* <Col xs={12} md={3} lg={3}>
                   <div className="form-group">
                     <label className="form-label">Middle Name</label>
                     <input
@@ -303,7 +303,7 @@ export default function AddCTCDashboard(props) {
                       ""
                     )}
                   </div>
-                </Col>
+                </Col> */}
                 <Col xs={12} md={3} lg={3}>
                   <div className="form-group">
                     <label className="form-label">Last Name</label>
@@ -354,7 +354,7 @@ export default function AddCTCDashboard(props) {
                 </Col>
                 <Col xs={12} md={3} lg={3}>
                   <div className="form-group">
-                    <label className="form-label">Joining Date</label>
+                    <label className="form-label">Joining /Client Date</label>
                     <input
                       type="date"
                       name="JoiningDate"
@@ -374,7 +374,7 @@ export default function AddCTCDashboard(props) {
                 <Col xs={12} md={12} lg={12}></Col>
                 <Col xs={12} md={3} lg={3}>
                   <div className="form-group">
-                    <label className="form-label">CTC</label>
+                    <label className="form-label">CTC/Commercial</label>
                     <div className="input-group">
                       <input
                         type="text"
@@ -405,7 +405,8 @@ export default function AddCTCDashboard(props) {
                 </Col>
                 <Col xs={12} md={2} lg={2}>
                   <div className="form-group">
-                    <label className="form-label">% CTC</label>
+                    {/* <label className="form-label">% CTC</label> */}
+                    <label className="form-label">Professional Fee</label>
                     <input
                       type="text"
                       name="CTCPer"

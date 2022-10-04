@@ -47,11 +47,13 @@ export default function CTCDashboardAdmin() {
         accessor: "candidate_name",
       },
       {
-        Header: "CTC",
+        // Header: "CTC",
+        Header: "CTC/Commercial",
         accessor: "ctc",
       },
       {
-        Header: "% CTC",
+        // Header: "% CTC",
+        Header: "Professional Fee",
         accessor: "ctc_perc",
       },
       {
