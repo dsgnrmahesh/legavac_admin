@@ -47,6 +47,11 @@ export async function getCTCDashboardDetailForAdmin() {
     .get(`${API_URL}/getctcdashboarddetailforadmin`)
     .then((res) => res.data);
 }
+export async function getCTCDashboardByID_invoice(id) {
+  return await axios
+    .get(`${API_URL}/getctcdashboardbyid_invoice/${id}`)
+    .then((res) => res.data);
+}
 
 export async function IU_UserMaster(state) {
   return await axios

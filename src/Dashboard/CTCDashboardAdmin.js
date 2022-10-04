@@ -1,4 +1,4 @@
-import { mdiEyeOutline,mdiPencilOutline, mdiPlus, mdiTrashCanOutline ,mdiArrowDownBold,mdiReceipt} from "@mdi/js";
+import { mdiEyeOutline, mdiPencilOutline, mdiPlus, mdiTrashCanOutline, mdiArrowDownBold, mdiReceipt } from "@mdi/js";
 import Icon from "@mdi/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -24,7 +24,8 @@ export default function CTCDashboardAdmin() {
         alert(error);
       });
   }
-  async function DeleteData(id) {debugger;
+  async function DeleteData(id) {
+    debugger;
     if (window.confirm('Are you sure delete data?')) {
       await deleteCTCDashboard(id)
         .then((response) => {
@@ -70,19 +71,27 @@ export default function CTCDashboardAdmin() {
       },
       {
         Header: "Action",
-        Cell: ({row}) => {
+        Cell: ({ row }) => {
           return (
             <div className="actionColumn">
               {/* <button className="edit" onClick={()=>{window.location.href="/dashboard-ctc-update/"+row.original.UserID}}> */}
-              <Link to={"/dashboard-ctc-update/"+row.original.ID}>
+              <Link to={"/dashboard-ctc-update/" + row.original.ID}>
                 <Icon path={mdiPencilOutline} />
-                </Link>
+              </Link>
               {/* </button> */}
-              <button className="del" onClick={()=>DeleteData(row.original.ID)}>
+              <button className="del" onClick={() => DeleteData(row.original.ID)}>
                 <Icon path={mdiTrashCanOutline} />
               </button>
-              {/* <Icon path={mdiEyeOutline} /> */}
-              <Icon path={mdiArrowDownBold} />
+              <a
+                href={`/print/invoice/` + row.original.ID}
+                className="table-action-button"
+                target="_blank"
+              //onClick={()=>window.open(`/print/bill/`+row.ID,"_blank")}
+              >
+                {/* Invoice */}
+                <Icon path={mdiArrowDownBold} />
+              </a>
+
             </div>
           );
         },
