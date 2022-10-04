@@ -18,7 +18,7 @@ export default function AddCTCDashboard(props) {
     CompanyID: "",
     CompanyName: "",
     JoiningDate: "",
-    CTC: "0",
+    Commercial: "0",
     CTCAmount: "0",
     CTCType: "Thousand",
     CTCPer: "0",
