@@ -170,7 +170,7 @@ export default function AddCTCDashboard(props) {
         .then((response) => {
           //alert(response[0][0].ID);
           if (response[0][0].ID !== "" && response[0][0].ID !== "undefined") {
-            alert("Save Data Successfully");
+            alert("Save  Data  Successfully");
             ResetState();
           }
         })
