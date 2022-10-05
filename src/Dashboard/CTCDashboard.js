@@ -42,7 +42,7 @@ export default function CTCDashboard() {
         accessor: "candidate_name",
       },
       {
-        Header: "CTC/Commercial",
+        Header: "CTC / Commercial",
         accessor: "ctc",
       },
       {
@@ -88,7 +88,7 @@ export default function CTCDashboard() {
           <div className="contentScroll">
             <div className="contentHeader d-flex align-items-center">
               <div className="px-4 w-100">
-                <h3 className="contentTitle fs-23 px-0">CTC Dashboard</h3>
+                <h3 className="contentTitle fs-23 px-0">CTC  Dashboard</h3>
                 <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
                     <a href="/">Home</a>
