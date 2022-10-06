@@ -59,7 +59,9 @@ import ViewExecutiveData from "./Dashboard/ViewExecutiveData";
 import CTCDashboard from "./Dashboard/CTCDashboard";
 import AddCTCDashboard from "./Dashboard/AddCTCDashboard";
 import CTCDashboardAdmin from "./Dashboard/CTCDashboardAdmin";
-import Invoice from "./print/Invoice";
+// import Invoice from "./print/Invoice";
+import Invoice from "./print/invoice";
+
 
 export default function App() {
   const showCond = window.location.pathname !== "/auth/login";
@@ -103,7 +105,7 @@ export default function App() {
           )}
           <main className={showCond ? "appMain" : ""}>
             <Switch>
-            <Route exact path="/print/invoice/:id" element={<Invoice />} />
+            <Route exact path="/print/invoice/:id" element={Invoice} />
               <Route exact path="/dashboard" component={Dashboard} />
 
               <Route exact path="/auth/login" component={Login} />
