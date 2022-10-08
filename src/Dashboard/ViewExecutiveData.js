@@ -40,8 +40,8 @@ export default function ExecutiveData() {
         alert(error);
       });
   }
-  async function bindData_company_admin() {
-    await getExecutiveCompanyData_admin(sessionStorage.getItem("UserID"))
+  async function bindData_company_admin(eid) {debugger;
+    await getExecutiveCompanyData_admin(eid)
       .then((response) => {
         if (response[0].length > 0) {
           setDataCompanyAdmin(response[0]);

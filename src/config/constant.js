@@ -11,4 +11,12 @@ export function getFileName(name,file){
     
     return name.replace(/[^A-Z0-9]+/ig, "-")+"-"+date+time+"."+file.name.split('.')[1];
 }
+
+export const COMPANY_DETAILS = {
+    Name: "Legavac",
+    address: "Office No - 1007, Kamdhenu, Sector-14, Kharghar,Navi Mumbai - 410210",
+    mobile: "+91 7021912110",
+    pancard: "",
+    gstno: ""
+  }
 export default  {inputtype,datatype,controltype}

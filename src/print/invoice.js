@@ -3,18 +3,18 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCTCDashboardByID_invoice } from "../config/api";
 import converter from "number-to-words";
+import { COMPANY_DETAILS } from '../config/constant';
 
 export default function Invoice() {
-    debugger;
     const { id } = useParams();
     const [data, setData] = useState([]);
     const [show, setShow] = useState(true);
-    //console.log(id);
+
     useEffect(() => {
-        
         bindData();
     }, []);
     async function bindData() {
+        debugger;
         await getCTCDashboardByID_invoice(id)
             .then((response) => {
                 setData(response[0]);
@@ -24,209 +24,183 @@ export default function Invoice() {
             });
     }
     const styles = `
-.rightNested td:not([colspan]):nth-child(1){
-    border-style: solid;
-    border-color: #000;
-    border-right-width: 1px
-}
-.rightNested tr:not(:last-child){
-    border-bottom: 1px solid #000;
-}
-.reciptContent th{
-    padding: 5px;
-}
-.reciptContent tbody td{
-    padding: 5px;
-}
-    `
-    //window.print();
-    //window.onafterprint = window.close;
-    const Print = () => {
-        //setShow(false);
-        //window.print();
+    .contentTable th{
+        border: 1px solid #000;
     }
-    // function Submit(){
-    //     window.location.href="/dashboard";
-    // }
+    .contentTable td:not(:last-child){
+        border-right: 1px solid #000;
+    }
+    @media print {@page{size: auto;}}
+    `;
+    const total_parent_DIV = {
+        display: 'flex',
+        paddingBottom: 3
+    }
+    const total_b = {
+        fontWeight: 500,
+        width: 110,
+        textAlign: 'right'
+    }
+    const total_span = {
+        width: 90,
+        marginLeft: 10,
+        borderBottom: '1px solid #666',
+        lineHeight: "19px",
+        height: 19,
+        textAlign: 'right',
+        paddingRight: 7
+    }
+    const finance_details_span = {
+        fontWeight: 600
+    }
+    setTimeout(() => {
+        window.print();        
+    }, 1000);
+    window.onafterprint = window.close;
     return (
         <>
-        Welcome
             <style>
                 {styles}
             </style>
-            {show &&
-                <div>
-                    <button onClick={Print} className="btn btn-indigo">Print</button>
-                    {/* <button onClick={Submit} className="btn btn-success">Submit</button> */}
-                </div>
-            }
             {data ? data.map((item, index) => (
-                <table style={{ border: '1px solid #000', width: 750, margin: '0 auto' }}>
+                <table style={{ border: '0px solid #000', width: 750, margin: '0 auto' }}>
                     <tbody>
-                        <tr style={{ borderBottom: '1px solid #000' }}>
-                            <td style={{ padding: 10, borderRight: '1px solid #000' }}>
-                                <img src='/images/logo.png' alt='' style={{ display: 'block', float: 'left' }} />
-                                <span style={{ display: 'block', float: 'right', fontSize: 21, lineHeight: "21px", fontWeight: 500, textAlign: 'center', paddingRight: 20, paddingTop: 10 }}>
-                                    Abhita Land <br />
-                                    Solutions Pvt. Ltd.
-                                </span>
-                                <div style={{ width: '100%', clear: 'both', paddingTop: 20 }}>
-                                    Office No. 1006, 10th Floor, International Trade Center,<br />
-                                    Kamdhenu, Sector - 14, Kharghar, Navi Mumbai - 410210<br />
-                                    Contact No. - 77100 73844<br />
-                                    Email - info@abhitalandsolutions.com
-                                </div>
-                            </td>
-                            <td style={{ padding: 0, textAlign: 'center' }}>
-                                <table className='rightNested' width='100%'>
-                                    <tbody>
-                                        <tr>
-                                            <td style={{ padding: 5 }}>
-                                                Invoice No.<br />
-                                                <b>{"LV" + item.ID}</b>
-                                            </td>
-                                            <td style={{ padding: 5 }}>
-                                                Dated<br />
-                                                <b>{item.createdDate}</b>
-                                            </td>
-                                        </tr>
-                                        {/* <tr>
-                                        <td style={{ padding: 5 }}>
-                                            Supplier's Ref.<br />
-                                            <b>{item.SName}</b>
-                                        </td>
-                                        <td style={{ padding: 5 }}>
-                                            Other Reference(s)<br />
-                                            <b>NA</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{ padding: 5 }}>
-                                            Buyer's Order No.<br />
-                                            <b>NA</b>
-                                        </td>
-                                        <td style={{ padding: 5 }}>
-                                            Dated<br />
-                                            <b>NA</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={2} style={{ padding: 5 }}>
-                                            Payment Term : &nbsp;
-                                            <b>Immediate</b>
-                                        </td>
-                                    </tr> */}
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr style={{ borderBottom: '1px solid #000' }}>
-                            <td style={{ verticalAlign: 'top', padding: '5px 8px', borderRight: '1px solid #000' }}>
-                                Candidate Name,{item.fullname}<br />
-                            </td>
+                        <tr>
                             <td>
-                                <div style={{ minHeight: 40 }}></div>
+                                <img src='/logo.png' alt='' style={{ display: 'block', float: 'left' }} />
                             </td>
                         </tr>
                         <tr>
-                            <td colSpan={2} style={{ padding: 0 }}>
-                                <table style={{ width: '100%', marginBottom: 200 }} className='reciptContent'>
-                                    <thead>
+                            <td>
+                                <div style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    paddingTop: 30
+                                }}>
+                                    <div style={{ width: '50%', paddingRight: 20 }}>
+                                        <label style={{ marginBottom: 6, fontWeight: 600 }}>Candidate Name: </label>
+                                        <div style={{ fontWeight: 500 }}>{item.fullname}</div>
+                                        {/* <p style={{ marginBottom: 6 }}>Shri Swami Samarth Complex, Suvarnayug Colony, Pimple Gurav, Pune, Maharashtra - 421027</p> */}
+                                        {/* <div>+91 {item.Mobile}</div> */}
+                                    </div>
+                                    <div style={{ width: '50%', paddingLeft: 20 }}>
+                                        <label style={{ marginBottom: 6, fontWeight: 600 }}>BILL FROM: </label>
+                                        <div style={{ fontWeight: 500 }}>{COMPANY_DETAILS.Name}</div>
+                                        <p style={{ marginBottom: 3 }}>{COMPANY_DETAILS.address}</p>
+                                        <div style={{ marginBottom: 8 }}>{COMPANY_DETAILS.mobile}</div>
+                                        <div><b>Date :- </b> {item.createdDate}</div>
+                                        <div><b>Invoice No. :- </b> {"LV" + item.ID}</div>
+                                        {/* <div><b>PAN No. :- </b>{COMPANY_DETAILS.pancard}</div>
+                                    <div><b>GSTIN No. :- </b>{COMPANY_DETAILS.gstno}</div> */}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style={{ width: '100%', marginTop: 15,borderBottom:'1px solid' }} border={1} className='contentTable'>
+                                    <thead align="center">
                                         <tr>
-                                            <th style={{
-                                                width: '40px',
-                                                padding: '5px',
-                                                textAlign: 'center',
-                                                borderRight: '1px solid #000'
-                                            }}>Sr. No.</th>
-                                            <th style={{
-                                                width: '430px',
-                                                padding: '5px',
-                                                textAlign: 'center',
-                                                borderRight: '1px solid #000'
-                                            }}>Description of services</th>
-                                            <th style={{
-                                                width: '70px',
-                                                padding: '5px',
-                                                textAlign: 'center',
-                                                borderRight: '1px solid #000'
-                                            }}>Quantity</th>
-                                            {/* <th style={{
-                                            width: '70px',
-                                            padding: '5px',
-                                            textAlign: 'center',
-                                            borderRight: '1px solid #000'
-                                        }}>Rate</th>
-                                        <th style={{
-                                            width: '70px',
-                                            padding: '5px',
-                                            textAlign: 'center',
-                                            borderRight: '1px solid #000'
-                                        }}>Per</th> */}
-                                            <th style={{
-                                                width: '71px',
-                                                padding: '5px',
-                                                textAlign: 'center',
-                                            }}>Amount</th>
+                                            <th rowSpan={2} width={40}>Sr. No.</th>
+                                            <th rowSpan={2} width={356}>Name</th>
+                                            {/* <th rowSpan={2} width={100}>Amount</th>
+                                            <th colSpan={2} width={180}>GST</th> */}
+                                            <th rowSpan={2} width={108}>Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody style={{ borderTop: '1px solid #000' }}>
-                                        {/* {[1].map((item, idx) => */}
+                                    <tbody>
+                                        {/* {[1].map((item1, idx) =>  */}
                                         <tr>
-                                            <td style={{ borderRight: '1px solid #000' }}>1.</td>
-                                            <td style={{ borderRight: '1px solid #000' }}>Fee</td>
-                                            <td style={{ borderRight: '1px solid #000', padding: '2px 8px 2px 2px', textAlign: 'right', borderBottom: '1px solid #000' }}>1</td>
-                                            {/* <td style={{ borderRight: '1px solid #000' }}>&nbsp;</td>
-                                            <td style={{ borderRight: '1px solid #000' }}>&nbsp;</td> */}
-                                            <td style={{ padding: '2px 8px 2px 2px', textAlign: 'right', borderBottom: '1px solid #000' }}>{item.CTC}</td>
-                                        </tr>
-                                        {/* )} */}
-                                    </tbody>
-                                    <tfoot>
-                                        <tr style={{ border: '1px solid #000', borderWidth: '1px 0px' }}>
-                                            <td colSpan={2} align="right" style={{ padding: '2px 10px 2px 10px', borderRight: '1px solid #000' }}><b>TOTAL</b></td>
-                                            <td style={{ padding: 2, borderRight: '1px solid #000' }}></td>
-                                            {/* <td style={{ padding: 2, borderRight: '1px solid #000' }}></td>
-                                        <td style={{ padding: 2, borderRight: '1px solid #000' }}></td> */}
-                                            <td style={{ padding: '2px 8px 2px 2px', textAlign: 'right', borderBottom: '1px solid #000' }}>{item.CTC}</td>
+                                            <td align='right' style={{ paddingRight: 6, fontWeight: 500 }}>1.</td>
+                                            <td style={{ fontWeight: '800' }}>{item.CompanyName}</td>
+                                            {/* <td>{Math.round((item.CTC) * 100) / 100}</td>
+                                            <td>{Math.round((item.GST) * 100) / 100}</td> */}
+                                            <td></td>
                                         </tr>
                                         <tr>
-                                            <td colSpan={2} rowSpan={3} style={{ verticalAlign: 'top', padding: '4px 8px 2px 8px' }}>
-                                                <div style={{ minHeight: 40 }}>
-                                                    (in word) - <b>{converter.toWords(item.TotalAmount)}</b>
-                                                </div>
-                                            </td>
+                                            <td align='right' style={{ paddingRight: 6, fontWeight: 500 }}>2.</td>
+                                            <td>CTC/Commercial</td>
+                                            {/* <td>{Math.round((item.CTC) * 100) / 100}</td>
+                                            <td>{Math.round((item.GST) * 100) / 100}</td> */}
+                                            <td>{Math.round((item.CTC) * 100) / 100}</td>
+                                        </tr>
+                                        <tr>
+                                            <td align='right' style={{ paddingRight: 6, fontWeight: 500 }}>3.</td>
+                                            <td>Professional Fee(%)</td>
+                                            {/* <td>{Math.round((item.CTC) * 100) / 100}</td>
+                                            <td>{Math.round((item.GST) * 100) / 100}</td> */}
+                                            <td>{Math.round((item.CTCPer) * 100) / 100}</td>
+                                        </tr>
+                                        <tr>
+                                            <td align='right' style={{ paddingRight: 6, fontWeight: 500 }}>4.</td>
+                                            <td>Total Amount</td>
+                                            {/* <td>{Math.round((item.CTC) * 100) / 100}</td>
+                                            <td>{Math.round((item.GST) * 100) / 100}</td> */}
+                                            <td>{Math.round((item.TotalAmount) * 100) / 100}</td>
+                                        </tr>
+                                        <tr>
+                                            <td align='right' style={{ paddingRight: 6, fontWeight: 500 }}>5.</td>
                                             <td>GST(18%)</td>
-                                            <td style={{ padding: '2px 8px 2px 2px', textAlign: 'right', borderBottom: '1px solid #000' }}>{item.GST}</td>
+                                            {/* <td>{Math.round((item.CTC) * 100) / 100}</td>
+                                            <td>{Math.round((item.GST) * 100) / 100}</td> */}
+                                            <td>{Math.round((item.GST) * 100) / 100}</td>
                                         </tr>
-                                        <tr>
-                                            <td><b>Net Balance</b></td>
-                                            <td style={{ padding: '2px 8px 2px 2px', textAlign: 'right', borderBottom: '3px solid #000' }}><b>{item.TotalAmount}</b></td>
-                                        </tr>
-                                        {/* <tr>
-                                        <td colSpan={2} rowSpan={3} style={{ verticalAlign: 'top', padding: '4px 8px 2px 8px' }}>
-                                            <div style={{ minHeight: 40 }}>
-                                                (in word) - <b>amount in word here</b>
-                                            </div>
-                                        </td>
-                                        <td colSpan={2}>GST(18%)</td>
-                                        <td style={{ padding: '2px 8px 2px 2px', textAlign: 'right', borderBottom: '1px solid #000' }}>{item.GSTAmount}</td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={2} rowSpan={3} style={{ verticalAlign: 'top', padding: '4px 8px 2px 8px' }}>
-                                            <div style={{ minHeight: 40 }}>
-                                                {/* (in word) - <b>amount in word here</b> *
-                                            </div>
-                                        </td>
-                                        <td colSpan={2}>Total Amount</td>
-                                        <td style={{ padding: '2px 8px 2px 2px', textAlign: 'right', borderBottom: '1px solid #000' }}>{item.TotalAmount}</td>
-                                    </tr> 
-                                    <tr>
-                                        <td colSpan={2}><b>Net Balance</b></td>
-                                        <td style={{ padding: '2px 8px 2px 2px', textAlign: 'right', borderBottom: '3px double #000' }}><b>0.00</b></td>
-                                    </tr>*/}
-                                    </tfoot>
+                                    </tbody>
                                 </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    paddingTop: 10
+                                }}>
+                                    <div style={{ width: 518, paddingRight: 20 }}>
+                                        <div style={{ display: 'flex', marginBottom: 10, textTransform: 'capitalize' }}>
+                                            <b>(in word) : </b>
+                                            <span>&nbsp;{converter.toWords(Math.round((item.TotalAmount) * 100) / 100)} Only</span>
+                                        </div>
+                                        {/* <div style={{ fontWeight: 500 }}>for NEFT / RTGS / IMPS :-</div> */}
+                                        {/* {item.StampDutyFee!=='0' && item.StampDutyFee!==0?<div><b style={{ fontWeight: 500 }}>Stamp Duty Fee :- </b> <span>{item.StampDutyFee}</span></div>:""}
+                                    {item.RegistrationFee!=='0' && item.RegistrationFee!==0?<div style={{marginBottom:10}}><b style={{ fontWeight: 500}}>Registration Fee :- </b> <span>{item.RegistrationFee}</span></div>:""}
+                                     */}
+                                        {/* {item.StampDutyFee!=='0' && item.StampDutyFee!==0 || 
+                                    item.RegistrationFee!=='0' && item.RegistrationFee!==0
+                                    ?<div style={{marginBottom:10}}><b style={{ fontWeight: 500 }}>Govt Fees :- </b> <span>{item.StampDutyFee+item.RegistrationFee}</span></div>:""}
+                                     */}
+                                        {/* <label style={{ marginBottom: 6, fontWeight: 600 }}>PAYMENT INFORMATION: </label>
+                                        <div>
+                                            <b style={{ fontWeight: 500 }}>Payment / Cheque to be made in the name  of :- </b>
+                                            <div style={{ fontWeight: 600, marginBottom: 10 }}>{COMPANY_BANK_DETAILS.accountName}</div>
+                                        </div>
+                                        <div style={{ fontWeight: 500 }}>for NEFT / RTGS / IMPS :-</div>
+                                        <div><b style={{ fontWeight: 500 }}>Account Name :- </b> <span style={finance_details_span}>{COMPANY_BANK_DETAILS.accountName}</span></div>
+                                        <div><b style={{ fontWeight: 500 }}>Account No. :- </b> <span style={finance_details_span}>{COMPANY_BANK_DETAILS.accountNumber}</span></div>
+                                        <div><b style={{ fontWeight: 500 }}>IFSC Code :- </b> <span style={finance_details_span}>{COMPANY_BANK_DETAILS.ifsc}</span></div>
+                                        <div><b style={{ fontWeight: 500 }}>Name of bank :- </b> <span style={finance_details_span}>{COMPANY_BANK_DETAILS.bankName}</span></div>
+                                        <div><b style={{ fontWeight: 500 }}>Name of branch :- </b> <span style={finance_details_span}>{COMPANY_BANK_DETAILS.branch}</span></div> */}
+                                    </div>
+                                    {/* <div style={{ width: 230, paddingLeft: 20 }}>
+                                        <div style={total_parent_DIV}><b style={total_b}>Sub Total :- </b> <span style={total_span}>
+                                            {item.ServiceID === '1' || item.ServiceID === 1 || item.ServiceID === '2' || item.ServiceID === 2 ? (item.ShowGST !== '0' && item.ShowGST !== 0 && item.ShowGST !== null ? Math.round((item.CompanyFee + item.StampDutyFee + item.RegistrationFee + item.AbhitaChallan) * 100) / 100 : Math.round((item.CompanyFee + item.GSTAmount + item.StampDutyFee + item.RegistrationFee + item.AbhitaChallan) * 100) / 100) :
+                                                (item.ShowGST !== '0' && item.ShowGST !== 0 && item.ShowGST !== null ? Math.round((item.CompanyFee + item.StampDutyFee + item.RegistrationFee) * 100) / 100 : Math.round((item.CompanyFee + item.GSTAmount + item.StampDutyFee + item.RegistrationFee) * 100) / 100)}</span></div>
+                                        <div style={total_parent_DIV}><b style={total_b}>Tax Rate(%) :- </b> <span style={total_span}>{item.ShowGST !== '0' && item.ShowGST !== 0 && item.ShowGST !== null ? '18' : '0'}</span></div>
+                                        <div style={total_parent_DIV}><b style={total_b}>Total Tax :- </b> <span style={{ ...total_span, borderBottom: 0 }}>{item.ShowGST !== '0' && item.ShowGST !== 0 && item.ShowGST !== null ? Math.round((item.GSTAmount) * 100) / 100 : 0}</span></div>
+                                        <div style={{ width: 210, borderBottom: '1px solid #000', marginBottom: 8, paddingTop: 3 }}></div>
+                                        <div style={total_parent_DIV}><b style={total_b}>Total Payable :- </b> <span style={{ ...total_span, borderBottom: 0, fontWeight: 600 }}>₹ {item.TotalAmount}</span></div>
+                                    </div> */}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style={{ width: '100%', paddingRight: 20, paddingTop: 10 }}>
+                                    <label style={{ marginBottom: 6, fontWeight: 600 }}>DECLARATION: </label>
+                                    <div>
+                                        <b style={{ fontWeight: 500 }}>We declare that this invoice shows the actual price of the services described and that all particulars are true and correct.</b>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

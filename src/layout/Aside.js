@@ -144,7 +144,7 @@ export default function Aside() {
                   <span className="asideBarMenuIcon">
                     <Icon path={mdiCashRegister} />
                   </span>
-                  <span className="asideBarMenuText">CTC Dashboard</span>
+                  <span className="asideBarMenuText">CTC Dashboard(Invoice)</span>
                 </a>
               </div>
               <div className="asideBarMenu">
@@ -159,7 +159,7 @@ export default function Aside() {
                   <span className="asideBarMenuIcon">
                     <Icon path={mdiAccountTieOutline} />
                   </span>
-                  <span className="asideBarMenuText">Executive</span>
+                  <span className="asideBarMenuText">Sale Executive</span>
                 </a>
               </div>
               <div className="asideBarMenu">
@@ -174,7 +174,7 @@ export default function Aside() {
                   <span className="asideBarMenuIcon">
                     <Icon path={mdiAccountTieOutline} />
                   </span>
-                  <span className="asideBarMenuText">Executive Data</span>
+                  <span className="asideBarMenuText">Sale Executive Data</span>
                 </a>
               </div>
               <div className="asideBarMenu">

@@ -74,9 +74,9 @@ export default function App() {
   ) {
     return (
       <Router>
-        <Route exact path="/" element={<SignIn />} />
-        <Route exact path="/auth/signin" element={<SignIn />} />
-        <Route exact path="/a/print/invoice/:id" element={<Invoice />} />
+        <Route exact path="/" component={SignIn} />
+        <Route exact path="/auth/signin" component={SignIn} />
+        <Route exact path="/print/invoice/:id" component={Invoice} />
       </Router>
     );
   }
@@ -85,7 +85,7 @@ export default function App() {
   ) {
     return (
       <Router>
-        <Route exact path="/a/print/invoice/:id" element={<Invoice />} />
+        <Route exact path="/print/invoice/:id" component={Invoice} />
       </Router>
     );
   } else {
@@ -103,7 +103,7 @@ export default function App() {
           )}
           <main className={showCond ? "appMain" : ""}>
             <Switch>
-            <Route exact path="/print/invoice/:id" element={<Invoice />} />
+            {/* <Route exact path="/print/invoice/:id" element={<Invoice />} /> */}
               <Route exact path="/dashboard" component={Dashboard} />
 
               <Route exact path="/auth/login" component={Login} />
