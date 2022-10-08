@@ -1046,7 +1046,8 @@ export async function checkEmailID(state) {
     )
     .then((res) => res.data);
 }
-
+//IU_Company
+//iucompany
 //Company
 export async function IU_Company(state) {
   return await axios
