@@ -13,10 +13,10 @@ export function getFileName(name,file){
 }
 
 export const COMPANY_DETAILS = {
-    Name: "Legavac",
-    address: "Office No - 1007, Kamdhenu, Sector-14, Kharghar,Navi Mumbai - 410210",
+    Name: "LagaVac Resources Pvt Ltd",
+    address: "Office No - 1007, Kamdhenu, Sector-14, Kharghar, Navi Mumbai - 410210",
     mobile: "+91 7021912110",
     pancard: "",
-    gstno: ""
+    gstno: "27AAECL7848Q1ZK"
   }
 export default  {inputtype,datatype,controltype}

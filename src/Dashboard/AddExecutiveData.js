@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
-import { getCompanyForDDL, getExecutiveDataByID, IU_Company, IU_ExecutiveData, iuexecutivedata } from "../config/api";
+import { getCompanyForDDL, getExecutiveDataByID, IU_Company, IU_ExecutiveData, iuexecutivedata, IU_Designation, getDesignationForDDL } from "../config/api";
 
 const AddExecutiveData = (props) => {
   const [state, setState] = useState({
@@ -9,6 +9,7 @@ const AddExecutiveData = (props) => {
     ContactPersonName: "",
     DateOfBirthday: "",
     EmailID: "",
+    DesignationID: "",
     Designation: "",
     ContactMobile: "",
     DateOfMeeting: "",
@@ -24,12 +25,15 @@ const AddExecutiveData = (props) => {
 
   const [cname, setCompanyName] = useState([]);
   const [companyddl, setCompanyDDL] = useState([]);
+  const [designation, setDesignation] = useState([]);
+  const [designationddl, setDesignationDDL] = useState([]);
   const {
     match: { params },
   } = props;
   const { id } = params;
   useEffect(() => {
     BindCompanyDDL();
+    BindDesignationDDL();
     if (id !== "" && id !== "0" && id !== 0 && typeof id !== "undefined") {
       UpdateData(id);
     }
@@ -71,6 +75,33 @@ const AddExecutiveData = (props) => {
       setCompanyDDL(response[0]);
     });
   }
+  async function handlechangedesignation(e) {
+    debugger;
+    const arr = [];
+    if (e.__isNew__ === true) {
+      await IU_Designation({
+        ID: 0,
+        Name: e.label,
+        CreatedBy: sessionStorage.getItem("UserID"),
+      }).then((response) => {
+        arr.push({ key: response[0][0].ID, value: response[0][0].name });
+      });
+    } else {
+      arr.push({ key: e.value, value: e.label });
+    }
+    debugger;
+    setState({
+      ...state,
+      DesignationID: arr[0].key.toString(),
+      Designation: arr[0].value.toString(),
+    });
+    setDesignation(e);
+  }
+  async function BindDesignationDDL() {
+    await getDesignationForDDL().then((response) => {
+      setDesignationDDL(response[0]);
+    });
+  }
   async function UpdateData(id) {
     await getExecutiveDataByID(id)
       .then((response) => {
@@ -86,6 +117,7 @@ const AddExecutiveData = (props) => {
       ContactPersonName: "",
       DateOfBirthday: "",
       EmailID: "",
+      DesignationID: "",
       Designation: "",
       ContactMobile: "",
       DateOfMeeting: "",
@@ -96,6 +128,7 @@ const AddExecutiveData = (props) => {
       errors: [],
     });
     setCompanyName([]);
+    setDesignation([]);
   }
   async function SaveData() {
     debugger;
@@ -268,12 +301,22 @@ const AddExecutiveData = (props) => {
 
                 <Col xs={12} md={4} lg={4}>
                   <div className="form-group">
-                    <label className="form-label">Designation</label>
-                    <select className="form-select" name="Designation" value={state.Designation} onChange={handlechange}>
+                    {/*<label className="form-label">Designation</label>
+                     <select className="form-select" name="Designation" value={state.Designation} onChange={handlechange}>
                       <option value="0">Select Designation</option>
                       <option value="1">HR</option>
                       <option value="2">Recruiter Other</option>
-                    </select>
+                    </select> */}
+                    <label className="form-label">Designation</label>
+                    <CreatableSelect
+                      name="Designation"
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      onChange={handlechangedesignation}
+                      //onInputChange={handleInputChange}
+                      options={designationddl}
+                      value={designation}
+                    />
                     {state.errors ? (
                       <div className="invalid-feedback">
                         {state.errors.Designation}

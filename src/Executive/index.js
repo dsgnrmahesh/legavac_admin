@@ -58,6 +58,10 @@ export default function Executive() {
         accessor: "mobile",
       },
       {
+        Header: "Joining Date",
+        accessor: "joiningdate",
+      },
+      {
         Header: "Action",
         id: "ID",
         Cell: ({ row }) => {

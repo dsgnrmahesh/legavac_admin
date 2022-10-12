@@ -223,7 +223,7 @@ export default function Aside() {
                   <span className="asideBarMenuText">Posted Job's</span>
                 </a>
               </div>
-              <div className="asideBarMenu">
+              {/* <div className="asideBarMenu">
                 <a
                   href="/executive"
                   className={
@@ -237,7 +237,7 @@ export default function Aside() {
                   </span>
                   <span className="asideBarMenuText">Executive</span>
                 </a>
-              </div>
+              </div> */}
               <div className="asideBarMenu">
                 <a
                   href="/view-companies"

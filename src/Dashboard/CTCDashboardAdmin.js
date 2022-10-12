@@ -9,10 +9,15 @@ import { deleteCTCDashboard, getCTCDashboardDetailForAdmin } from "../config/api
 export default function CTCDashboardAdmin() {
   const [data, setData] = useState();
   useEffect(() => {
-    bindData();
-  });
-  async function bindData() {
-    await getCTCDashboardDetailForAdmin()
+    bindData('0');
+  },[]);
+  function handlechange(e) {
+    if (e.target.value !== '') {
+      bindData(e.target.value);
+    } else { bindData('0'); }
+  }
+  async function bindData(searchtext) {debugger;
+    await getCTCDashboardDetailForAdmin(searchtext)
       .then((response) => {
         if (response[0].length > 0) {
           setData(response[0]);
@@ -107,14 +112,17 @@ export default function CTCDashboardAdmin() {
             <div className="contentHeader d-flex align-items-center">
               <div className="px-4 w-100">
                 <h3 className="contentTitle fs-23 px-0">CTC Dashboard</h3>
-                <ol className="breadcrumb mb-0">
+                {/* <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
                     <a href="/">Home</a>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
                     CTC Dashboard
                   </li>
-                </ol>
+                </ol> */}
+              </div>
+              <div className="contentSearch">
+                <input type="text" placeholder="Search for anything" onChange={handlechange} />
               </div>
               <Link
                 className="contentAction d-flex align-items-center justify-content-center"

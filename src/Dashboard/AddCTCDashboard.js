@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
 import {
   getCompanyForDDL,
+  getCompanyGSTNo,
   getCTCDashboardByID,
   IU_Company,
   IU_CTCDashboard,
@@ -17,6 +18,7 @@ export default function AddCTCDashboard(props) {
     LastName: "",
     CompanyID: "",
     CompanyName: "",
+    GSTNo: "",
     JoiningDate: "",
     Commercial: "0",
     CTCAmount: "0",
@@ -30,6 +32,7 @@ export default function AddCTCDashboard(props) {
   });
   const [cname, setCompanyName] = useState([]);
   const [companyddl, setCompanyDDL] = useState([]);
+  const [showgstno, setShowGSTNo] = useState(false);
   const {
     match: { params },
   } = props;
@@ -101,6 +104,7 @@ export default function AddCTCDashboard(props) {
   }
   async function handlechangecompany(e) {
     debugger;
+    setShowGSTNo(true);
     const arr = [];
     if (e.__isNew__ === true) {
       await IU_Company({
@@ -122,6 +126,11 @@ export default function AddCTCDashboard(props) {
       CompanyName: arr[0].value.toString(),
     });
     setCompanyName(e);
+    await getCompanyGSTNo(arr[0].key.toString()).then((response) => {
+      if (response[0][0].gstno !== undefined || response[0][0].gstno !== 'undefined') {
+        setState({ ...state, GSTNo: response[0][0].gstno });
+      }
+    });
   }
   async function BindCompanyDDL() {
     await getCompanyForDDL().then((response) => {
@@ -135,6 +144,7 @@ export default function AddCTCDashboard(props) {
         if (response[0][0].CompanyID !== '0' && response[0][0].CompanyID !== 0 && response[0][0].CompanyID !== '') {
           setCompanyName({ value: response[0][0].CompanyID, label: response[0][0].CompanyName });
         }
+        setShowGSTNo(true);
       })
       .catch((error) => {
         alert(error);
@@ -149,6 +159,7 @@ export default function AddCTCDashboard(props) {
       LastName: "",
       CompanyID: "",
       CompanyName: "",
+      GSTNo: "",
       JoiningDate: "",
       CTC: "0",
       CTCAmount: "0",
@@ -352,6 +363,26 @@ export default function AddCTCDashboard(props) {
                     )}
                   </div>
                 </Col>
+                {showgstno?<Col xs={12} md={3} lg={3}>
+                  <div className="form-group">
+                    <label className="form-label">GST No</label>
+                    <input
+                      type="text"
+                      name="GSTNo"
+                      onChange={handlechange}
+                      value={state.GSTNo}
+                      className="form-control"
+                      //disabled={state.GSTNo!== '' && state.GSTNo!==null?true:false}
+                    />
+                    {state.errors ? (
+                      <div className="invalid-feedback">
+                        {state.errors.GSTNo}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </Col>:""}
                 <Col xs={12} md={3} lg={3}>
                   <div className="form-group">
                     <label className="form-label">Joining /Client Date</label>

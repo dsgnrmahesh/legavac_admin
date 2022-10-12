@@ -60,7 +60,7 @@ import CTCDashboard from "./Dashboard/CTCDashboard";
 import AddCTCDashboard from "./Dashboard/AddCTCDashboard";
 import CTCDashboardAdmin from "./Dashboard/CTCDashboardAdmin";
 // import Invoice from "./print/Invoice";
-import Invoice from "./print/invoice";
+import Invoice from "./print/Invoice";
 
 
 export default function App() {

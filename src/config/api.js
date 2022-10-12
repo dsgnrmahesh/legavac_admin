@@ -4,8 +4,8 @@ export default () => axios.get("/");
 
 
 
-const API_URL="https://api.legavac.com/api/legavac";
-//const API_URL="http://localhost:5000/api/legavac";
+//const API_URL="https://api.legavac.com/api/legavac";
+const API_URL="http://localhost:5000/api/legavac";
 // export async function getcountryforddl() {
 //   return await resolve(axios.get('https://api.legavac.com/api/legavac/getCountryforddl').then(res => res.data));
 // }
@@ -42,9 +42,9 @@ export async function deleteCTCDashboard(id) {
     .get(`${API_URL}/deletectcdashboard/${id}`)
     .then((res) => res.data);
 }
-export async function getCTCDashboardDetailForAdmin() {
+export async function getCTCDashboardDetailForAdmin(searchtext) {
   return await axios
-    .get(`${API_URL}/getctcdashboarddetailforadmin`)
+    .get(`${API_URL}/getctcdashboarddetailforadmin/${searchtext}`)
     .then((res) => res.data);
 }
 export async function getCTCDashboardByID_invoice(id) {
@@ -89,14 +89,14 @@ export async function getExecutiveData(id) {
     .get(`${API_URL}/getExecutiveData/${id}`)
     .then((res) => res.data);
 }
-export async function getExecutiveDataByID_admin(id) {
+export async function getExecutiveDataByID_admin(state) {
   return await axios
-    .get(`${API_URL}/getExecutiveDataByID_admin/${id}`)
+    .post(`${API_URL}/getExecutiveDataByID_admin`,state)
     .then((res) => res.data);
 }
-export async function getExecutiveCompanyData_admin(id) {
+export async function getExecutiveCompanyData_admin(state) {
   return await axios
-    .get(`${API_URL}/getExecutiveCompanyData_admin/${id}`)
+    .post(`${API_URL}/getExecutiveCompanyData_admin`,state)
     .then((res) => res.data);
 }
 export async function getExecutiveDataByCompanyID_admin(state) {
@@ -1079,6 +1079,12 @@ export async function getCompanyDelete(id) {
       `${API_URL}/getCompanyDelete/${id}`)
     .then((res) => res.data);
 }
+export async function getCompanyGSTNo(id) {
+  return await axios
+    .get(
+      `${API_URL}/getCompanyGSTNo/${id}`)
+    .then((res) => res.data);
+}
 //Login
 export async function getLoginDetail(state) {
   return await axios
@@ -1090,7 +1096,19 @@ export async function getLoginDetail(state) {
 }
 
 
-
+//Designation
+export async function IU_Designation(state) {
+  return await axios
+    .post(
+      `${API_URL}/iudesignation`, state)
+    .then((res) => res.data);
+}
+export async function getDesignationForDDL() {
+  return await axios
+    .get(
+      `${API_URL}/getDesignationForDDL`)
+    .then((res) => res.data);
+}
 
 
 export async function getMembershipplanDetailSearchText(searchtext) {

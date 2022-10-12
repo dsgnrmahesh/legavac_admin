@@ -12,6 +12,7 @@ export default function AddExecutive(props) {
     EmailID:"",
     Mobile:"",
     Location:"",
+    JoiningDate:"",
     Type:"executive",
     CreatedBy:sessionStorage.getItem("UserID"),
     errors: [],
@@ -84,6 +85,7 @@ debugger;
       EmailID:"",
       Mobile:"",
       Location:"",
+      JoiningDate:"",
       Type:"executive",
       CreatedBy:sessionStorage.getItem("UserID"),
       errors: [],
@@ -271,6 +273,25 @@ debugger;
                     {state.errors ? (
                       <div className="invalid-feedback">
                         {state.errors.Location}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </Col>
+                <Col xs={12} md={4} lg={4}>
+                  <div className="form-group">
+                    <label className="form-label">Joining Date</label>
+                    <input
+                      type="date"
+                      name="JoiningDate"
+                      onChange={handlechange}
+                      value={state.JoiningDate}
+                      className="form-control"
+                    />
+                    {state.errors ? (
+                      <div className="invalid-feedback">
+                        {state.errors.JoiningDate}
                       </div>
                     ) : (
                       ""

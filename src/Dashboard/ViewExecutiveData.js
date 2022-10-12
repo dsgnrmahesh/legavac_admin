@@ -4,31 +4,50 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Col, Modal, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Table from "../Commons/Table";
-import { deleteExecutiveData
+import {
+  deleteExecutiveData
   , getCTCDashboardDetail, getExecutiveCompanyData_admin, getExecutiveData, getExecutiveDataByCompanyID_admin
-  , getExecutiveDataByExecutiveID, getExecutiveDataByID_admin,updatecontactpersonstatus } from "../config/api";
+  , getExecutiveDataByExecutiveID, getExecutiveDataByID_admin, updatecontactpersonstatus
+} from "../config/api";
 
 export default function ExecutiveData() {
   const [data, setData] = useState([]);
-  const [state, setState] = useState({Status:"",ExeDataID:"0",UserID:sessionStorage.getItem("UserID")});
+  const [state, setState] = useState({ Status: "", ExeDataID: "0", UserID: sessionStorage.getItem("UserID") });
   const [data_company_admin, setDataCompanyAdmin] = useState([]);
   const [data_companyid_admin, setDataCompanyIDAdmin] = useState([]);
   const [data_, setData_] = useState([]);
   const [smShow_company, setSmShow_company] = useState(false);
   const [smShow_companyid, setSmShow_companyid] = useState(false);
   const [smShow_status, setSmShow_status] = useState(false);
+  const [executiveid_search, setExecutiveID_search] = useState('0');
+  const [companyid_search, setCompanyID_search] = useState('0');
   useEffect(() => {
     if (sessionStorage.getItem("UserID") === 1 || sessionStorage.getItem("UserID") === '1') {
-      bindData();
+      bindData('0');
     } else {
       bindDatabyid(sessionStorage.getItem("UserID"));
     }
-  });
-  function handleChange_status(e){
-    setState({...state,Status:e.target.value});
+  }, []);
+  function handlechange_admin(e) {
+    if (e.target.value !== '') {
+      bindData(e.target.value);
+    } else { bindData('0'); }
   }
-  async function bindData() {
-    await getExecutiveDataByID_admin(sessionStorage.getItem("UserID"))
+  function handlechange_company_admin(e) {
+    if (e.target.value !== '') {
+      bindData_company_admin(e.target.value,executiveid_search);
+    } else { bindData_company_admin('0',executiveid_search); }
+  }
+  function handlechange_companyid_admin(e) {debugger;
+    if (e.target.value !== '') {
+      bindData_companyid_admin(e.target.value,companyid_search);
+    } else { bindData_companyid_admin('0',companyid_search); }
+  }
+  function handleChange_status(e) {
+    setState({ ...state, Status: e.target.value });
+  }
+  async function bindData(searchtext) {
+    await getExecutiveDataByID_admin({SearchText:searchtext,UserID:sessionStorage.getItem("UserID")})
       .then((response) => {
         if (response[0].length > 0) {
           setData(response[0]);
@@ -40,26 +59,27 @@ export default function ExecutiveData() {
         alert(error);
       });
   }
-  async function bindData_company_admin(eid) {debugger;
-    await getExecutiveCompanyData_admin(eid)
+  async function bindData_company_admin(searchtext,eid) {
+    debugger;
+    await getExecutiveCompanyData_admin({SearchText:searchtext,UserID:eid})
       .then((response) => {
         if (response[0].length > 0) {
           setDataCompanyAdmin(response[0]);
         } else {
-          setData([]);
+          setDataCompanyAdmin([]);
         }
       })
       .catch((error) => {
         alert(error);
       });
   }
-  async function bindData_companyid_admin(userid, cid) {
-    await getExecutiveDataByCompanyID_admin({ UserID: userid, CompanyID: cid })
+  async function bindData_companyid_admin(searchtext, cid) {
+    await getExecutiveDataByCompanyID_admin({SearchText:searchtext, UserID: executiveid_search, CompanyID: cid })
       .then((response) => {
         if (response[0].length > 0) {
           setDataCompanyIDAdmin(response[0]);
         } else {
-          setData([]);
+          setDataCompanyIDAdmin([]);
         }
       })
       .catch((error) => {
@@ -97,7 +117,8 @@ export default function ExecutiveData() {
     }
   }
 
-  async function changestatus() {debugger;
+  async function changestatus() {
+    debugger;
     await updatecontactpersonstatus(state)
       .then((response) => {
         alert("Status Changed Successfully");
@@ -129,7 +150,7 @@ export default function ExecutiveData() {
               {/* <button className="del" onClick={() => DeleteData(row.original.ExecutiveID)}>
                 <Icon path={mdiTrashCanOutline} />
               </button> */}
-              <button className="view" onClick={() => { setSmShow_company(true); bindData_company_admin(row.original.ExecutiveID) }}>
+              <button className="view" onClick={() => { setSmShow_company(true);setExecutiveID_search(row.original.ExecutiveID); bindData_company_admin('0',row.original.ExecutiveID) }}>
                 <Icon path={mdiEyeOutline} />
               </button>
             </div>
@@ -158,7 +179,7 @@ export default function ExecutiveData() {
               {/* <button className="del" onClick={() => DeleteData(row.original.ExecutiveID)}>
                 <Icon path={mdiTrashCanOutline} />
               </button> */}
-              <button className="view" onClick={() => { setSmShow_companyid(true); bindData_companyid_admin(row.original.executive_id, row.original.companyid) }}>
+              <button className="view" onClick={() => { setSmShow_companyid(true);setCompanyID_search(row.original.companyid); bindData_companyid_admin('0', row.original.companyid) }}>
                 <Icon path={mdiEyeOutline} />
               </button>
             </div>
@@ -177,6 +198,14 @@ export default function ExecutiveData() {
       {
         Header: "Contact Number",
         accessor: "contact_no",
+      },
+      {
+        Header: "Designation",
+        accessor: "designation",
+      },
+      {
+        Header: "Date Of Meeting",
+        accessor: "dateofmeeting",
       },
       {
         Header: "Status",
@@ -237,7 +266,7 @@ export default function ExecutiveData() {
               {/* <button className="edit" onClick={DeleteData(row.original.ID)}>
                 <Icon path={mdiPencilOutline} />
               </button> */}
-              <button className="view" onClick={() => { setSmShow_status(true);setState({...state,ExeDataID:row.original.ExeDataID}) }}>
+              <button className="view" onClick={() => { setSmShow_status(true); setState({ ...state, ExeDataID: row.original.ExeDataID }) }}>
                 <Icon path={mdiEyeOutline} />
               </button>
               {<button className="del" onClick={() => DeleteData(row.original.ExeDataID, row.original.ExecutiveID)}>
@@ -261,14 +290,17 @@ export default function ExecutiveData() {
             <div className="contentHeader d-flex align-items-center">
               <div className="px-4 w-100">
                 <h3 className="contentTitle fs-23 px-0">View Executive Data</h3>
-                <ol className="breadcrumb mb-0">
+                {/* <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
                     <a href="/">Home</a>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
                     View Executive Data
                   </li>
-                </ol>
+                </ol> */}
+              </div>
+              <div className="contentSearch">
+                <input type="text" placeholder="Search for anything" onChange={handlechange_admin} />
               </div>
               <Link
                 className="contentAction d-flex align-items-center justify-content-center"
@@ -301,6 +333,11 @@ export default function ExecutiveData() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Row>
+            <div className="contentSearchLight">
+              <input type="text" placeholder="Search for anything" onChange={handlechange_company_admin} />
+            </div>
+          </Row>
           <Table
             columns={columns_company_admin}
             data={data_company_admin ? data_company_admin : []}
@@ -315,6 +352,11 @@ export default function ExecutiveData() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Row>
+            <div className="contentSearchLight">
+              <input type="text" placeholder="Search for anything" onChange={handlechange_companyid_admin} />
+            </div>
+          </Row>
           <Table
             columns={columns_companyid_admin}
             data={data_companyid_admin ? data_companyid_admin : []}
