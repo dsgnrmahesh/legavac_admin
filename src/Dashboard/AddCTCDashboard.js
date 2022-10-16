@@ -5,6 +5,7 @@ import {
   getCompanyForDDL,
   getCompanyGSTNo,
   getCTCDashboardByID,
+  getCTCDashboardByID_invoice,
   IU_Company,
   IU_CTCDashboard,
 } from "../config/api";
@@ -24,8 +25,9 @@ export default function AddCTCDashboard(props) {
     CTCAmount: "0",
     CTCType: "Thousand",
     CTCPer: "0",
-    TotalAmount: "0",
+    Amount: "0",
     GST: "0",
+    TotalAmount: "0",
     PaymentYear: "0",
     CreatedBy: sessionStorage.getItem("UserID"),
     errors: [],
@@ -33,10 +35,13 @@ export default function AddCTCDashboard(props) {
   const [cname, setCompanyName] = useState([]);
   const [companyddl, setCompanyDDL] = useState([]);
   const [showgstno, setShowGSTNo] = useState(false);
+  const [disabledgstno, setDisabledGSTNo] = useState(false);
   const {
     match: { params },
   } = props;
   const { id } = params;
+
+
   useEffect(() => {
     debugger;
     BindCompanyDDL();
@@ -61,8 +66,9 @@ export default function AddCTCDashboard(props) {
         ...state,
         CTC: _amt,
         CTCAmount: e.target.value,
-        TotalAmount: Math.round(_ttlamount),
+        Amount: Math.round(_ttlamount),
         GST: _gst,
+        TotalAmount: Math.round(_ttlamount)+Math.round(_gst),
       });
     } else if (e.target.name === "CTCType") {
       let _ttlamount = 0;
@@ -77,9 +83,11 @@ export default function AddCTCDashboard(props) {
       let _gst = Math.round((_ttlamount * 18) / 100);
       setState({
         ...state,
+        CTC: _amt,
         CTCType: e.target.value,
-        TotalAmount: Math.round(_ttlamount),
+        Amount: Math.round(_ttlamount),
         GST: _gst,
+        TotalAmount: Math.round(_ttlamount)+Math.round(_gst),
       });
     } else if (e.target.name === "CTCPer") {
       let _ttlamount = 0;
@@ -94,17 +102,18 @@ export default function AddCTCDashboard(props) {
       let _gst = Math.round((_ttlamount * 18) / 100);
       setState({
         ...state,
+        CTC: _amt,
         CTCPer: e.target.value,
-        TotalAmount: Math.round(_ttlamount),
+        Amount: Math.round(_ttlamount),
         GST: _gst,
+        TotalAmount: Math.round(_ttlamount)+Math.round(_gst),
       });
     } else {
       setState({ ...state, [e.target.name]: e.target.value });
     }
   }
   async function handlechangecompany(e) {
-    debugger;
-    setShowGSTNo(true);
+    debugger;    
     const arr = [];
     if (e.__isNew__ === true) {
       await IU_Company({
@@ -126,9 +135,17 @@ export default function AddCTCDashboard(props) {
       CompanyName: arr[0].value.toString(),
     });
     setCompanyName(e);
+    setShowGSTNo(true);
     await getCompanyGSTNo(arr[0].key.toString()).then((response) => {
-      if (response[0][0].gstno !== undefined || response[0][0].gstno !== 'undefined') {
-        setState({ ...state, GSTNo: response[0][0].gstno });
+      if (response[0][0].gstno !== undefined && response[0][0].gstno !== 'undefined' && response[0][0].gstno !== '' && response[0][0].gstno !== null) {
+        setState({ ...state, GSTNo: response[0][0].gstno,CompanyID: arr[0].key.toString(),
+          CompanyName: arr[0].value.toString(),});
+          setDisabledGSTNo(true);
+        }
+      else{
+        setState({ ...state, GSTNo: "",CompanyID: arr[0].key.toString(),
+          CompanyName: arr[0].value.toString(),});
+        setDisabledGSTNo(false);
       }
     });
   }
@@ -145,6 +162,12 @@ export default function AddCTCDashboard(props) {
           setCompanyName({ value: response[0][0].CompanyID, label: response[0][0].CompanyName });
         }
         setShowGSTNo(true);
+        if(response[0][0].GSTNo!==''&&response[0][0].GSTNo!==undefined&&response[0][0].GSTNo!==null){
+          setDisabledGSTNo(true);
+        }
+        else{
+          setDisabledGSTNo(false);
+        }
       })
       .catch((error) => {
         alert(error);
@@ -165,8 +188,9 @@ export default function AddCTCDashboard(props) {
       CTCAmount: "0",
       CTCType: "Thousand",
       CTCPer: "0",
-      TotalAmount: "0",
+      Amount: "0",
       GST: "0",
+      TotalAmount: "0",
       PaymentYear: "0",
       CreatedBy: sessionStorage.getItem("UserID"),
       errors: [],
@@ -180,9 +204,12 @@ export default function AddCTCDashboard(props) {
       await IU_CTCDashboard(state)
         .then((response) => {
           //alert(response[0][0].ID);
-          if (response[0][0].ID !== "" && response[0][0].ID !== "undefined") {
+          if (response[0][0].ID !== "" && response[0][0].ID !== "undefined" && response[0][0].ID !== undefined) {
             alert("Save  Data  Successfully");
             ResetState();
+          }
+          else{
+            alert("Try Again...");
           }
         })
         .catch((error) => {
@@ -220,10 +247,10 @@ export default function AddCTCDashboard(props) {
       IsValid = false;
       errors["JoiningDate"] = "Client Joining Date is Required";
     }
-    if (!state.PaymentYear) {
-      IsValid = false;
-      errors["PaymentYear"] = "PaymentYear is Required";
-    }
+    // if (!state.PaymentYear) {
+    //   IsValid = false;
+    //   errors["PaymentYear"] = "PaymentYear is Required";
+    // }
 
     setState({
       ...state,
@@ -261,6 +288,7 @@ export default function AddCTCDashboard(props) {
                       className="form-select"
                       name="Salutation"
                       onChange={handlechange}
+                      value={state.Salutation}
                     >
                       <option value="">Select</option>
                       <option>Mr.</option>
@@ -277,7 +305,7 @@ export default function AddCTCDashboard(props) {
                     )}
                   </div>
                 </Col>
-                <Col xs={12} md={4} lg={4}>
+                <Col xs={12} md={5} lg={5}>
                   <div className="form-group">
                     <label className="form-label">First Name</label>
                     <input
@@ -315,7 +343,7 @@ export default function AddCTCDashboard(props) {
                     )}
                   </div>
                 </Col> */}
-                <Col xs={12} md={3} lg={3}>
+                <Col xs={12} md={5} lg={5}>
                   <div className="form-group">
                     <label className="form-label">Last Name</label>
                     <input
@@ -334,7 +362,7 @@ export default function AddCTCDashboard(props) {
                     )}
                   </div>
                 </Col>
-                <Col xs={12} md={4} lg={4}>
+                <Col xs={12} md={5} lg={5}>
                   <div className="form-group">
                     <label className="form-label">Company Name</label>
                     <CreatableSelect
@@ -365,14 +393,14 @@ export default function AddCTCDashboard(props) {
                 </Col>
                 {showgstno?<Col xs={12} md={3} lg={3}>
                   <div className="form-group">
-                    <label className="form-label">GST No</label>
+                    <label className="form-label">GST NO</label>
                     <input
                       type="text"
                       name="GSTNo"
                       onChange={handlechange}
                       value={state.GSTNo}
                       className="form-control"
-                      //disabled={state.GSTNo!== '' && state.GSTNo!==null?true:false}
+                      disabled={disabledgstno}
                     />
                     {state.errors ? (
                       <div className="invalid-feedback">
@@ -437,7 +465,7 @@ export default function AddCTCDashboard(props) {
                 <Col xs={12} md={2} lg={2}>
                   <div className="form-group">
                     {/* <label className="form-label">% CTC</label> */}
-                    <label className="form-label">Professional Fee</label>
+                    <label className="form-label">Professional Fee(%)</label>
                     <input
                       type="text"
                       name="CTCPer"
@@ -457,18 +485,18 @@ export default function AddCTCDashboard(props) {
 
                 <Col xs={12} md={2} lg={2}>
                   <div className="form-group">
-                    <label className="form-label">Total Amount</label>
+                    <label className="form-label">Amount</label>
                     <input
                       type="text"
                       name="TotalAmount"
                       onChange={handlechange}
-                      value={state.TotalAmount}
+                      value={state.Amount}
                       className="form-control"
                       disabled
                     />
                     {state.errors ? (
                       <div className="invalid-feedback">
-                        {state.errors.TotalAmount}
+                        {state.errors.Amount}
                       </div>
                     ) : (
                       ""
@@ -494,6 +522,26 @@ export default function AddCTCDashboard(props) {
                 </Col>
                 <Col xs={12} md={2} lg={2}>
                   <div className="form-group">
+                    <label className="form-label">Total Amount</label>
+                    <input
+                      type="text"
+                      name="TotalAmount"
+                      onChange={handlechange}
+                      value={state.TotalAmount}
+                      className="form-control"
+                      disabled
+                    />
+                    {state.errors ? (
+                      <div className="invalid-feedback">
+                        {state.errors.TotalAmount}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </Col>
+                {/* <Col xs={12} md={2} lg={2}>
+                  <div className="form-group">
                     <label className="form-label">Payment Year</label>
                     <input
                       type="text"
@@ -510,7 +558,7 @@ export default function AddCTCDashboard(props) {
                       ""
                     )}
                   </div>
-                </Col>
+                </Col> */}
                 <Col sm={12} md={12}>
                   <div className="d-flex justify-content-center mt-3">
                     <button className="btn orrange me-2" onClick={ResetState}>
@@ -526,6 +574,7 @@ export default function AddCTCDashboard(props) {
           </div>
         </Col>
       </Row>
+      
     </>
   );
 }

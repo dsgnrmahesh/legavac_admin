@@ -7,6 +7,7 @@
     "@ckeditor/ckeditor5-react": "^3.0.3",
     "@mdi/js": "^5.9.55",
     "@mdi/react": "^1.5.0",
+    "@react-pdf/renderer": "^3.0.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",

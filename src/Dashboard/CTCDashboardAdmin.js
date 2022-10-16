@@ -36,6 +36,7 @@ export default function CTCDashboardAdmin() {
         .then((response) => {
           alert("Data Deleted Successfully");
           bindData();
+          window.location.reload(true);
         })
         .catch((error) => {
           alert(error);
@@ -59,21 +60,25 @@ export default function CTCDashboardAdmin() {
       },
       {
         // Header: "% CTC",
-        Header: "Professional Fee",
+        Header: "Professional Fee(%)",
         accessor: "ctc_perc",
       },
       {
-        Header: "Total Amount",
-        accessor: "total_amount",
+        Header: "Amount",
+        accessor: "amount",
       },
       {
         Header: "GST",
         accessor: "gst",
       },
       {
-        Header: "Payment Year",
-        accessor: "payment_year",
+        Header: "Total Amount",
+        accessor: "total_amount",
       },
+      // {
+      //   Header: "Payment Year",
+      //   accessor: "payment_year",
+      // },
       {
         Header: "Action",
         Cell: ({ row }) => {

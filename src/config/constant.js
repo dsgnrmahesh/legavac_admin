@@ -13,7 +13,7 @@ export function getFileName(name,file){
 }
 
 export const COMPANY_DETAILS = {
-    Name: "LagaVac Resources Pvt Ltd",
+    Name: "LAGAVAC RESOURCES PVT LTD",
     address: "Office No - 1007, Kamdhenu, Sector-14, Kharghar, Navi Mumbai - 410210",
     mobile: "+91 7021912110",
     pancard: "",
