@@ -61,7 +61,7 @@ import AddCTCDashboard from "./Dashboard/AddCTCDashboard";
 import CTCDashboardAdmin from "./Dashboard/CTCDashboardAdmin";
 // import Invoice from "./print/Invoice";
 //import Invoice from "./print/Invoice";
-import Invoice from "./print/invoice";
+import Invoice from "./print/Invoice";
 
 export default function App() {
   const showCond = window.location.pathname !== "/auth/login";
