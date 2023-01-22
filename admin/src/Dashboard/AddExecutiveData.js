@@ -164,10 +164,10 @@ const AddExecutiveData = (props) => {
       IsValid = false;
       errors["ContactPersonName"] = "Contact Person Name is Required";
     }
-    if (!state.DateOfBirthday) {
-      IsValid = false;
-      errors["DateOfBirthday"] = "Date Of Birthday is Required";
-    }
+    // if (!state.DateOfBirthday) {
+    //   IsValid = false;
+    //   errors["DateOfBirthday"] = "Date Of Birthday is Required";
+    // }
     if (!state.EmailID) {
       IsValid = false;
       errors["EmailID"] = "Email ID is Required";
@@ -180,10 +180,10 @@ const AddExecutiveData = (props) => {
       IsValid = false;
       errors["ContactMobile"] = "Contact Mobile is Required";
     }
-    if (!state.DateOfMeeting) {
-      IsValid = false;
-      errors["DateOfMeeting"] = "Date Of Meeting is Required";
-    }
+    // if (!state.DateOfMeeting) {
+    //   IsValid = false;
+    //   errors["DateOfMeeting"] = "Date Of Meeting is Required";
+    // }
     if (!state.CompanyName) {
       IsValid = false;
       errors["CompanyName"] = "CompanyName is Required";
